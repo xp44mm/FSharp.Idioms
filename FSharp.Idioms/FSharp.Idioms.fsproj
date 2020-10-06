@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>xp44m</Authors>
+    <Company>34696643@qq.com</Company>
+    <Description>FSharp库中缺失的常用功能。</Description>
+    <Copyright>xp44mm</Copyright>
+    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/xp44mm/FSharp.Idioms</RepositoryUrl>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Map.fs" />
+    <Compile Include="Set.fs" />
+    <Compile Include="List.fs" />
+  </ItemGroup>
+
+</Project>
