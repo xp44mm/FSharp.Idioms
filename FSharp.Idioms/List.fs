@@ -1,4 +1,5 @@
-﻿module FSharp.Idioms.List
+﻿[<RequireQualifiedAccess>]
+module FSharp.Idioms.List
 
 /// 取列表前面所有断言为真的项，加上第一个断言为假的项（如果有）
 let penetrate (predicate:'t->bool) (ls:'t list) =

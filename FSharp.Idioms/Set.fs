@@ -1,4 +1,15 @@
-﻿module FSharp.Idioms.Set
+﻿[<RequireQualifiedAccess>]
+module FSharp.Idioms.Set
+
+open System.Collections.Generic
+
+let ofHashSet (hset:HashSet<'t>) =
+    [
+        for elem in hset -> elem
+    ]|>Set.ofList
+
+let toHashSet(set:Set<'t>) = new HashSet<_>(set)
+
 
 /// 對相同鍵的值集合進行並集操作
 let unionByKey (entries:#seq<'k*Set<'v>>) =
