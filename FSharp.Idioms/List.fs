@@ -12,7 +12,7 @@ let penetrate (predicate:'t->bool) (ls:'t list) =
                 loop acc t
             else
                 acc
-    loop [] ls
+    loop [] ls |> List.rev
 
 ///// n 个元素取出2元素，组合
 //let combination2 (ls:'a list) =

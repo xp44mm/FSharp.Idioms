@@ -9,15 +9,18 @@
     <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/xp44mm/FSharp.Idioms</RepositoryUrl>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <AssemblyVersion>1.0.1.0</AssemblyVersion>
-    <FileVersion>1.0.1.0</FileVersion>
-    <Version>1.0.1</Version>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Map.fs" />
+    <Compile Include="Triple.fs" />
+    <Compile Include="Array.fs" />
     <Compile Include="Set.fs" />
+    <Compile Include="Map.fs" />
     <Compile Include="List.fs" />
+    <Compile Include="Graph.fs" />
     <Compile Include="StringOps.fs" />
   </ItemGroup>
 
