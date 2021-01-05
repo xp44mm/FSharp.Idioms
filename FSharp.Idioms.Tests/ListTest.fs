@@ -98,3 +98,13 @@ type ListTest(output : ITestOutputHelper) =
         let res = [1;2;3;4]
         Should.equal y res
 
+    [<Fact>]
+    member this.``advanceWhile``() =
+        let ls = [1;2;3;4;5]
+        
+        let y = 
+            ls
+            |> List.advanceWhile (fun i -> i<3)
+
+        let res = [2;1],[3;4;5]
+        Should.equal y res
