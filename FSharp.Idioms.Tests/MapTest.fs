@@ -5,6 +5,7 @@ open Xunit.Abstractions
 open FSharp.Literals
 open FSharp.xUnit
 open FSharp.Idioms
+open System.Collections.Generic
 
 type MapTest(output : ITestOutputHelper) =
     let show res = 
@@ -119,4 +120,23 @@ type MapTest(output : ITestOutputHelper) =
         let res = set ["1";"2"]
         Should.equal y res
 
+    [<Fact>]
+    member this.``from interface``() =
+        let dict = new Dictionary<string,int>()
+        [
+            "1"    , 1
+            "2"    , 2
+        ]
+        |> List.iter(fun(k,v)->
+            dict.Add(k,v)
+        )
+
+        let y = Map.fromInterface dict
+        let mp = 
+            [
+                "1"    , 1
+                "2"    , 2
+            ] |> Map.ofList
+
+        Should.equal y mp
 

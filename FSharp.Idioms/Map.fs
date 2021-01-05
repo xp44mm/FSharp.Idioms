@@ -46,3 +46,9 @@ let append (mp1:Map<'k,'v>) (mp2:Map<'k,'v>) =
 let keys (mp:Map<'k,'v>) =
     let i = mp :> IDictionary<'k,'v>
     i.Keys |> Set.ofSeq
+
+/// 从词典接口创建Map
+let fromInterface (dict:IDictionary<'k,'v>) =
+    dict
+    |> Seq.map(fun kvp -> kvp.Key, kvp.Value)
+    |> Map.ofSeq
