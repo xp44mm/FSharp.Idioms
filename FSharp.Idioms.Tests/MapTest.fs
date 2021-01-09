@@ -140,3 +140,62 @@ type MapTest(output : ITestOutputHelper) =
 
         Should.equal y mp
 
+    [<Fact>]
+    member this.``key is subset or superset or equal``() =
+        let mp1 = 
+            [
+                "1"    , 1
+            ] |> Map.ofList
+
+        let mp2 = 
+            [
+                "1"    , 1
+                "2"    , 2
+            ] |> Map.ofList
+
+        let mp22 = 
+            [
+                "1"    , 1
+                "2"    , 2
+            ] |> Map.ofList
+
+
+        Assert.True(Map.keyIsSubset mp1 mp2)
+        Assert.True(Map.keyIsSuperset mp2 mp1)
+        Assert.True(Map.keyIsEqual mp2 mp22)
+
+    [<Fact>]
+    member this.``intersectByKey``() =
+        let mp1 = 
+            [
+                "0"    , 0
+                "1"    , 1
+
+            ] |> Map.ofList
+
+        let mp2 = 
+            [
+                "1"    , 11
+                "2"    , 22
+            ] |> Map.ofList
+
+        let y = Map.intersectByKey mp1 mp2
+
+        Should.equal y ["1",(1,11)]
+    [<Fact>]
+    member this.``differenceByKey``() =
+        let mp1 = 
+            [
+                "0"    , 0
+                "1"    , 1
+
+            ] |> Map.ofList
+
+        let mp2 = 
+            [
+                "1"    , 1.1
+                "2"    , 2.2
+            ] |> Map.ofList
+
+        let y = Map.differenceByKey mp1 mp2
+        Should.equal y (Map.ofList ["0",0])

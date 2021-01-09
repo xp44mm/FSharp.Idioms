@@ -52,3 +52,39 @@ let fromInterface (dict:IDictionary<'k,'v>) =
     dict
     |> Seq.map(fun kvp -> kvp.Key, kvp.Value)
     |> Map.ofSeq
+
+let keyIsSubset (mp1:Map<'k,_>) (mp2:Map<'k,_>) =
+    let k1 = keys mp1
+    let k2 = keys mp2
+    Set.isSubset k1 k2
+
+let keyIsSuperset (mp1:Map<'k,_>) (mp2:Map<'k,_>) =
+    let k1 = keys mp1
+    let k2 = keys mp2
+    Set.isSuperset k1 k2
+
+let keyIsEqual (mp1:Map<'k,_>) (mp2:Map<'k,_>) =
+    let k1 = keys mp1
+    let k2 = keys mp2
+    k1 = k2
+
+let intersectByKey (mp1:Map<'k,_>) (mp2:Map<'k,_>) =
+    let k1 = keys mp1
+    let k2 = keys mp2
+    let kk = Set.intersect k1 k2
+    
+    let ls1 = mp1 |> Map.filter(fun k v -> kk.Contains k) |> Map.toList
+    let ls2 = mp2 |> Map.filter(fun k v -> kk.Contains k) |> Map.toList
+    
+    List.zip ls1 ls2
+    |> List.map(fun ((k1,v1),(k2,v2))-> k1,(v1,v2))
+    
+let differenceByKey (mp1:Map<'k,_>) (mp2:Map<'k,_>) =
+    let k1 = keys mp1
+    let k2 = keys mp2
+    let kk = k1 |> Set.difference <| k2
+
+    mp1 |> Map.filter(fun k v -> kk.Contains k)
+
+
+

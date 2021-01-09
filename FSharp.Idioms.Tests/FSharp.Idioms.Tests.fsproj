@@ -10,9 +10,9 @@
   <ItemGroup>
     <Compile Include="TripleTest.fs" />
     <Compile Include="ArrayTest.fs" />
+    <Compile Include="ListTest.fs" />
     <Compile Include="SetTest.fs" />
     <Compile Include="MapTest.fs" />
-    <Compile Include="ListTest.fs" />
     <Compile Include="GraphTest.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>

@@ -18,9 +18,9 @@
   <ItemGroup>
     <Compile Include="Triple.fs" />
     <Compile Include="Array.fs" />
+    <Compile Include="List.fs" />
     <Compile Include="Set.fs" />
     <Compile Include="Map.fs" />
-    <Compile Include="List.fs" />
     <Compile Include="Graph.fs" />
     <Compile Include="StringOps.fs" />
   </ItemGroup>
