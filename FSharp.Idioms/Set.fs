@@ -10,6 +10,14 @@ let ofHashSet (hset:HashSet<'t>) =
 
 let toHashSet(set:Set<'t>) = new HashSet<_>(set)
 
+let groupBy (projection) (st:Set<'t>) =
+    st
+    |> Seq.groupBy projection
+    |> Seq.map(fun(k,sq)->
+        k,Set.ofSeq sq
+    )
+    |> Set.ofSeq
+
 /// 對相同鍵的值集合進行並集操作
 let unionByKey (entries:#seq<'k*Set<'v>>) =
     entries

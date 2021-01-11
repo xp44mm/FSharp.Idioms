@@ -116,3 +116,10 @@ type SetTest(output : ITestOutputHelper) =
                 ]
         Should.equal y res
 
+    [<Fact>]
+    member this.``groupBy``() =
+        let st = set [0..9]
+        let y = st |> Set.groupBy (fun i -> i % 3 )
+        //show y
+        let res = set [0,set [0;3;6;9];1,set [1;4;7];2,set [2;5;8]]
+        Should.equal y res
