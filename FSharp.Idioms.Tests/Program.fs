@@ -1,4 +1,4 @@
-module Program
+module FSharp.Idioms.Program
 
 
 let [<EntryPoint>] main _ = 

@@ -4,18 +4,20 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>xp44m</Authors>
     <Company>34696643@qq.com</Company>
-    <Description>FSharp库中缺失的常用功能。</Description>
+    <Description>A practical functional library for F# programmers.</Description>
     <Copyright>xp44mm</Copyright>
-    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+    <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/xp44mm/FSharp.Idioms</RepositoryUrl>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <AssemblyVersion>1.1.5.0</AssemblyVersion>
-    <FileVersion>1.1.5.0</FileVersion>
-    <Version>1.1.5</Version>
-    <PackageReleaseNotes>Set.groupBy</PackageReleaseNotes>
+    <AssemblyVersion>1.1.6.0</AssemblyVersion>
+    <FileVersion>1.1.6.0</FileVersion>
+    <Version>1.1.6</Version>
+    <PackageReleaseNotes>reflect types</PackageReleaseNotes>
+    <PackageProjectUrl>https://github.com/xp44mm/FSharp.Idioms</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Pair.fs" />
     <Compile Include="Triple.fs" />
     <Compile Include="Array.fs" />
     <Compile Include="List.fs" />
@@ -23,6 +25,19 @@
     <Compile Include="Map.fs" />
     <Compile Include="Graph.fs" />
     <Compile Include="StringOps.fs" />
+    <Compile Include="FSharpModules.fs" />
+    <Compile Include="EnumType.fs" />
+    <Compile Include="ArrayType.fs" />
+    <Compile Include="ListType.fs" />
+    <Compile Include="SetType.fs" />
+    <Compile Include="MapType.fs" />
+    <Compile Include="TupleType.fs" />
+    <Compile Include="RecordType.fs" />
+    <Compile Include="UnionType.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="FSharp.Core" Version="5.0.1" />
   </ItemGroup>
 
 </Project>

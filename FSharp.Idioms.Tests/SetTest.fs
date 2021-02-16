@@ -1,10 +1,9 @@
-namespace FSharp.Idioms.Tests
+namespace FSharp.Idioms
 
 open Xunit
 open Xunit.Abstractions
 open FSharp.Literals
 open FSharp.xUnit
-open FSharp.Idioms
 open System.Collections.Generic
 
 type SetTest(output : ITestOutputHelper) =
