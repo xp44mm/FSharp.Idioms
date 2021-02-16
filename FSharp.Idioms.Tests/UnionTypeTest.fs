@@ -4,12 +4,17 @@ open Xunit
 open Xunit.Abstractions
 open FSharp.Literals
 open FSharp.xUnit
-open Microsoft.FSharp.Reflection
 
 type UionExample =
 | Zero
 | OnlyOne of int
 | Pair of int * string
+
+[<RequireQualifiedAccess>]
+type Align = 
+    | Left 
+    | Center 
+    | Right
 
 type UnionTypeTest(output : ITestOutputHelper) =
     let show res = 
@@ -37,3 +42,9 @@ type UnionTypeTest(output : ITestOutputHelper) =
             UnionType.readUnion typeof<UionExample>
         let y = read <| OnlyOne 1
         Should.equal y ("OnlyOne",[|typeof<int>,box 1|])
+
+    [<Fact>]
+    member this.``getQualifiedAccess``() =
+        let y = 
+            UnionType.getQualifiedAccess typeof<Align>
+        Should.equal y "Align."
