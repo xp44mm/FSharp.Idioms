@@ -9,10 +9,10 @@
     <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/xp44mm/FSharp.Idioms</RepositoryUrl>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <AssemblyVersion>1.1.6.0</AssemblyVersion>
-    <FileVersion>1.1.6.0</FileVersion>
-    <Version>1.1.6</Version>
-    <PackageReleaseNotes>reflect types</PackageReleaseNotes>
+    <AssemblyVersion>1.1.7.0</AssemblyVersion>
+    <FileVersion>1.1.7.0</FileVersion>
+    <Version>1.1.7</Version>
+    <PackageReleaseNotes>StringOps &amp; StringLiteral</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/xp44mm/FSharp.Idioms</PackageProjectUrl>
   </PropertyGroup>
 
@@ -25,6 +25,7 @@
     <Compile Include="Map.fs" />
     <Compile Include="Graph.fs" />
     <Compile Include="StringOps.fs" />
+    <Compile Include="StringLiteral.fs" />
     <Compile Include="FSharpModules.fs" />
     <Compile Include="EnumType.fs" />
     <Compile Include="ArrayType.fs" />
@@ -34,6 +35,7 @@
     <Compile Include="TupleType.fs" />
     <Compile Include="RecordType.fs" />
     <Compile Include="UnionType.fs" />
+    <Compile Include="SeqType.fs" />
   </ItemGroup>
 
   <ItemGroup>
