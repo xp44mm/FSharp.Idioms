@@ -3,14 +3,14 @@
 open System
 open System.Globalization
 
-let private nonprintablePairs =
+let nonprintablePairs =
     [
         '\\'    , "\\\\"
-        '\t'    , "\\t"
+        '\b'    , "\\b"
+        '\f'    , "\\f"
         '\n'    , "\\n"
         '\r'    , "\\r"
-        '\f'    , "\\f"
-        '\b'    , "\\b"
+        '\t'    , "\\t"
         '\u0000', "\\u0000" // Null char
         '\u0085', "\\u0085" // Next Line
         '\u2028', "\\u2028" // Line Separator

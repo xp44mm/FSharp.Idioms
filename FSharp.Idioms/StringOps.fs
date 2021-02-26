@@ -23,7 +23,7 @@ module StringOps =
     
     ///匹配输入字符串的第一个字符，返回剩余字符串
     let (|PrefixChar|_|) (c:char) (inp:string) =
-        if inp.[0] = c then
+        if inp.Length > 0 && inp.[0] = c then
             Some inp.[1..]
         else
             None
