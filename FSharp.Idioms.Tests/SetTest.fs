@@ -12,7 +12,6 @@ type SetTest(output : ITestOutputHelper) =
         |> Render.stringify
         |> output.WriteLine
 
-
     [<Fact>]
     member this.``ofHashSet``() =
         let hset = HashSet([|1;2;3|])
@@ -25,7 +24,8 @@ type SetTest(output : ITestOutputHelper) =
         let set = Set.ofList [1;2;3]
         let y = Set.toHashSet set
         let res = HashSet([|1;2;3|])
-        Should.equal y res
+        //Should.equal y res
+        Assert.Equal<HashSet<_>>(y,res)
 
     [<Fact>]
     member this.``unionByKey``() =

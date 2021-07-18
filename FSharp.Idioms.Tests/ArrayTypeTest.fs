@@ -32,10 +32,17 @@ type ArrayTypeTest(output : ITestOutputHelper) =
         Should.equal y 2
 
     [<Fact>]
+    member this.``readArray empty``() =
+        let x:int[] = [||]
+        let read = ArrayType.readArray <| x.GetType()
+        let tp, values = read x
+        Should.equal tp typeof<int>
+        Should.equal values (Array.map box x)
+
+    [<Fact>]
     member this.``readArray``() =
         let x = [|1;2|]
         let read = ArrayType.readArray <| x.GetType()
         let tp, values = read x
         Should.equal tp typeof<int>
         Should.equal values (Array.map box x)
-

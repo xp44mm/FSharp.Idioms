@@ -4,10 +4,9 @@ open System
 open System.Collections
 open System.Collections.Concurrent
 open System.Collections.Generic
-open System.Reflection
 
-let seqTypeDef = typeof<seq<_>>.GetGenericTypeDefinition()
-let giterorDef = typeof<IEnumerator<_>>.GetGenericTypeDefinition()
+let seqTypeDef = typedefof<seq<_>>
+let giterorDef = typedefof<IEnumerator<_>>
 let biteror = typeof<IEnumerator>
 let mMoveNext = biteror.GetMethod("MoveNext")
 
@@ -18,8 +17,8 @@ let seqReader =
         if dic.ContainsKey(ty) |> not then
             let elemType = ty.GenericTypeArguments.[0]
             let seqType = seqTypeDef.MakeGenericType(elemType)
-            let mGetEnumerator = seqType.GetMethod("GetEnumerator")
             let giteror = giterorDef.MakeGenericType(elemType)
+            let mGetEnumerator = seqType.GetMethod("GetEnumerator")
             let pCurrent = giteror.GetProperty("Current")
 
             let reader ls =

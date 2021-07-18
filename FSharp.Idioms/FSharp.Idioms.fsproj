@@ -9,10 +9,10 @@
     <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/xp44mm/FSharp.Idioms</RepositoryUrl>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <AssemblyVersion>1.1.8.0</AssemblyVersion>
-    <FileVersion>1.1.8.0</FileVersion>
-    <Version>1.1.8</Version>
-    <PackageReleaseNotes>fixed StringOps prefixChar</PackageReleaseNotes>
+    <AssemblyVersion>1.1.10.0</AssemblyVersion>
+    <FileVersion>1.1.10.0</FileVersion>
+    <Version>1.1.10</Version>
+    <PackageReleaseNotes>add quote and unquote</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/xp44mm/FSharp.Idioms</PackageProjectUrl>
   </PropertyGroup>
 
@@ -24,8 +24,8 @@
     <Compile Include="Set.fs" />
     <Compile Include="Map.fs" />
     <Compile Include="Graph.fs" />
+    <Compile Include="ActivePatterns.fs" />
     <Compile Include="StringOps.fs" />
-    <Compile Include="StringLiteral.fs" />
     <Compile Include="FSharpModules.fs" />
     <Compile Include="EnumType.fs" />
     <Compile Include="ArrayType.fs" />
@@ -36,10 +36,11 @@
     <Compile Include="RecordType.fs" />
     <Compile Include="UnionType.fs" />
     <Compile Include="SeqType.fs" />
+    <Compile Include="ClassType.fs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="5.0.1" />
+    <PackageReference Update="FSharp.Core" Version="5.0.2" />
   </ItemGroup>
 
 </Project>

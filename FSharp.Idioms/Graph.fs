@@ -3,7 +3,7 @@ module FSharp.Idioms.Graph
 
 ///输入任意的集合列表sets，
 ///如果集合列表的任意二个集合有相同的元素，就将其合并。
-///最后返回的集合列表，没有任意的两个集合是有共同元素的。island,interlinked
+///最后返回的集合列表，没有任意的两个集合是有共同元素的。
 let disjoint (sets:Set<Set<'a>>) =
     //合并与st有交集的集合，放在列表的开始
     let loop acc st =
@@ -17,7 +17,7 @@ let disjoint (sets:Set<Set<'a>>) =
     Set.fold loop sets sets
 
 ///根据pairs提供的推理关系，从右侧开始计算，不断用右側的子集（已知）填充左側的超集(FST)
-let rec propagate<'a when 'a:comparison> (map:Map<'a,Set<'a>>) (pairs:Set<'a*'a>) =
+let rec propagate<'a when 'a:comparison> (map:Map<'a,Set<'a>>) (pairs:Set<'a*'a>) = //spread
     let unknown = pairs |> Set.map fst
     let known = pairs |> Set.map snd
 
@@ -63,7 +63,7 @@ let rec propagate<'a when 'a:comparison> (map:Map<'a,Set<'a>>) (pairs:Set<'a*'a>
         let remains = pairs - processings
 
         //防止死循环
-        if processings.Count = 0 then failwithf "propagate:map*remains:%A" (map, remains)
+        if processings.Count = 0 then failwithf "propagate:(map:%A,remains:%A)" map remains
 
         //根据表达式A -> B，用A填充B
         let newMap =

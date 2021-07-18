@@ -7,6 +7,7 @@ open System.Reflection
 let listModuleType = FSharpModules.fsharpAssembly.GetType("Microsoft.FSharp.Collections.ListModule")
 let methodOfArrayDef = listModuleType.GetMethod "OfArray"
 
+
 let memoElementType = ConcurrentDictionary<Type, Type>(HashIdentity.Structural)
 let getElementType (listType:Type) =
     let valueFactory (ty:Type) = ty.GenericTypeArguments.[0]
