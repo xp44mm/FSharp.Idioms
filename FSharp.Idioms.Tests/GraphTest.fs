@@ -72,3 +72,14 @@ type GraphTest(output : ITestOutputHelper) =
         let yy = Map.ofList [1,set [2];2,set [2]]
 
         Should.equal y yy
+
+    [<Fact>]
+    member this.``propagate patterns string``() =
+        let map = Map [("NULL", set ["NULL"]); ("anonPattern", set ["NULL"])]
+        let remains = set [
+            ("anonPattern", "anonPatterns"); 
+            ("anonPatterns", "anonPattern");         
+            ("pattern", "anonPattern")]
+
+        let y = Graph.propagate map remains
+        show y

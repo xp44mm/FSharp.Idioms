@@ -63,7 +63,7 @@ let rec propagate<'a when 'a:comparison> (map:Map<'a,Set<'a>>) (pairs:Set<'a*'a>
         let remains = pairs - processings
 
         //防止死循环
-        if processings.Count = 0 then failwithf "propagate:(map:%A,remains:%A)" map remains
+        if processings.Count = 0 then failwithf "propagate:(map=%A,remains=%A)" map remains
 
         //根据表达式A -> B，用A填充B
         let newMap =
