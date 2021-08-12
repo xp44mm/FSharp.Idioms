@@ -9,10 +9,10 @@
     <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/xp44mm/FSharp.Idioms</RepositoryUrl>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <AssemblyVersion>1.1.10.0</AssemblyVersion>
-    <FileVersion>1.1.10.0</FileVersion>
-    <Version>1.1.10</Version>
-    <PackageReleaseNotes>add quote and unquote</PackageReleaseNotes>
+    <AssemblyVersion>1.1.11.0</AssemblyVersion>
+    <FileVersion>1.1.11.0</FileVersion>
+    <Version>1.1.11</Version>
+    <PackageReleaseNotes>fix Graph.propagate bug</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/xp44mm/FSharp.Idioms</PackageProjectUrl>
   </PropertyGroup>
 

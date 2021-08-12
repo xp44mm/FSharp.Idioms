@@ -75,7 +75,9 @@ type GraphTest(output : ITestOutputHelper) =
 
     [<Fact>]
     member this.``propagate patterns string``() =
-        let map = Map [("NULL", set ["NULL"]); ("anonPattern", set ["NULL"])]
+        let map = Map [
+            ("NULL", set ["NULL"]); 
+            ("anonPattern", set ["NULL"])]
         let remains = set [
             ("anonPattern", "anonPatterns"); 
             ("anonPatterns", "anonPattern");         

@@ -16,17 +16,51 @@ let disjoint (sets:Set<Set<'a>>) =
     //前一个SETS作为迭代的累加器，后一个SETS用于遍历每一个元素
     Set.fold loop sets sets
 
-///根据pairs提供的推理关系，从右侧开始计算，不断用右側的子集（已知）填充左側的超集(FST)
-let rec propagate<'a when 'a:comparison> (map:Map<'a,Set<'a>>) (pairs:Set<'a*'a>) = //spread
-    let unknown = pairs |> Set.map fst
-    let known = pairs |> Set.map snd
 
-    ///互相包含的集合是等价的
-    if unknown = known then
+///根据pairs提供的推理关系，从右侧开始计算，不断用右側的子集（已知）填充左側的超集(FST)
+let rec propagate<'a when 'a:comparison> (result:Map<'a,Set<'a>>) (pairs:Set<'a*'a>) =
+    let resultKeys = result |> Map.keys
+    let leftElements = pairs |> Set.map fst
+    let rightElements = pairs |> Set.map snd
+
+    // 仅在子集字段上出现的符号X，表明X不能再被其他符号填充。map中的X已经是完整的集合了。
+    let processings =
+        let result_and_known = Set.intersect resultKeys rightElements
+        let result_and_known_not_unkown = result_and_known - leftElements
+        pairs
+        |> Set.filter(snd >> result_and_known_not_unkown.Contains)
+
+    //单向填充
+    if processings.Count > 0 then
+        let remains = pairs - processings
+
+        //根据表达式A -> B，用A填充B
+        let newMap =
+            processings
+            |> Set.map(fun(l,r)-> l, result.[r])
+            |> Seq.append <| Map.toSeq result
+            |> Set.unionByKey
+            |> Map.ofSeq
+
+        if remains.IsEmpty then
+            newMap
+        else
+            propagate newMap remains
+
+    else 
+        ///环的元素必须左边，右边，两边都有存在
+        let urings = 
+            let st = Set.intersect leftElements rightElements
+            pairs
+            |> Set.filter(fun(l,r) -> st.Contains l && st.Contains r)
+
+        let remains = pairs - urings
+
+        ///互相包含的集合是等价的
         //环：一组等价的集合构成环
         //如：A->B,B->C, ... C->A
         let noninersections =
-            pairs
+            urings
             |> Set.map(fun(a,b)->set [a;b])
             |> disjoint
 
@@ -37,44 +71,22 @@ let rec propagate<'a when 'a:comparison> (map:Map<'a,Set<'a>>) (pairs:Set<'a*'a>
             |> Seq.collect(fun st ->
                 let result =
                     st
-                    |> Set.filter map.ContainsKey
-                    |> Set.map(fun k -> map.[k])
+                    |> Set.filter result.ContainsKey
+                    |> Set.map(fun k -> result.[k])
                     |> Set.unionMany
                 st
                 |> Set.map(fun e -> e, result)
-                //|> Set.toList
             )
             |> Seq.toList
 
-        //Maps.mergeMap map acc
-        map
-        |> Map.toSeq
-        |> Seq.append acc
-        |> Set.unionByKey
-        |> Map.ofSeq
-
-    else
-
-        // 仅在子集字段上出现的符号，表明X不能再被其他符号填充。map中的X已经是完整的集合了。
-        let processings =
-            pairs
-            |> Set.filter(fun (l,r) -> map.ContainsKey r && not(unknown.Contains r))
-
-        let remains = pairs - processings
-
-        //防止死循环
-        if processings.Count = 0 then failwithf "propagate:(map=%A,remains=%A)" map remains
-
-        //根据表达式A -> B，用A填充B
-        let newMap =
-            processings
-            |> Set.map(fun(l,r)-> l, map.[r])
-            |> Seq.append <| Map.toSeq map
+        let newResult =
+            result
+            |> Map.toSeq
+            |> Seq.append acc
             |> Set.unionByKey
             |> Map.ofSeq
 
         if remains.IsEmpty then
-            newMap
+            newResult
         else
-            propagate newMap remains
-
+            propagate newResult remains
