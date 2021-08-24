@@ -14,11 +14,16 @@ type StringOpsTest(output: ITestOutputHelper) =
         Should.equal y ""
 
     [<Fact>]
+    member this.``tryStartWith empty``() =
+        let x = "...rest"
+        let y = tryStartWith ".." x
+        Should.equal y (Some".rest")
+
+    [<Fact>]
     member this.``toLiteral empty``() =
         let x = ""
         let y = quote x
         Should.equal y "\"\""
-
 
     [<Fact>]
     member this.``parseLiteral quote``() =

@@ -11,13 +11,21 @@ module StringOps =
     let (==) a b = StringComparer.OrdinalIgnoreCase.Equals(a,b)
     let (!=) a b = not(a == b)
 
-    let tryPrefix (pattern:string) inp =
-        let re = Regex (String.Format("^(?:{0})", pattern))
-        let m = re.Match(inp)
+    let tryRegexMatch (re: Regex) (input:string) =
+        let m = re.Match(input)
         if m.Success then
-            Some(m.Value,inp.[m.Value.Length..])
+            Some(m.Value,input.[m.Value.Length..])
         else
             None
+
+    let tryStartWith (prefix:string) (inp:string) =
+        if inp.StartsWith(prefix, StringComparison.Ordinal) then
+            Some(inp.[prefix.Length..])
+        else None
+    
+    let tryPrefix (pattern:string) =
+        let re = Regex (String.Format("^(?:{0})", pattern))
+        tryRegexMatch re
 
     let tryFirstChar (c:char) (inp:string) =
         if inp.Length > 0 && inp.[0] = c then
