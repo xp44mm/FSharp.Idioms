@@ -9,14 +9,15 @@
     <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/xp44mm/FSharp.Idioms</RepositoryUrl>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <AssemblyVersion>1.1.12.0</AssemblyVersion>
-    <FileVersion>1.1.12.0</FileVersion>
-    <Version>1.1.12</Version>
-    <PackageReleaseNotes>tryStartWith, tryRegexMatch</PackageReleaseNotes>
+    <AssemblyVersion>1.1.14.0</AssemblyVersion>
+    <FileVersion>1.1.14.0</FileVersion>
+    <Version>1.1.14</Version>
+    <PackageReleaseNotes>add List.advance</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/xp44mm/FSharp.Idioms</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Memoization.fs" />
     <Compile Include="Pair.fs" />
     <Compile Include="Triple.fs" />
     <Compile Include="Array.fs" />
@@ -40,7 +41,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="5.0.2" />
+    <PackageReference Update="FSharp.Core" Version="6.0.0" />
   </ItemGroup>
 
 </Project>

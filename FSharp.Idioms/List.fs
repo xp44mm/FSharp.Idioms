@@ -48,7 +48,7 @@ let ofJaggedMap (mp:Map<'u,Map<'v,'w>>) =
     |> List.concat
 
 /// 取列表前面所有断言为真的项，加上第一个断言为假的项（如果有）
-[<System.Obsolete>]
+[<System.Obsolete("")>]
 let takeUntilNot (predicate:'t->bool) (ls:'t list) =
     let rec loop (acc:'t list) (ls:'t list) =
         match ls with
@@ -61,18 +61,28 @@ let takeUntilNot (predicate:'t->bool) (ls:'t list) =
                 acc
     loop [] ls |> List.rev
 
-/// 列表开始的元素满足条件，逆序放入第一个列表，不满足条件的元素正序保留在第二个列表。
+/// 列表开始的元素满足条件，逆序放入第一个列表，第二个列表为剩余列表。
 let advanceWhile (predicate:'t->bool) (ls:'t list) =
-    let rec loop (acc:'t list) (ls:'t list) =
-        match ls with
-        | [] -> acc,[]
+    let rec loop (target:'t list) (source:'t list) =
+        match source with
+        | [] -> target,[]
         | hd::tl ->
             if predicate hd then
-                loop (hd :: acc) tl
+                loop (hd :: target) tl
             else
-                acc,ls
+                target,source
     loop [] ls
 
+/// 列表开始的n个元素逆序放入第一个列表，第二个列表为剩余列表。
+let advance n (ls:list<'t>) =
+    let rec loop target (source:list<'t>) i =
+        match i with
+        | 0 -> target, source
+        | _ ->
+            match source with
+            | [] -> failwith "advance source is empty"
+            | hd::tail-> loop (hd::target) tail (i-1)
+    loop [] ls n
 
 ///// n 个元素取出2元素，组合
 //let combination2 (ls:'a list) =

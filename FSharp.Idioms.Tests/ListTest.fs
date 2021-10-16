@@ -107,3 +107,14 @@ type ListTest(output : ITestOutputHelper) =
 
         let res = [2;1],[3;4;5]
         Should.equal y res
+
+    [<Fact>]
+    member this.``advance``() =
+        let ls = [1;2;3;4;5]
+        
+        let y = 
+            ls
+            |> List.advance 2
+
+        let res = [2;1],[3;4;5]
+        Should.equal y res
