@@ -9,10 +9,10 @@
     <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/xp44mm/FSharp.Idioms</RepositoryUrl>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <AssemblyVersion>1.1.14.0</AssemblyVersion>
-    <FileVersion>1.1.14.0</FileVersion>
-    <Version>1.1.14</Version>
-    <PackageReleaseNotes>add List.advance</PackageReleaseNotes>
+    <AssemblyVersion>1.1.16.0</AssemblyVersion>
+    <FileVersion>1.1.16.0</FileVersion>
+    <Version>1.1.16</Version>
+    <PackageReleaseNotes>add Iterator</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/xp44mm/FSharp.Idioms</PackageProjectUrl>
   </PropertyGroup>
 
@@ -38,10 +38,12 @@
     <Compile Include="UnionType.fs" />
     <Compile Include="SeqType.fs" />
     <Compile Include="ClassType.fs" />
+    <Compile Include="Iterator.fs" />
+    <Compile Include="RetractableIterator.fs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="6.0.0" />
+    <PackageReference Update="FSharp.Core" Version="6.0.1" />
   </ItemGroup>
 
 </Project>

@@ -6,6 +6,26 @@ open System
 open FSharp.xUnit
 
 type StringOpsTest(output: ITestOutputHelper) =
+    [<Fact>]
+    member this.``tryLongest``() =
+        let punctuators =
+            set ["~"; "}"; "||="; "||"; "|="; "|"; "{"; "^="; "^"; "]"; "["; "??="; "??";
+            "?"; ">>>="; ">>>"; ">>="; ">>"; ">="; ">"; "=>"; "==="; "=="; "="; "<=";
+            "<<="; "<<"; "<"; ";"; ":"; "/="; "/"; "..."; "."; "-="; "--"; "-"; ",";
+            "+="; "++"; "+"; "*="; "**="; "**"; "*"; ")"; "("; "&="; "&&="; "&&"; "&";
+            "%="; "%"; "!=="; "!="; "!"]
+        let tryLongest = tryLongestPrefix punctuators
+        let x = "!= x"
+        let y = tryLongest x
+        Should.equal y <| Some("!="," x")
+
+        let x1 = "="
+        let y1 = tryLongest x1
+        Should.equal y1 <| Some("=","")
+
+        let x1 = "===[]"
+        let y1 = tryLongest x1
+        Should.equal y1 <| Some("===","[]")
 
     [<Fact>]
     member this.``parseLiteral empty``() =
