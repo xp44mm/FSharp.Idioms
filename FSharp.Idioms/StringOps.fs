@@ -17,6 +17,7 @@ module StringOps =
             Some(m.Value,input.[m.Value.Length..])
         else
             None
+
     /// 匹配输入的开始字符串
     let tryStartWith (prefix:string) (inp:string) =
         if inp.StartsWith(prefix, StringComparison.Ordinal) then

@@ -24,6 +24,12 @@ let toJaggedMap (triples:('x*'y*'z) list) =
         x,mp)
     |> Map.ofList
 
+let rec takeLast (ls) =
+    match ls with
+    | [] -> failwith "List.takeLast from []"
+    | [_] -> ls
+    | _ :: tail -> takeLast tail
+
 /// 将键值对列表转化为二级JaggedMap，相同键的值后来者赢。
 let toUniqueJaggedMap (triples:('x*'y*'z)list) =
     triples
