@@ -9,10 +9,10 @@
     <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/xp44mm/FSharp.Idioms</RepositoryUrl>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <AssemblyVersion>1.1.16.0</AssemblyVersion>
-    <FileVersion>1.1.16.0</FileVersion>
-    <Version>1.1.16</Version>
-    <PackageReleaseNotes>add Iterator</PackageReleaseNotes>
+    <AssemblyVersion>1.1.18.0</AssemblyVersion>
+    <FileVersion>1.1.18.0</FileVersion>
+    <Version>1.1.18</Version>
+    <PackageReleaseNotes>add StringOps.indentCodeBlock</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/xp44mm/FSharp.Idioms</PackageProjectUrl>
   </PropertyGroup>
 

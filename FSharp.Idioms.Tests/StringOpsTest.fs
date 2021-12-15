@@ -4,6 +4,7 @@ open Xunit
 open Xunit.Abstractions
 open System
 open FSharp.xUnit
+open System.Text.RegularExpressions
 
 type StringOpsTest(output: ITestOutputHelper) =
     [<Fact>]
@@ -86,3 +87,33 @@ type StringOpsTest(output: ITestOutputHelper) =
         let x = "\u0002"
         let y = quote x
         Should.equal y "\"\\u0002\""
+
+    [<Fact>]
+    member this.``split lines``() =
+        let x = "xyz\r\n\nabc"
+        let y = splitLines x |> Seq.toList
+        let e = [
+            (0, "xyz\r\n"); 
+            (5, "\n"); 
+            (6, "abc")]
+        Should.equal e y
+
+    [<Fact>]
+    member this.``row column``() =
+        let x = "xyz\r\n\nabc"
+        let lines = splitLines x
+        let pos = 7
+        let row,col = rowColumn lines pos
+        Should.equal x.[pos] 'b'
+        Should.equal row 2
+        Should.equal col 1
+
+    [<Fact>]
+    member this.``indentCodeBlock test``() =
+        let x = "xyz\r\nabc"
+        let y = indentCodeBlock 2 x
+        Should.equal y "  xyz\r\n  abc"
+
+
+
+
