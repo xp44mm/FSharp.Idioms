@@ -9,11 +9,12 @@
     <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/xp44mm/FSharp.Idioms</RepositoryUrl>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <AssemblyVersion>1.1.18.0</AssemblyVersion>
-    <FileVersion>1.1.18.0</FileVersion>
-    <Version>1.1.18</Version>
+    <AssemblyVersion></AssemblyVersion>
+    <FileVersion></FileVersion>
+    <Version>1.1.19</Version>
     <PackageReleaseNotes>add StringOps.indentCodeBlock</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/xp44mm/FSharp.Idioms</PackageProjectUrl>
+    <PackageTags>fsharp;lib</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,6 +28,8 @@
     <Compile Include="Graph.fs" />
     <Compile Include="ActivePatterns.fs" />
     <Compile Include="StringOps.fs" />
+    <Compile Include="Quotation.fs" />
+    <Compile Include="Line.fs" />
     <Compile Include="FSharpModules.fs" />
     <Compile Include="EnumType.fs" />
     <Compile Include="ArrayType.fs" />

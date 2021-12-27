@@ -3,7 +3,6 @@ module FSharp.Idioms.StringOps
 
 open System
 open System.Text.RegularExpressions
-open System.Globalization
 
 ///忽略大小写的方法比较字符串
 let (==) a b = StringComparer.OrdinalIgnoreCase.Equals(a,b)
@@ -12,7 +11,7 @@ let (!=) a b = not(a == b)
 let ( ** ) str i = String.replicate i str
 let space i = " " ** i
 let indent i = space (4*i)
-let unindent(text) = []
+let space4 i = space (4*i)
 
 let tryRegexMatch (re: Regex) (input:string) =
     let m = re.Match(input)
@@ -63,118 +62,6 @@ let tryLongestPrefix (candidates:Set<string> ) (input:string) =
 ///输入字符串的前缀子字符串符合给定的模式
 let (|Prefix|_|) = tryPrefix
 
-
 ///匹配输入字符串的第一个字符，返回剩余字符串
 let (|PrefixChar|_|) = tryFirstChar
 
-/// JSON格式加引号：xyz -> "xyz"
-let quote (value:string) =
-    value.ToCharArray()
-    |> Array.map(fun c ->
-        match c with
-        | '\\' -> @"\\"
-        | '"' -> "\\\""
-        | '\b' -> @"\b"
-        | '\f' -> @"\f"
-        | '\n' -> @"\n"
-        | '\r' -> @"\r"
-        | '\t' -> @"\t"
-        | c when c < '\u0010' ->
-            @"\u000" + Convert.ToString(Convert.ToInt16(c),16)
-        | c when c < '\u0020' ->
-            @"\u00" + Convert.ToString(Convert.ToInt16(c),16)
-        | '\u007F' -> "\\u007F"
-        | c ->
-            c.ToString(CultureInfo.InvariantCulture)
-    )
-    |> String.concat ""
-    |> sprintf "\"%s\""
-
-/// JSON格式去引号: "xyz" -> xyz
-let unquote (literal:string) =
-    let rec loop inp =
-        seq {
-            match inp with
-            | "" -> ()
-            | PrefixChar '\\' rest ->
-                match rest with
-                | PrefixChar '"' rest ->
-                    yield '"'
-                    yield! loop rest
-                | PrefixChar '\\' rest ->
-                    yield '\\'
-                    yield! loop rest
-                | PrefixChar 'b' rest ->
-                    yield '\b'
-                    yield! loop rest
-                | PrefixChar 'f' rest ->
-                    yield '\f'
-                    yield! loop rest
-                | PrefixChar 'n' rest ->
-                    yield '\n'
-                    yield! loop rest
-                | PrefixChar 'r' rest ->
-                    yield '\r'
-                    yield! loop rest
-                | PrefixChar 't' rest ->
-                    yield '\t'
-                    yield! loop rest
-                | Prefix "u[0-9A-Fa-f]{4}" (x,rest) ->
-                    let ffff = x.[1..]
-                    let value = Convert.ToInt32(ffff,16)
-                    yield Convert.ToChar value
-                    yield! loop rest
-                | rest ->
-                    yield '\\' // 落单的反斜杠容错
-                    yield! loop rest
-            | inp ->
-                yield inp.[0]
-                yield! loop inp.[1..]
-        }
-
-    System.String(
-        loop literal.[1..literal.Length-2]
-        |> Array.ofSeq
-    )
-
-/// 行位置，行的字符数量，数量包括结尾的\n，行的内容。
-let splitLines(text:string) =
-    let rec loop pos (inp:string) =
-        seq{
-            match inp with
-            | "" -> ()
-            | On (tryPrefix @"[^\n]*\n") (x, rest) ->
-                yield pos, x
-                yield! loop (pos+x.Length) rest
-
-            | _ -> yield pos,inp
-
-        }
-    loop 0 text
-
-///绝对位置计算行列索引值
-let rowColumn lines (pos:int) =
-    let row,col =
-        lines
-        |> Seq.mapi(fun r (p,l)-> r,p,l)
-        |> Seq.pick(fun(row,lpos,line:string)-> 
-            if lpos <= pos && pos < lpos + line.Length then
-                let col = pos - lpos
-                Some(row,col)
-            else None
-            )
-    row,col
-
-/// 每行开始的空格数
-let startSpaces lines =
-    lines
-    |> Seq.map(fun line -> Regex.Match(line,"^ *").Length)
-    |> Seq.min
-
-///各行同时缩进
-let indentCodeBlock (spaces:int) (codeBlock:string) =
-    let spaces = space spaces
-    codeBlock
-    |> splitLines
-    |> Seq.map(fun (_,line) -> spaces+line)
-    |> String.concat ""
