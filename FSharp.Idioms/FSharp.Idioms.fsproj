@@ -11,8 +11,8 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
-    <Version>1.1.19</Version>
-    <PackageReleaseNotes>add StringOps.indentCodeBlock</PackageReleaseNotes>
+    <Version>1.1.20</Version>
+    <PackageReleaseNotes>Line.splitLines</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/xp44mm/FSharp.Idioms</PackageProjectUrl>
     <PackageTags>fsharp;lib</PackageTags>
   </PropertyGroup>
