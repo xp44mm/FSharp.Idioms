@@ -1,6 +1,28 @@
 ﻿[<RequireQualifiedAccess>]
 module FSharp.Idioms.List
 
+let tap f (source:'a list) =
+    source
+    |> List.map(fun x -> 
+        f x
+        x
+    )
+
+let tapi f (source:'a list) =
+    source
+    |> List.mapi(fun i x -> 
+        f i x
+        x
+    )
+
+
+let ofRevArray (source:'a []) =
+    let rec loop ls i =
+        if i < source.Length then
+            loop (source.[i]::ls) (i+1)
+        else ls
+    loop [] 0
+        
 /// 将键值对列表转化为Map，键可能重复的，相同键的值收集到列表中。
 let toMap (pairs:('k*'v)list) =
     pairs

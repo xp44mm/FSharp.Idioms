@@ -87,3 +87,27 @@ type ArrayTest(output : ITestOutputHelper) =
 
         Should.equal y res
 
+    [<Fact>]
+    member this.``tap``() =
+        let x = [|1;2;3;4;5|]
+        
+        let array = Array.create 5 0
+        let y = 
+            x
+            |> Array.tapi(fun i x -> array.[i]<-x)
+
+        Should.equal array x
+
+
+    [<Fact>]
+    member this.``ofRevArray``() =
+        let arr = [|5;4;3;2;1|]
+        
+        let y = 
+            arr
+            |> Array.toRevList
+
+        let ls = [1;2;3;4;5]
+
+        Should.equal y ls
+

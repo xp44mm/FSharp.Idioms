@@ -87,17 +87,6 @@ type ListTest(output : ITestOutputHelper) =
 
 
     [<Fact>]
-    member this.``test takeUntilNot``() =
-        let ls = [1;2;3;4;5]
-        
-        let y = 
-            ls
-            |> List.takeUntilNot (fun i -> i<=3)
-
-        let res = [1;2;3;4]
-        Should.equal y res
-
-    [<Fact>]
     member this.``advanceWhile``() =
         let ls = [1;2;3;4;5]
         
@@ -118,3 +107,27 @@ type ListTest(output : ITestOutputHelper) =
 
         let res = [2;1],[3;4;5]
         Should.equal y res
+
+    [<Fact>]
+    member this.``tap``() =
+        let ls = [1;2;3;4;5]
+        
+        let y = 
+            ls
+            |> List.tap(fun x -> output.WriteLine(sprintf "%A" x))
+
+        Should.equal ls y
+
+
+    [<Fact>]
+    member this.``ofRevArray``() =
+        let arr = [|5;4;3;2;1|]
+        
+        let y = 
+            arr
+            |> List.ofRevArray
+
+        let ls = [1;2;3;4;5]
+
+        Should.equal y ls
+

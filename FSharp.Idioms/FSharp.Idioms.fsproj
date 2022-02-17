@@ -11,8 +11,8 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
-    <Version>1.1.20</Version>
-    <PackageReleaseNotes>Line.splitLines</PackageReleaseNotes>
+    <Version>1.1.21</Version>
+    <PackageReleaseNotes>Seq.tap;Array.toRevList;List.ofRevArray</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/xp44mm/FSharp.Idioms</PackageProjectUrl>
     <PackageTags>fsharp;lib</PackageTags>
   </PropertyGroup>
@@ -21,8 +21,9 @@
     <Compile Include="Memoization.fs" />
     <Compile Include="Pair.fs" />
     <Compile Include="Triple.fs" />
-    <Compile Include="Array.fs" />
+    <Compile Include="Seq.fs" />
     <Compile Include="List.fs" />
+    <Compile Include="Array.fs" />
     <Compile Include="Set.fs" />
     <Compile Include="Map.fs" />
     <Compile Include="Graph.fs" />
@@ -46,7 +47,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="6.0.1" />
+    <PackageReference Update="FSharp.Core" Version="6.0.3" />
   </ItemGroup>
 
 </Project>
