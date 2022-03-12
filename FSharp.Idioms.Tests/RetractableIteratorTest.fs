@@ -3,7 +3,6 @@
 open Xunit
 open Xunit.Abstractions
 open FSharp.Literals
-open FSharp.Literals
 open FSharp.xUnit
 
 type RetractableIteratorTest(output: ITestOutputHelper) =

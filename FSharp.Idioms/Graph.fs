@@ -47,9 +47,9 @@ let rec propagate<'a when 'a:comparison> (result:Map<'a,Set<'a>>) (pairs:Set<'a*
         else
             propagate newMap remains
 
-    else 
+    else
         ///环的元素必须左边，右边，两边都有存在
-        let urings = 
+        let urings =
             let st = Set.intersect leftElements rightElements
             pairs
             |> Set.filter(fun(l,r) -> st.Contains l && st.Contains r)
@@ -90,3 +90,45 @@ let rec propagate<'a when 'a:comparison> (result:Map<'a,Set<'a>>) (pairs:Set<'a*
             newResult
         else
             propagate newResult remains
+
+let getVertices<'c when 'c:comparison> (graph:seq<'c*'c>) =
+    graph
+    |> Seq.map(fun(x,y)-> set [x;y])
+    |> Set.unionMany
+
+let topologicalSort<'a when 'a:comparison> (graph:list<'a*'a>) =
+    let tryFindRoot (edges:list<'a*'a>) =
+        let starts,ends = edges |> List.unzip
+        let ends = set ends
+        starts
+        |> List.tryFind(ends.Contains>>not)
+
+    let rec loop (acc:'a list) (edges:list<'a*'a>) =
+        match edges with
+        | [] -> acc
+        | [u,v] -> v::u::acc
+        | _ ->
+            match tryFindRoot edges with
+            | None -> failwithf "ring:%A" edges
+            | Some root ->
+                //每个根节点的下一点
+                let seconds,edges =
+                    edges
+                    |> List.partition(fst >> (=) root)
+                let seconds = seconds |> List.map snd
+
+                // 叶顶点就是随后的edges的顶点不再出现的顶点。
+                let ends =
+                    let restVertices = getVertices edges
+                    seconds
+                    |> List.filter(restVertices.Contains>>not)
+
+                // 此时，跟随根顶点的叶顶点应该加入acc。
+                let acc = 
+                    let rec merge acc ls =
+                        match ls with
+                        | [] -> acc
+                        | h::t -> merge (h::acc) t
+                    merge (root::acc) ends
+                loop acc edges
+    loop [] graph

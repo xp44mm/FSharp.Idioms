@@ -85,3 +85,40 @@ type GraphTest(output : ITestOutputHelper) =
 
         let y = Graph.propagate map remains
         show y
+
+    [<Fact>]
+    member this.``TopologicalSort``() =
+        let undershorts = "undershorts"
+        let pants       = "pants"
+        let belt        = "belt"
+        let shirt       = "shirt"
+        let tie         = "tie"
+        let jacket      = "jacket"
+        let socks       = "socks"
+        let shoes       = "shoes"
+        let watch       = "watch"
+
+        let graph = 
+            [
+                socks,shoes
+                undershorts,pants
+                undershorts,shoes
+                pants,belt
+                pants,shoes
+                shirt,belt
+                shirt,tie
+                belt,jacket
+                tie,jacket
+
+                //补充顺序
+                //undershorts,watch
+                //socks,shirt
+                //socks,undershorts
+                //undershorts,shirt          
+                //pants,shirt
+                //shoes,shirt
+                //belt,tie
+            ]
+
+        let y = Graph.topologicalSort graph
+        show y
