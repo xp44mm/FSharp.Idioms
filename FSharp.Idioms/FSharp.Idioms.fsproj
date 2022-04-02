@@ -11,8 +11,8 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
-    <Version>1.1.22</Version>
-    <PackageReleaseNotes>queue;topologicalsort</PackageReleaseNotes>
+    <Version>1.2.0</Version>
+    <PackageReleaseNotes>StringOps</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/xp44mm/FSharp.Idioms</PackageProjectUrl>
     <PackageTags>fsharp;lib</PackageTags>
   </PropertyGroup>

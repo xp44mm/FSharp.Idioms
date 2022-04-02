@@ -2,6 +2,7 @@
 
 open System
 open System.Globalization
+open System.Text.RegularExpressions
 
 /// JSON格式加引号：xyz -> "xyz"
 let quote (value:string) =
@@ -32,31 +33,31 @@ let unquote (literal:string) =
         seq {
             match inp with
             | "" -> ()
-            | PrefixChar '\\' rest ->
+            | On (tryFirst '\\') rest ->
                 match rest with
-                | PrefixChar '"' rest ->
+                | On (tryFirst '"') rest ->
                     yield '"'
                     yield! loop rest
-                | PrefixChar '\\' rest ->
+                | On (tryFirst '\\') rest ->
                     yield '\\'
                     yield! loop rest
-                | PrefixChar 'b' rest ->
+                | On (tryFirst 'b') rest ->
                     yield '\b'
                     yield! loop rest
-                | PrefixChar 'f' rest ->
+                | On (tryFirst 'f') rest ->
                     yield '\f'
                     yield! loop rest
-                | PrefixChar 'n' rest ->
+                | On (tryFirst 'n') rest ->
                     yield '\n'
                     yield! loop rest
-                | PrefixChar 'r' rest ->
+                | On (tryFirst 'r') rest ->
                     yield '\r'
                     yield! loop rest
-                | PrefixChar 't' rest ->
+                | On (tryFirst 't') rest ->
                     yield '\t'
                     yield! loop rest
-                | Prefix "u[0-9A-Fa-f]{4}" (x,rest) ->
-                    let ffff = x.[1..]
+                | On (tryMatch(Regex @"^u[0-9A-Fa-f]{4}")) (x,rest) ->
+                    let ffff = x.[1..] // remove first u
                     let value = Convert.ToInt32(ffff,16)
                     yield Convert.ToChar value
                     yield! loop rest

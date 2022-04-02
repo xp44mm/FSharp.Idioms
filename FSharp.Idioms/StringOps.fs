@@ -13,7 +13,7 @@ let space i = " " ** i
 let indent i = space (4*i)
 let space4 i = space (4*i)
 
-let tryRegexMatch (re: Regex) (input:string) =
+let tryMatch (re: Regex) (input:string) =
     let m = re.Match(input)
     if m.Success then
         Some(m.Value,input.[m.Value.Length..])
@@ -21,22 +21,32 @@ let tryRegexMatch (re: Regex) (input:string) =
         None
 
 /// 匹配输入的开始字符串
-let tryStartWith (prefix:string) (inp:string) =
+let tryStart (prefix:string) (inp:string) =
     if inp.StartsWith(prefix, StringComparison.Ordinal) then
         Some(inp.[prefix.Length..])
     else None
 
-/// 匹配前缀，用正则表达式的模式
-let tryPrefix (pattern:string) =
-    let re = Regex (String.Format("^(?:{0})", pattern))
-    tryRegexMatch re
-
 /// 匹配输入的首字符
-let tryFirstChar (c:char) (inp:string) =
+let tryFirst (c:char) (inp:string) =
     if inp.Length > 0 && inp.[0] = c then
         Some inp.[1..]
     else
         None
+
+[<Obsolete("tryMatch")>]
+let tryRegexMatch = tryMatch
+
+[<Obsolete("tryStart")>]
+let tryStartWith = tryStart
+
+[<Obsolete("tryFirst")>]
+let tryFirstChar = tryFirst
+
+/// 匹配前缀，用正则表达式的模式
+[<Obsolete("tryMatch")>]
+let tryPrefix (pattern:string) =
+    let re = Regex (String.Format("^(?:{0})", pattern))
+    tryMatch re
 
 /// 匹配输入的最长前缀，没有向前看的附加条件
 let tryLongestPrefix (candidates:Set<string> ) (input:string) =
@@ -60,8 +70,12 @@ let tryLongestPrefix (candidates:Set<string> ) (input:string) =
     |> Option.map(fun elected -> elected, input.[elected.Length..])
     
 ///输入字符串的前缀子字符串符合给定的模式
-let (|Prefix|_|) = tryPrefix
+[<Obsolete("tryStart")>]
+let (|Prefix|_|) (pattern:string) =
+    Regex $"^(?:{pattern})"
+    |> tryMatch
 
 ///匹配输入字符串的第一个字符，返回剩余字符串
-let (|PrefixChar|_|) = tryFirstChar
+[<Obsolete("tryFirst")>]
+let (|PrefixChar|_|) = tryFirst
 
