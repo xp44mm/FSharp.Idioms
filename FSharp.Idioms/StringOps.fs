@@ -10,6 +10,8 @@ let (!=) a b = not(a == b)
 
 let ( ** ) str i = String.replicate i str
 let space i = " " ** i
+
+[<Obsolete("replace by `space4`")>]
 let indent i = space (4*i)
 let space4 i = space (4*i)
 
@@ -43,7 +45,7 @@ let tryStartWith = tryStart
 let tryFirstChar = tryFirst
 
 /// 匹配前缀，用正则表达式的模式
-[<Obsolete("tryMatch")>]
+[<Obsolete("""tryMatch(Regex @"^")""")>]
 let tryPrefix (pattern:string) =
     let re = Regex (String.Format("^(?:{0})", pattern))
     tryMatch re
@@ -67,15 +69,17 @@ let tryLongestPrefix (candidates:Set<string> ) (input:string) =
         else maybe
     
     loop 0 None candidates
-    |> Option.map(fun elected -> elected, input.[elected.Length..])
+    |> Option.map(fun elected -> 
+        elected, input.[elected.Length..]
+        )
     
 ///输入字符串的前缀子字符串符合给定的模式
-[<Obsolete("tryStart")>]
+[<Obsolete("""On(tryMatch(Regex @"^"))""")>]
 let (|Prefix|_|) (pattern:string) =
     Regex $"^(?:{pattern})"
     |> tryMatch
 
 ///匹配输入字符串的第一个字符，返回剩余字符串
-[<Obsolete("tryFirst")>]
+[<Obsolete("On(tryFirst '\\')")>]
 let (|PrefixChar|_|) = tryFirst
 

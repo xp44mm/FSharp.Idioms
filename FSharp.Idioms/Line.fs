@@ -8,7 +8,7 @@ let splitLines(text:string) =
         seq{
             match inp with
             | "" -> ()
-            | On (tryPrefix @"[^\r\n]*(\r?\n|\r)") (line, rest) ->
+            | On(tryMatch(Regex @"^.*(\r?\n|\r)")) (line, rest) ->
                 /// pos: 行首的位置
                 /// line: 行的内容
                 yield pos, line
@@ -39,6 +39,7 @@ let startSpaces lines =
     |> Seq.min
 
 /// 各行同时缩进
+/// spaces: 行首将要新增的空格个数
 let indentCodeBlock (spaces:int) (codeBlock:string) =
     let spaces = space spaces
     codeBlock

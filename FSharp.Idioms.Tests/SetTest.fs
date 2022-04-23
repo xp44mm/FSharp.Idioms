@@ -122,3 +122,17 @@ type SetTest(output : ITestOutputHelper) =
         //show y
         let res = set [0,set [0;3;6;9];1,set [1;4;7];2,set [2;5;8]]
         Should.equal y res
+
+    [<Fact>]
+    member this.``combine2``() =
+        let st = set [0..4]
+        let y = st |> Set.combine2
+        //show y
+        let res = set [
+            set [0;1];set [0;2];set [0;3];set [0;4];
+            set [1;2];set [1;3];set [1;4];
+            set [2;3];set [2;4];
+            set [3;4]]
+
+        Should.equal y res
+

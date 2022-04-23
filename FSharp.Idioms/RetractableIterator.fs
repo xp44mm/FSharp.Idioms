@@ -10,16 +10,16 @@ type RetractableIterator<'a>(enumerator:IEnumerator<'a>) =
     //iterator是否已经读取完了
     let mutable hasDone = false
 
-    member this.allDone() =
+    member _.allDone() =
         hasDone && values.Count = 0 && forward = -1
 
-    member this.dequeue(count) =
+    member _.dequeue(count) =
         forward <- -1
         let hd = values.GetRange(0,count).ToArray()
         values.RemoveRange(0,count)
         hd
 
-    member this.tryNext() =
+    member _.tryNext() =
         if forward < values.Count - 1 then
             //读取缓存中的值，将当前值索引前进一位
             forward <- forward + 1

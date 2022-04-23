@@ -15,3 +15,11 @@ let tapi f (source:'a seq) =
         x
     )
 
+let rec makeSeq tryNext =
+    seq {
+        match tryNext() with
+        | None -> ()
+        | Some x -> 
+            yield x
+            yield! makeSeq tryNext
+    }

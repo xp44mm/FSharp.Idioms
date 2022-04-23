@@ -49,7 +49,7 @@ let setVertex (vertices:list<Vertex>) (v:Vertex) =
 
 let bfs (s:char) (graph:list<char*char>) =
     
-    let rec loopAdj (vertices:list<Vertex>) (Q:queue<char>) (u:Vertex) (adjs:list<char>) =
+    let rec loopAdj (vertices:list<Vertex>) (Q:Queue<char>) (u:Vertex) (adjs:list<char>) =
         match adjs with
         | [] -> vertices,Q
         | v::tail ->
@@ -66,7 +66,7 @@ let bfs (s:char) (graph:list<char*char>) =
                 loopAdj vertices Q u tail
             else loopAdj vertices Q u tail
 
-    let rec loop (vertices:list<Vertex>) (Q:queue<char>) =
+    let rec loop (vertices:list<Vertex>) (Q:Queue<char>) =
         if Q |> Queue.isEmpty then
             vertices
         else

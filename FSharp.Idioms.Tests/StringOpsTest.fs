@@ -35,9 +35,9 @@ type StringOpsTest(output: ITestOutputHelper) =
         Should.equal y ""
 
     [<Fact>]
-    member this.``tryStartWith empty``() =
+    member this.``tryStart empty``() =
         let x = "...rest"
-        let y = tryStartWith ".." x
+        let y = tryStart ".." x
         Should.equal y (Some".rest")
 
     [<Fact>]

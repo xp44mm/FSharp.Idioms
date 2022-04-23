@@ -81,3 +81,13 @@ let toUniqueJaggedMap (triples:Set<'x*'y*'z>) =
         x,mp)
     |> Map.ofSeq
 
+///集合中任意两个元素组合
+let combine2 st =
+    st
+    |> Set.map(fun x ->
+        st
+        |> Set.remove x
+        |> Set.map(fun y -> set [x;y])
+    )
+    |> Set.unionMany
+

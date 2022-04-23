@@ -1,7 +1,7 @@
 ﻿namespace FSharp.Idioms
 
 [<NoEquality; NoComparison>]
-type queue<'a> =
+type Queue<'a> =
     | Queue of fs:'a list * bs:'a list
 
 [<RequireQualifiedAccess>]
@@ -21,3 +21,11 @@ module Queue =
         | Queue(fs, []) -> 
             let bs = List.rev fs
             bs.Head, Queue([], bs.Tail)
+
+    let tryDequeue q =
+        match q with
+        | Queue([], []) -> None
+        | Queue(fs, b :: bs) -> (b, Queue(fs, bs)) |> Some
+        | Queue(fs, []) -> 
+            let bs = List.rev fs
+            (bs.Head, Queue([], bs.Tail)) |> Some

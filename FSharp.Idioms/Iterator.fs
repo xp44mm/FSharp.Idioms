@@ -4,7 +4,7 @@ open System.Collections.Generic
 
 type Iterator<'a>(enumerator:IEnumerator<'a>) =
     let mutable hasDone = false
-    member this.tryNext() =
+    member _.tryNext() =
         if hasDone then
             None
         else

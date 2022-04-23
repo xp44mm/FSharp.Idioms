@@ -4,6 +4,7 @@ open Xunit
 open Xunit.Abstractions
 open FSharp.Literals
 open FSharp.xUnit
+open System.Text.RegularExpressions
 
 //open FSharp.Idioms.ActivePatterns
 
@@ -18,6 +19,6 @@ type ActivePatternsTest(output : ITestOutputHelper) =
         let x = " abc"
         let y =        
             match x with
-            | On (tryPrefix @"\s+")(m,r) -> (m,r)
+            | On (tryMatch(Regex @"^\s+"))(m,r) -> (m,r)
             | _ -> failwith ""
         Should.equal y (" ", "abc")
