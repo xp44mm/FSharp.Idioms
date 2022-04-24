@@ -87,7 +87,11 @@ let combine2 st =
     |> Set.map(fun x ->
         st
         |> Set.remove x
-        |> Set.map(fun y -> set [x;y])
+        |> Set.map(fun y -> 
+            let a = min x y
+            let b = max x y
+            a,b
+        )
     )
     |> Set.unionMany
 
