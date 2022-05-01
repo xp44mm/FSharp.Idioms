@@ -11,8 +11,8 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
-    <Version>1.2.4</Version>
-    <PackageReleaseNotes>Set.combine2</PackageReleaseNotes>
+    <Version>1.2.5</Version>
+    <PackageReleaseNotes>Iterator.toSeq</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/xp44mm/FSharp.Idioms</PackageProjectUrl>
     <PackageTags>fsharp;lib</PackageTags>
   </PropertyGroup>
@@ -31,6 +31,7 @@
     <Compile Include="StringOps.fs" />
     <Compile Include="Quotation.fs" />
     <Compile Include="Line.fs" />
+	  
     <Compile Include="FSharpModules.fs" />
     <Compile Include="EnumType.fs" />
     <Compile Include="ArrayType.fs" />
@@ -42,6 +43,7 @@
     <Compile Include="UnionType.fs" />
     <Compile Include="SeqType.fs" />
     <Compile Include="ClassType.fs" />
+	  
     <Compile Include="Iterator.fs" />
     <Compile Include="RetractableIterator.fs" />
     <Compile Include="Queue.fs" />
