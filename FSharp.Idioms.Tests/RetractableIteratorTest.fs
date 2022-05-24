@@ -42,7 +42,7 @@ type RetractableIteratorTest(output: ITestOutputHelper) =
         let res4 =   iterator.tryNext()
         Should.equal res4 (None)
 
-        let tokens =iterator.dequeue(1)
+        let tokens =iterator.consume(1)
         Should.equal tokens [|'a'|]
 
         let res5 =   iterator.tryNext()
