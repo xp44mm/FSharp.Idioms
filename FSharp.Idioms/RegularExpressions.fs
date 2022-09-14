@@ -12,3 +12,8 @@ let trySearch (re: Regex) (input:string) =
 
 /// represents the first pattern match in a string.
 let (|Search|_|) (re: Regex) = trySearch re
+
+/// input:string -> Match
+let (|Rgx|_|) (pattern: string) = 
+    Regex pattern
+    |> trySearch

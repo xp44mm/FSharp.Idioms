@@ -11,16 +11,19 @@ type RetractableIterator<'a>(enumerator:IEnumerator<'a>) =
     //iterator是否已经读取完了
     let mutable hasDone = false
 
+    ///全部消费完成
     member _.allDone() =
         hasDone && values.Count = 0 && forward = -1
-
+    ///取消预读，重新读取缓存
     member _.restart() = 
         forward <- -1
 
+    ///确定从预读的数据中消费一个数据
     member this.consume() =
         this.dequeue(1)
         |> Seq.head
 
+    ///确定预读的数据被消费，按照给定的数量。
     member this.consume(count) =
         this.dequeue(count)
 
