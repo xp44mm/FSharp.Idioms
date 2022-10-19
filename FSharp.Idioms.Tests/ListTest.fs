@@ -131,3 +131,44 @@ type ListTest(output : ITestOutputHelper) =
 
         Should.equal y ls
 
+    [<Fact>]
+    member this.``depthFirstSort 22-4``() =
+        let nodes = 
+            [ "u",["v";"x"];
+              "v",["y"];
+              "w",["y";"z"];
+              "x",["v"];
+              "y",["x"];
+              "z",["z"];
+            ] |> Map.ofList
+        
+        let y = List.depthFirstSort nodes "u"
+        show y
+        //注意：结果列表忽略无关的元素
+        let e = ["u";"v";"y";"x"]
+        Should.equal e y
+        ()
+
+    [<Fact>]
+    member this.``depthFirstSort 22-5``() =
+        let nodes = 
+            [ 
+            "u",["t";"v"];
+            "v",["s";"w"];
+            "w",["x";];
+            "x",["z"];
+            "y",["x"];
+            "z",["y";"w"];
+            "s",["z";"w"];
+            "t",["u";"v"];
+            ] 
+            |> Map.ofList
+        
+        let y = List.depthFirstSort nodes "s"
+        show y
+        //注意：结果列表忽略无关的元素
+        let e = ["s";"z";"y";"x";"w"]
+        Should.equal e y
+        ()
+
+

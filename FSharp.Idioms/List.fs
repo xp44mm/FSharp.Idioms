@@ -112,8 +112,33 @@ let advance n (ls:list<'t>) =
             | hd::tail-> loop (hd::target) tail (i-1)
     loop [] ls n
 
-///// n 个元素取出2元素，组合
-//let combination2 (ls:'a list) =
-//    let a = ls.[..ls.Length-2]
-//    let b = ls.[1..]
-//    List.zip a b
+/// n 个元素取出2元素，组合
+//let combination2 = List.allPairs = crossProduct = Cartesian
+
+
+///返回符号的深度优先顺序列表。
+let depthFirstSort (nodes:Map<'t,'t list>) (start:'t) =
+    let rec loop (discovered:list<'t>) (unfinished:list<'t>) =
+        //Console.WriteLine(stringify (discovered,unfinished))
+        match unfinished with
+        | [] -> discovered |> List.rev
+        | current::tail ->
+            match
+                nodes.[current]
+                |> List.tryFind(fun x ->
+                    discovered
+                    |> Set.ofList
+                    |> Set.contains x
+                    |> not
+                )
+            with
+            | Some next ->
+                //发现next立即加入discovered
+                //next加入unfinished继续查找自己的下一个
+                loop (next::discovered) (next::unfinished)
+            | None ->
+                //currnet丢弃即可。在next时已经加入discovered，切勿重复加入。
+                loop discovered tail
+
+    loop [start] [start]
+
