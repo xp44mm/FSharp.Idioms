@@ -8,8 +8,8 @@ let memoize (f : ('T -> 'U) -> 'T -> 'U) =
     let rec g x = d.GetOrAdd(x, f g)
     g
 
-let memoized f =
-    let d = new System.Collections.Generic.Dictionary<_,_>()
+let memoized (f : ('T -> 'U) -> 'T -> 'U) =
+    let d = new Dictionary<'T, 'U>(HashIdentity.Structural)
     let rec g x =
         match d.TryGetValue x with
         | true, res -> res

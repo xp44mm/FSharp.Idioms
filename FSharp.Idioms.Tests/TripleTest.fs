@@ -12,31 +12,36 @@ type TripleTest(output : ITestOutputHelper) =
         |> output.WriteLine
 
     [<Fact>]
-    member this.``test first``() =
+    member this.``01 - first test``() =
         let triple = (1,2,3)
         let y = Triple.first triple
         let res = 1
         Should.equal y res
 
     [<Fact>]
-    member this.``test firstTwo``() =
+    member this.``02 - firstTwo test``() =
         let triple = (1,2,3)
         let y = Triple.firstTwo triple
         let res = 1,2
         Should.equal y res
 
     [<Fact>]
-    member this.``test last``() =
+    member this.``03 - last test``() =
         let triple = (1,2,3)
         let y = Triple.last triple
         let res = 3
         Should.equal y res
 
     [<Fact>]
-    member this.``test lastTwo``() =
+    member this.``04 - lastTwo test``() =
         let triple = (1,2,3)
         let y = Triple.lastTwo triple
         let res = 2,3
         Should.equal y res
 
+    [<Fact>]
+    member this.``05 - ofApp test``() =
+        let y = Triple.ofApp 1 2 3
+        let e = (1,2,3)
+        Should.equal e y
 

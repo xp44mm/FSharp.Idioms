@@ -124,13 +124,15 @@ let depthFirstSort (nodes:Map<'t,'t list>) (start:'t) =
         | [] -> discovered |> List.rev
         | current::tail ->
             match
-                nodes.[current]
-                |> List.tryFind(fun x ->
-                    discovered
-                    |> Set.ofList
-                    |> Set.contains x
-                    |> not
-                )
+                if nodes.ContainsKey current then
+                    nodes.[current]
+                    |> List.tryFind(fun x ->
+                        discovered
+                        |> Set.ofList
+                        |> Set.contains x
+                        |> not
+                    )
+                else None
             with
             | Some next ->
                 //发现next立即加入discovered

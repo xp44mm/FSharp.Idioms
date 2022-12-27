@@ -15,3 +15,4 @@ module Triple =
     /// 中点
     let middle (x,y,z) = y
     
+    let ofApp x y z = x,y,z

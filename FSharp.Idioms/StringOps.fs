@@ -18,7 +18,7 @@ let space4 i = space (4*i)
 let tryMatch (re: Regex) (input:string) =
     let m = re.Match(input)
     if m.Success then
-        Some(m.Value,input.[m.Value.Length..])
+        Some(m.Value,input.[m.Index+m.Value.Length..])
     else
         None
 
@@ -51,7 +51,7 @@ let tryPrefix (pattern:string) =
     tryMatch re
 
 /// 匹配输入的最长前缀，没有向前看的附加条件
-let tryLongestPrefix (candidates:Set<string> ) (input:string) =
+let tryLongestPrefix (candidates:Set<string>) (input:string) =
     let rec loop i (maybe:string option) (rest:Set<string> ) =
         if input.Length > i then 
             let fltr =

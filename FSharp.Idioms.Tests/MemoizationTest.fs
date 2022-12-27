@@ -7,6 +7,7 @@ open FSharp.Idioms.Memoization
 
 type MemoizationTest(output: ITestOutputHelper) =
     
+    // 没有缓存的递归函数
     let rec fib n = 
         if n <= 2 
         then 1 
@@ -14,9 +15,10 @@ type MemoizationTest(output: ITestOutputHelper) =
 
     [<Fact>]
     member this.``decorate memoized``() =
-        let fib myself n =
+        //把递归自己分成两步：fibNext = fib
+        let fib fibNext n =
             output.WriteLine(sprintf "computing fib %d" n)
-            if n <= 2 then 1 else myself (n - 1) + myself (n - 2)
+            if n <= 2 then 1 else fibNext (n - 1) + fibNext (n - 2)
 
         let fibonacci = memoize(fib)
         //注意：打印输出说明每个输入只计算一次
