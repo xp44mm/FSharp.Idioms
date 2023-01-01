@@ -207,6 +207,6 @@ type MapTest(output : ITestOutputHelper) =
                 "1"    , 1
             ]
         let y = mp |> Map.inverse
-        let e = Map ["0",[0];"1",[1]]
+        let e = Map [0,["0"];1,["1"]]
         show y
         Should.equal e y

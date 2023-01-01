@@ -89,5 +89,6 @@ let differenceByKey (mp1:Map<'k,_>) (mp2:Map<'k,_>) =
 let inverse (mp:Map<'k,'v>) =
     mp
     |> Map.toSeq
+    |> Seq.map Pair.swap
     |> fromDuplicateKeys
     |> Map.map(fun k v -> List.ofSeq v)
