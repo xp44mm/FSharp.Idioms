@@ -77,7 +77,7 @@ let intersectByKey (mp1:Map<'k,_>) (mp2:Map<'k,_>) =
     let ls2 = mp2 |> Map.filter(fun k v -> kk.Contains k) |> Map.toList
     
     List.zip ls1 ls2
-    |> List.map(fun ((k1,v1),(k2,v2))-> k1,(v1,v2))
+    |> List.map(fun ((k1,v1),(_,v2))-> k1,(v1,v2))
     
 let differenceByKey (mp1:Map<'k,_>) (mp2:Map<'k,_>) =
     let k1 = keys mp1
@@ -86,5 +86,8 @@ let differenceByKey (mp1:Map<'k,_>) (mp2:Map<'k,_>) =
 
     mp1 |> Map.filter(fun k v -> kk.Contains k)
 
-
-
+let inverse (mp:Map<'k,'v>) =
+    mp
+    |> Map.toSeq
+    |> fromDuplicateKeys
+    |> Map.map(fun k v -> List.ofSeq v)

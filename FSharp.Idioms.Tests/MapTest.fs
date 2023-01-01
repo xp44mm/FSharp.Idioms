@@ -13,7 +13,7 @@ type MapTest(output : ITestOutputHelper) =
         |> output.WriteLine
 
     [<Fact>]
-    member this.``test fromDuplicateKeys``() =
+    member this.``fromDuplicateKeys test``() =
         let pairs = 
             [
                 1,"1"
@@ -30,7 +30,7 @@ type MapTest(output : ITestOutputHelper) =
         Should.equal y res
 
     [<Fact>]
-    member this.``test mapKey``() =
+    member this.``mapKey test``() =
         let mp = 
             [
                 "1"    , 1
@@ -46,7 +46,7 @@ type MapTest(output : ITestOutputHelper) =
         Should.equal y res
 
     [<Fact>]
-    member this.``test mapEntry``() =
+    member this.``mapEntry test``() =
         let mp = Map.ofList [
                 "1"    , 1
                 "1.0"  , 1
@@ -63,7 +63,7 @@ type MapTest(output : ITestOutputHelper) =
         Should.equal y res
 
     [<Fact>]
-    member this.``test concat``() =
+    member this.``concat test``() =
         let mp1 = 
             Map.ofList [
                 "1"    , 1
@@ -87,7 +87,7 @@ type MapTest(output : ITestOutputHelper) =
         Should.equal y res
 
     [<Fact>]
-    member this.``test append``() =
+    member this.``append test``() =
         let mp1 = 
             [
                 "1"    , 1
@@ -107,7 +107,7 @@ type MapTest(output : ITestOutputHelper) =
         Should.equal y res
 
     [<Fact>]
-    member this.``test keys``() =
+    member this.``keys test``() =
         let mp1 = 
             [
                 "1"    , 1
@@ -198,3 +198,15 @@ type MapTest(output : ITestOutputHelper) =
 
         let y = Map.differenceByKey mp1 mp2
         Should.equal y (Map.ofList ["0",0])
+
+    [<Fact>]
+    member this.``inverse test``() =
+        let mp = 
+            Map [
+                "0"    , 0
+                "1"    , 1
+            ]
+        let y = mp |> Map.inverse
+        let e = Map ["0",[0];"1",[1]]
+        show y
+        Should.equal e y

@@ -51,7 +51,7 @@ let tryPrefix (pattern:string) =
     tryMatch re
 
 /// 匹配输入的最长前缀，没有向前看的附加条件
-let tryLongestPrefix (candidates:Set<string>) (input:string) =
+let tryLongestPrefix (candidates:#seq<string>) (input:string) =
     let rec loop i (maybe:string option) (rest:Set<string> ) =
         if input.Length > i then 
             let fltr =
@@ -67,8 +67,9 @@ let tryLongestPrefix (candidates:Set<string>) (input:string) =
                     | _ -> maybe
                 loop (i+1) maybe fltr
         else maybe
-    
-    loop 0 None candidates
+    candidates
+    |> Set.ofSeq
+    |> loop 0 None
     |> Option.map(fun elected -> 
         elected, input.[elected.Length..]
         )
