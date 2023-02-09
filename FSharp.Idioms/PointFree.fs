@@ -38,3 +38,5 @@ let cond (ls:(('a->bool)*('a->'b))list) x =
     with
     | Some transformer -> transformer x
     | _ -> failwith "cond fail because all false"
+
+let thunk x () = x

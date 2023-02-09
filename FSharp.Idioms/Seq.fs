@@ -1,5 +1,6 @@
 ﻿[<RequireQualifiedAccess>]
 module FSharp.Idioms.Seq
+open System
 
 let tap f (source:'a seq) =
     source
@@ -15,11 +16,14 @@ let tapi f (source:'a seq) =
         x
     )
 
-let rec makeSeq tryNext =
+let rec make tryNext =
     seq {
         match tryNext() with
         | None -> ()
         | Some x -> 
             yield x
-            yield! makeSeq tryNext
+            yield! make tryNext
     }
+
+[<Obsolete("Seq.make")>]
+let rec makeSeq tryNext = make tryNext

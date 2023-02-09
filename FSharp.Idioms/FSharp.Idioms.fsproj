@@ -11,8 +11,8 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
-    <Version>1.2.16</Version>
-    <PackageReleaseNotes>Map.inverse bug fix</PackageReleaseNotes>
+    <Version>1.2.18</Version>
+    <PackageReleaseNotes>update RetractableIterator &amp; Iterator</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/xp44mm/FSharp.Idioms</PackageProjectUrl>
     <PackageTags>fsharp;lib</PackageTags>
   </PropertyGroup>

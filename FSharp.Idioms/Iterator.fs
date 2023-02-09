@@ -1,20 +1,27 @@
 ﻿namespace FSharp.Idioms
 
+open System
 open System.Collections.Generic
 
 type Iterator<'a>(enumerator:IEnumerator<'a>) =
-    let mutable hasDone = false
+    let mutable moveNext = true
+
+    new(sq:seq<_>) = Iterator<_>(sq.GetEnumerator())
 
     member _.tryNext() =
-        if hasDone then
-            None
-        else
-            do hasDone <- not(enumerator.MoveNext())
-            if hasDone then
-                None
-            else
+        if moveNext then
+            if enumerator.MoveNext() then
                 Some enumerator.Current
+            else
+                moveNext <- false
+                None
+        else
+            None
 
+    member _.ongoing() = moveNext
+
+    /// rest to seq
+    [<Obsolete("Seq.make this.tryNext")>]
     member this.toSeq() =
         let rec loop () =
             seq {

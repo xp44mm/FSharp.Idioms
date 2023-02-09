@@ -120,3 +120,8 @@ type PointFreeTest(output: ITestOutputHelper) =
         Should.equal (fn 100)"water boils at 100°C"
 
 
+    [<Fact>]
+    member this.``011 thunk``() =
+        let fn = thunk 0
+        Should.equal (fn())  0
+
