@@ -16,9 +16,12 @@
     <Compile Include="SetTest.fs" />
     <Compile Include="MapTest.fs" />
     <Compile Include="GraphTest.fs" />
-    <Compile Include="ActivePatternsTest.fs" />
     <Compile Include="StringOpsTest.fs" />
     <Compile Include="RegularExpressionsTest.fs" />
+    <Compile Include="ActivePatternsTest.fs" />
+    <Compile Include="ComparisonActivePatternsTest.fs" />
+    <Compile Include="JsonStringTest.fs" />
+    <Compile Include="LineTest.fs" />
     <Compile Include="EnumTyepTest.fs" />
     <Compile Include="ArrayTypeTest.fs" />
     <Compile Include="ListTypeTest.fs" />
@@ -29,17 +32,17 @@
     <Compile Include="UnionTypeTest.fs" />
     <Compile Include="SeqTypeTest.fs" />
     <Compile Include="RetractableIteratorTest.fs" />
+    <Compile Include="PointFreeTest.fs" />
     <Compile Include="QueueTest.fs" />
     <Compile Include="BFS.fs" />
     <Compile Include="DFS.fs" />
-    <Compile Include="PointFreeTest.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="FSharp.Literals" Version="2.2.11" />
-    <PackageReference Include="FSharp.xUnit" Version="1.2.4" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
+    <PackageReference Include="FSharp.xUnit" Version="1.2.5" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
     <PackageReference Include="xunit" Version="2.4.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
       <PrivateAssets>all</PrivateAssets>
@@ -56,7 +59,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="7.0.0" />
+    <PackageReference Update="FSharp.Core" Version="7.0.200" />
   </ItemGroup>
 
 </Project>

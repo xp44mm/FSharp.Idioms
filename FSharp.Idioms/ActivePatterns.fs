@@ -1,12 +1,18 @@
-﻿[<AutoOpen>]
-module FSharp.Idioms.ActivePatterns
+﻿module FSharp.Idioms.ActivePatterns
+open FSharp.Idioms.RegularExpressions
+open System.Text.RegularExpressions
+open System
 
+//[<Obsolete>]
 let (|On|_|) f x = f x
+let (|Wild|) x = failwith $"Wild:{x}"
 
-let inline (|GE|_|) a x = if x >= a then Some() else None
-let inline (|GT|_|) a x = if x > a  then Some() else None
-let inline (|LE|_|) a x = if x <= a then Some() else None
-let inline (|LT|_|) a x = if x < a  then Some() else None
-let inline (|NE|_|) a x = if x <> a then Some() else None
-let inline (|EQ|_|) a x = if x = a  then Some() else None
-let inline (|Wild|) x = invalidArg "" "invalidArg" 
+let (|StartsWith|_|) = StringOps.tryStartsWith
+let (|First|_|) = StringOps.tryFirst
+let (|LongestPrefix|_|) = StringOps.tryLongestPrefix
+
+/// represents the first pattern match in a string.
+let (|Search|_|) = trySearch
+
+/// input:string -> Match
+let (|Rgx|_|) (pattern: string) = Regex(pattern) |> trySearch

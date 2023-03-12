@@ -11,8 +11,8 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
-    <Version>1.2.18</Version>
-    <PackageReleaseNotes>update RetractableIterator &amp; Iterator</PackageReleaseNotes>
+    <Version>1.2.23</Version>
+    <PackageReleaseNotes>Rgi</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/xp44mm/FSharp.Idioms</PackageProjectUrl>
     <PackageTags>fsharp;lib</PackageTags>
   </PropertyGroup>
@@ -27,11 +27,12 @@
     <Compile Include="Set.fs" />
     <Compile Include="Map.fs" />
     <Compile Include="Graph.fs" />
-    <Compile Include="ActivePatterns.fs" />
-    <Compile Include="StringOps.fs" />
     <Compile Include="RegularExpressions.fs" />
-    <Compile Include="Quotation.fs" />
+    <Compile Include="StringOps.fs" />
+    <Compile Include="ActivePatterns.fs" />
+    <Compile Include="JsonString.fs" />
     <Compile Include="Line.fs" />
+    <Compile Include="ComparisonActivePatterns.fs" />
 	  
     <Compile Include="FSharpModules.fs" />
     <Compile Include="EnumType.fs" />
@@ -46,13 +47,15 @@
     <Compile Include="ClassType.fs" />
 	  
     <Compile Include="Iterator.fs" />
+	  
     <Compile Include="RetractableIterator.fs" />
+	  
     <Compile Include="Queue.fs" />
     <Compile Include="PointFree.fs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="7.0.0" />
+    <PackageReference Update="FSharp.Core" Version="7.0.200" />
   </ItemGroup>
 
 </Project>

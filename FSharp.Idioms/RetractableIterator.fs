@@ -12,30 +12,34 @@ type RetractableIterator<'a>(enumerator:IEnumerator<'a>) =
 
     //当前值索引:tryNext的位置。
     let mutable forward = -1
-        
+
     new(sq:seq<_>) = RetractableIterator<_>(sq.GetEnumerator())
 
-    ///全部消费完成
-    [<Obsolete("not<|this.ongoing()")>]
-    member _.allDone() =
-         not moveNext && bufferQueue.Count = 0 // && forward = -1
+    /// 试探性地向前移动指针，向队尾方向，超出队则读取源序列，然后返回当前值。
+    member _.tryNext() =
+        if forward < bufferQueue.Count - 1 then
+            //说明forward在缓存队中
+            //读取缓存中的值，将当前值索引前进一位
+            forward <- forward + 1
+            Some bufferQueue.[forward]
 
-    member _.ongoing() = 
+        elif moveNext then
+            if enumerator.MoveNext() then
+                //取到值
+                let value = enumerator.Current
+                //添加进入缓存队
+                bufferQueue.Add(value)
+                forward <- forward + 1
+
+                Some value
+            else
+                moveNext <- false
+                None
+        else
+            None
+
+    member _.ongoing() =
         moveNext || bufferQueue.Count > 0
-
-    [<Obsolete("this.dequequeNothing()")>]
-    member _.restart() = 
-        forward <- -1
-
-    ///确定从预读的数据中消费一个数据
-    [<Obsolete("this.dequeueHead()")>]
-    member this.consume() =
-        this.dequeue(1) |> Seq.head
-
-    ///确定预读的数据被消费，按照给定的数量。
-    [<Obsolete("this.dequeue(count)")>]
-    member this.consume(count) = 
-        this.dequeue(count)
 
     /// 出队count个元素，指针置于队头
     member _.dequeue(count) =
@@ -58,51 +62,26 @@ type RetractableIterator<'a>(enumerator:IEnumerator<'a>) =
     member _.dequequeNothing() =
         forward <- -1
 
-    /// 试探性地向前移动指针，向队尾方向，超出队则读取源序列，然后返回当前值。
-    member _.tryNext() =
-        if forward < bufferQueue.Count - 1 then 
-            //说明forward在缓存队中
-            //读取缓存中的值，将当前值索引前进一位
-            forward <- forward + 1
-            Some bufferQueue.[forward]
-
-        elif moveNext then
-            if enumerator.MoveNext() then
-                //取到值
-                let value = enumerator.Current
-                //添加进入缓存队
-                bufferQueue.Add(value)
-                forward <- forward + 1
-
-                Some value
-            else
-                moveNext <- false
-                None
-        else
-            None
-
-
-        //elif moveNext = false then
-        //    None
-        //else
-        //    //todo:enumerator
-        //    let maybeE = iterator.tryNext()
-
-        //    match maybeE with
-        //    | Some value ->
-        //        //取到值后就添加进入缓存的末尾
-        //        bufferQueue.Add(value)
-        //        forward <- forward + 1
-        //    | None ->
-        //        // 更新iterator的状态，已经遍历完成。
-        //        moveNext <- true
-
-        //    maybeE
-
     member this.dequeueToCurrent() = this.dequeue(forward + 1)
 
     member this.dequeueBuffer() =
         this.dequeue(bufferQueue.Count)
+
+
+
+    [<Obsolete("this.dequequeNothing()")>]
+    member _.restart() =
+        forward <- -1
+
+    ///确定从预读的数据中消费一个数据
+    [<Obsolete("this.dequeueHead()")>]
+    member this.consume() =
+        this.dequeue(1) |> Seq.head
+
+    ///确定预读的数据被消费，按照给定的数量。
+    [<Obsolete("this.dequeue(count)")>]
+    member this.consume(count) =
+        this.dequeue(count)
 
     /// rest to seq include buffer
     [<Obsolete("Seq.make this.tryNext")>]
@@ -112,8 +91,13 @@ type RetractableIterator<'a>(enumerator:IEnumerator<'a>) =
             seq {
                 match this.tryNext() with
                 | None -> ()
-                | Some value -> 
+                | Some value ->
                     yield this.dequeueHead()
                     yield! loop ()
             }
         loop ()
+
+    ///全部消费完成
+    [<Obsolete("not(this.ongoing())")>]
+    member _.allDone() =
+         not moveNext && bufferQueue.Count = 0 // && forward = -1

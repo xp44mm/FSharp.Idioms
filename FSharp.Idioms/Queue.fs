@@ -1,8 +1,10 @@
 ﻿namespace FSharp.Idioms
 
+// forwards
+// backwards
 [<NoEquality; NoComparison>]
 type Queue<'a> =
-    | Queue of fs:'a list * bs:'a list
+    Queue of fs:'a list * bs:'a list
 
 [<RequireQualifiedAccess>]
 module Queue =
