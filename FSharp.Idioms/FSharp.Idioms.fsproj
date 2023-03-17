@@ -11,8 +11,8 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
-    <Version>1.2.23</Version>
-    <PackageReleaseNotes>Rgi</PackageReleaseNotes>
+    <Version>1.2.24</Version>
+    <PackageReleaseNotes>BufferIterator instead of RetractableIterator</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/xp44mm/FSharp.Idioms</PackageProjectUrl>
     <PackageTags>fsharp;lib</PackageTags>
   </PropertyGroup>
@@ -47,6 +47,10 @@
     <Compile Include="ClassType.fs" />
 	  
     <Compile Include="Iterator.fs" />
+	  
+    <Compile Include="BufferQueue.fs" />
+	  
+    <Compile Include="BufferIterator.fs" />
 	  
     <Compile Include="RetractableIterator.fs" />
 	  

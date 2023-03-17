@@ -10,6 +10,13 @@ let trySearch (re: Regex) (input:string) =
     else
         None
 
+let (|Search|_|) (re: Regex) = trySearch re
+
+/// represents the first pattern match in a string.
+let (|RegExp|_|) (pattern:string, options:RegexOptions) = 
+    Regex(pattern,options)
+    |> trySearch
+
 /// input:string -> Match
 let (|Rgx|_|) (pattern: string) = 
     Regex pattern
@@ -20,19 +27,13 @@ let (|Rgi|_|) (pattern:string) =
     Regex(pattern,RegexOptions.IgnoreCase)
     |> trySearch
 
-/// represents the first pattern match in a string.
-let (|RegExp|_|) (pattern:string, options:RegexOptions) = 
-    Regex(pattern,options)
-    |> trySearch
-
 /// the portion of the source string that follows the match.
 let follows (m:Match) = m.Result("$'")
 
 /// Substitutes the entire source string.
 let entire (m:Match) = m.Result("$_")
    
-[<Obsolete("RegExp or Rgi")>]
-let (|Search|_|) (re: Regex) = trySearch re
+//[<Obsolete("RegExp or Rgi")>]
 
 [<Obsolete("trySearch")>]
 let tryMatch (re: Regex) (input:string) =

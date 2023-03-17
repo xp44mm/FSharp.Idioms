@@ -4,6 +4,7 @@ open System.Collections.Generic
 open System
 
 ///类型`RetractableIterator`维持一个缓存队列，可以试探性地向前迭代数据元素。
+[<Obsolete("=> BufferIterator")>]
 type RetractableIterator<'a>(enumerator:IEnumerator<'a>) =
     let mutable moveNext = true
 

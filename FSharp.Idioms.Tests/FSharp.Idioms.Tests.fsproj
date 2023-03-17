@@ -32,6 +32,8 @@
     <Compile Include="UnionTypeTest.fs" />
     <Compile Include="SeqTypeTest.fs" />
     <Compile Include="RetractableIteratorTest.fs" />
+    <Compile Include="BufferQueueTest.fs" />
+    <Compile Include="BufferIteratorTest.fs" />
     <Compile Include="PointFreeTest.fs" />
     <Compile Include="QueueTest.fs" />
     <Compile Include="BFS.fs" />
