@@ -32,16 +32,20 @@ type BufferIterator<'a>(enumerator:IEnumerator<'a>) =
         moveNext || not bufferQueue.isEmpty
 
     /// 出队count个元素，缓存剩余的元素，仿佛它未读取。
-    member _.dequeue(count) = bufferQueue.dequeque(count)
+    member _.dequeue(count) = 
+        bufferQueue.dequeque(count)
 
     /// 出队0个元素，缓存剩余的元素，仿佛它未读取。
-    member _.dequequeNothing() = bufferQueue.dequequeNothing()
+    member _.dequequeNothing() = 
+        bufferQueue.dequequeNothing()
 
     /// 出队已经读取的元素，缓存剩余的元素，仿佛它未读取。
-    member this.dequeueToCurrent() = bufferQueue.dequeueToCurrent()
+    member this.dequeueToCurrent() = 
+        bufferQueue.dequeueToCurrent()
 
     /// 出队1个元素，缓存剩余的元素，仿佛它未读取。
-    member this.dequeueHead() = bufferQueue.dequeque(1)
+    member this.dequeueHead() = 
+        bufferQueue.dequeque(1)
 
 
 

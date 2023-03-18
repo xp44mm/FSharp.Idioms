@@ -42,12 +42,13 @@ type BufferQueue<'a>() =
         if count > getBackCount() then
             raise(invalidOp $"{nameof BufferQueue}:Not count enough queue.")
         else
+            let j = count - 1
             // get new forwards: bs -> fs
             let rec loop bs fs =
                 match bs with
                 | [] -> failwith $"{nameof BufferQueue}:never"
                 | (i,e)::bs -> 
-                    if count=i+1 then
+                    if j = i then
                         fs
                     else
                         loop bs (e::fs)

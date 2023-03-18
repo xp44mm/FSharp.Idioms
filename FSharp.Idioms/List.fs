@@ -48,7 +48,7 @@ let toJaggedMap (triples:('x*'y*'z) list) =
 
 let rec takeLast (ls) =
     match ls with
-    | [] -> failwith "List.takeLast from []"
+    | [] -> failwith $"{nameof List}:no found the last."
     | [_] -> ls
     | _ :: tail -> takeLast tail
 
@@ -76,7 +76,7 @@ let ofJaggedMap (mp:Map<'u,Map<'v,'w>>) =
     |> List.concat
 
 /// 取列表前面所有断言为真的项，加上第一个断言为假的项（如果有）
-[<System.Obsolete("")>]
+[<System.Obsolete("=>advanceWhile")>]
 let takeUntilNot (predicate:'t->bool) (ls:'t list) =
     let rec loop (acc:'t list) (ls:'t list) =
         match ls with
@@ -108,7 +108,7 @@ let advance n (ls:list<'t>) =
         | 0 -> target, source
         | _ ->
             match source with
-            | [] -> failwith "advance source is empty"
+            | [] -> failwith $"{nameof List}:n should < ls.length"
             | hd::tail-> loop (hd::target) tail (i-1)
     loop [] ls n
 
@@ -144,3 +144,11 @@ let depthFirstSort (nodes:Map<'t,'t list>) (start:'t) =
 
     loop [start] [start]
 
+/// 计算长度，并返回反向列表
+//todo:写测试代码
+let countRev ls =
+    let rec loop i acc rest =
+        match rest with
+        | [] -> i,acc
+        | h::t -> loop (i+1) (h::acc) t
+    loop 0 [] ls

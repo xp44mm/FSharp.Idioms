@@ -11,8 +11,8 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
-    <Version>1.2.24</Version>
-    <PackageReleaseNotes>BufferIterator instead of RetractableIterator</PackageReleaseNotes>
+    <Version>1.2.25</Version>
+    <PackageReleaseNotes>List.countRev</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/xp44mm/FSharp.Idioms</PackageProjectUrl>
     <PackageTags>fsharp;lib</PackageTags>
   </PropertyGroup>
