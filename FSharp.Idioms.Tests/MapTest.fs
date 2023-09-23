@@ -210,3 +210,15 @@ type MapTest(output : ITestOutputHelper) =
         let e = Map [0,["0"];1,["1"]]
         show y
         Should.equal e y
+
+    [<Theory>]
+    [<InlineData("1",1)>]
+    [<InlineData("x",-1)>]
+    member this.``getIndex``(k,exp) =
+        let mp = 
+            Map [
+                "0"    , 10
+                "1"    , 10
+            ]
+        let y = Map.getIndex k mp
+        Should.equal y exp

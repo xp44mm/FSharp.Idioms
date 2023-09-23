@@ -92,3 +92,9 @@ let inverse (mp:Map<'k,'v>) =
     |> Seq.map Pair.swap
     |> fromDuplicateKeys
     |> Map.map(fun k v -> List.ofSeq v)
+
+let getIndex k (mp:Map<'k,'v>) =
+    if mp.ContainsKey k then
+        mp
+        |> Seq.findIndex(fun p -> p.Key = k)
+    else -1

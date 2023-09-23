@@ -40,4 +40,13 @@ type SetTypeTest(output : ITestOutputHelper) =
         Should.equal ty typeof<int>
         Should.equal st [|box 1; box 2|]
 
+    [<Fact>]
+    member this.``HashSet``() =
+        let x = (box (set [1;2]))
+        let readSet = SetType.readSet typeof<Set<int>>
+        let ty, st = readSet x
+
+        Should.equal ty typeof<int>
+        Should.equal st [|box 1; box 2|]
+
 

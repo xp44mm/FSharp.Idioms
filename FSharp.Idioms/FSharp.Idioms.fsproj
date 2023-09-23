@@ -11,14 +11,16 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
-    <Version>1.2.25</Version>
-    <PackageReleaseNotes>List.countRev</PackageReleaseNotes>
+    <Version>1.3.1</Version>
+    <PackageReleaseNotes>Tsv module
+</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/xp44mm/FSharp.Idioms</PackageProjectUrl>
     <PackageTags>fsharp;lib</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Include="Memoization.fs" />
+    <Compile Include="Tsv.fs" />
     <Compile Include="Pair.fs" />
     <Compile Include="Triple.fs" />
     <Compile Include="Seq.fs" />
@@ -29,6 +31,7 @@
     <Compile Include="Graph.fs" />
     <Compile Include="RegularExpressions.fs" />
     <Compile Include="StringOps.fs" />
+    <Compile Include="OrdinalIgnoreCase.fs" />
     <Compile Include="ActivePatterns.fs" />
     <Compile Include="JsonString.fs" />
     <Compile Include="Line.fs" />
@@ -59,7 +62,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="7.0.200" />
+    <PackageReference Update="FSharp.Core" Version="7.0.400" />
   </ItemGroup>
 
 </Project>

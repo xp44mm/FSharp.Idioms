@@ -95,3 +95,8 @@ let combine2 st =
     )
     |> Set.unionMany
 
+let getIndex e st =
+    if Set.contains e st then
+        st
+        |> Seq.findIndex(fun x -> x = e)
+    else -1

@@ -48,16 +48,3 @@ type MapTypeTest(output : ITestOutputHelper) =
 
         Should.equal ty typeof<string*int>
         Should.equal values [| box("1", 1)|]
-
-
-
-
-
-
-
-
-
-
-
-
-

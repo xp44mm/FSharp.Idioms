@@ -137,3 +137,11 @@ type SetTest(output : ITestOutputHelper) =
 
         Should.equal y res
 
+    [<Theory>]
+    [<InlineData(2,2)>]
+    [<InlineData(5,-1)>]
+    member this.``getIndex``(elem,exp) =
+        let st = set [0..4]
+        let y = Set.getIndex elem st
+        Should.equal y exp
+
