@@ -81,22 +81,34 @@ let toUniqueJaggedMap (triples:Set<'x*'y*'z>) =
         x,mp)
     |> Map.ofSeq
 
-///集合中任意两个元素组合
-let combine2 st =
-    st
-    |> Set.map(fun x ->
-        st
-        |> Set.remove x
-        |> Set.map(fun y -> 
-            let a = min x y
-            let b = max x y
-            a,b
-        )
-    )
-    |> Set.unionMany
-
 let getIndex e st =
     if Set.contains e st then
         st
         |> Seq.findIndex(fun x -> x = e)
     else -1
+
+let allPairs (st1:Set<'T1>) (st2:Set<'T2>) =
+    let ls1 = st1 |> Set.toList
+    let ls2 = st2 |> Set.toList
+
+    List.allPairs ls1 ls2
+    |> Set.ofList
+
+///集合中任意两个元素的组合
+let combine2 st =
+    st
+    |> Set.map(fun x ->
+        st
+        |> Set.filter(fun y -> y > x)
+        |> Set.map(fun y -> 
+            x,y
+        )
+    )
+    |> Set.unionMany
+
+/// 叉幂
+let crosspower (n:int) (st:Set<'a>) =
+    st
+    |> Set.toList
+    |> List.crosspower n
+    |> Set.ofList

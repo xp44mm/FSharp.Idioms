@@ -11,7 +11,7 @@ module Triple =
     /// 最后两分量
     let lastTwo (x,y,z) = y,z
     /// 端点
-    let ends (x,y,z) = x,z
+    let bothEnds (x:'x,y:'y,z:'z) = x,z
     /// 中点
     let middle (x,y,z) = y
     

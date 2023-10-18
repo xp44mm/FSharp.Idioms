@@ -137,6 +137,21 @@ type SetTest(output : ITestOutputHelper) =
 
         Should.equal y res
 
+    [<Fact>]
+    member this.``allPairs``() =
+        let st = set [0..4]
+        let y = (st,st) ||> Set.allPairs
+        show y
+
+        let res = set [
+            0,0;0,1;0,2;0,3;0,4;
+            1,0;1,1;1,2;1,3;1,4;
+            2,0;2,1;2,2;2,3;2,4;
+            3,0;3,1;3,2;3,3;3,4;
+            4,0;4,1;4,2;4,3;4,4]
+
+        Should.equal y res
+
     [<Theory>]
     [<InlineData(2,2)>]
     [<InlineData(5,-1)>]

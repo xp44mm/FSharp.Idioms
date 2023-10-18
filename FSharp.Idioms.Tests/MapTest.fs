@@ -106,18 +106,18 @@ type MapTest(output : ITestOutputHelper) =
         let res = Map.ofList ["1",[1];"2",[2;2];"3",[3]]
         Should.equal y res
 
-    [<Fact>]
-    member this.``keys test``() =
-        let mp1 = 
-            [
-                "1"    , 1
-                "2"    , 2
-            ] |> Map.ofList
+    //[<Fact>]
+    //member this.``keys test``() =
+    //    let mp1 = 
+    //        [
+    //            "1"    , 1
+    //            "2"    , 2
+    //        ] |> Map.ofList
 
-        let y = Map.keys mp1
-        //show y
-        let res = set ["1";"2"]
-        Should.equal y res
+    //    let y = Map.keys mp1
+    //    //show y
+    //    let res = set ["1";"2"]
+    //    Should.equal y res
 
     [<Fact>]
     member this.``from interface``() =

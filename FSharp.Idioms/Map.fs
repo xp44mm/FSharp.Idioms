@@ -42,10 +42,14 @@ let concat (mps:#seq<Map<'k,'v>>) =
 let append (mp1:Map<'k,'v>) (mp2:Map<'k,'v>) =
     concat [mp1;mp2]
 
-/// 获取键的集合(Set)
-let keys (mp:Map<'k,'v>) =
-    let i = mp :> IDictionary<'k,'v>
-    i.Keys |> Set.ofSeq
+///// 获取键的集合(Set)
+//[<System.Obsolete("FSharp.Collections.Map.keys>>Set.ofSeq")>]
+//let keys (mp:Map<'k,'v>) =
+//    //let i = mp :> IDictionary<'k,'v>
+//    //i.Keys |> Set.ofSeq
+//    mp
+//    |> Map.keys
+//    |> Set.ofSeq
 
 /// 从词典接口创建Map
 let fromInterface (dict:IDictionary<'k,'v>) =
@@ -54,23 +58,23 @@ let fromInterface (dict:IDictionary<'k,'v>) =
     |> Map.ofSeq
 
 let keyIsSubset (mp1:Map<'k,_>) (mp2:Map<'k,_>) =
-    let k1 = keys mp1
-    let k2 = keys mp2
+    let k1 = mp1 |> Map.keys |> Set.ofSeq
+    let k2 = mp2 |> Map.keys |> Set.ofSeq
     Set.isSubset k1 k2
 
 let keyIsSuperset (mp1:Map<'k,_>) (mp2:Map<'k,_>) =
-    let k1 = keys mp1
-    let k2 = keys mp2
+    let k1 = mp1 |> Map.keys |> Set.ofSeq
+    let k2 = mp2 |> Map.keys |> Set.ofSeq
     Set.isSuperset k1 k2
 
 let keyIsEqual (mp1:Map<'k,_>) (mp2:Map<'k,_>) =
-    let k1 = keys mp1
-    let k2 = keys mp2
+    let k1 = mp1 |> Map.keys |> Set.ofSeq
+    let k2 = mp2 |> Map.keys |> Set.ofSeq
     k1 = k2
 
 let intersectByKey (mp1:Map<'k,_>) (mp2:Map<'k,_>) =
-    let k1 = keys mp1
-    let k2 = keys mp2
+    let k1 = mp1 |> Map.keys |> Set.ofSeq
+    let k2 = mp2 |> Map.keys |> Set.ofSeq
     let kk = Set.intersect k1 k2
     
     let ls1 = mp1 |> Map.filter(fun k v -> kk.Contains k) |> Map.toList
@@ -80,8 +84,8 @@ let intersectByKey (mp1:Map<'k,_>) (mp2:Map<'k,_>) =
     |> List.map(fun ((k1,v1),(_,v2))-> k1,(v1,v2))
     
 let differenceByKey (mp1:Map<'k,_>) (mp2:Map<'k,_>) =
-    let k1 = keys mp1
-    let k2 = keys mp2
+    let k1 = mp1 |> Map.keys |> Set.ofSeq
+    let k2 = mp2 |> Map.keys |> Set.ofSeq
     let kk = k1 |> Set.difference <| k2
 
     mp1 |> Map.filter(fun k v -> kk.Contains k)

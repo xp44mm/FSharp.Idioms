@@ -19,7 +19,7 @@ let disjoint (sets:Set<Set<'a>>) =
 
 ///根据pairs提供的推理关系，从右侧开始计算，不断用右側的子集（已知）填充左側的超集(FST)
 let rec propagate<'a when 'a:comparison> (result:Map<'a,Set<'a>>) (pairs:Set<'a*'a>) =
-    let resultKeys = result |> Map.keys
+    let resultKeys = result |> Map.keys |> Set.ofSeq
     let leftElements = pairs |> Set.map fst
     let rightElements = pairs |> Set.map snd
 

@@ -15,7 +15,6 @@ let tapi f (source:'a list) =
         x
     )
 
-
 let ofRevArray (source:'a []) =
     let rec loop ls i =
         if i < source.Length then
@@ -115,7 +114,6 @@ let advance n (ls:list<'t>) =
 /// n 个元素取出2元素，组合
 //let combination2 = List.allPairs = crossProduct = Cartesian
 
-
 ///返回符号的深度优先顺序列表。
 let depthFirstSort (nodes:Map<'t,'t list>) (start:'t) =
     let rec loop (discovered:list<'t>) (unfinished:list<'t>) =
@@ -152,3 +150,37 @@ let countRev ls =
         | [] -> i,acc
         | h::t -> loop (i+1) (h::acc) t
     loop 0 [] ls
+
+///分割字符串如：abcbcde会被c分解成[ab][c][b][c][de]
+let splitBy (symbol:'a) (prodBody:'a list) :'a list list =
+    let newGroups groups group =
+        match group with
+        | [] -> groups
+        | _ -> (List.rev group)::groups
+
+    let rec loop (groups:'a list list) (group:'a list) (body:'a list) =
+        match body with
+        | [] ->
+            List.rev (newGroups groups group)
+        | h::t ->
+            if h = symbol then
+                let groups = [h]::newGroups groups group
+                loop groups [] t
+            else
+                loop groups (h::group) t
+
+    loop [] [] prodBody
+
+/// 叉幂
+let crosspower n (ls:list<'a >) =
+    let rec loop n (acc:list< list<'a >>) =
+        if n > 1 then
+            let acc = 
+                List.allPairs acc ls
+                |> List.map(fun (ls, a) -> ls @ [a])
+            loop (n-1) acc
+        else
+            acc
+    ls
+    |> List.map(fun a -> [a])
+    |> loop n

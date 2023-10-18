@@ -25,5 +25,6 @@ let rec make tryNext =
             yield! make tryNext
     }
 
-[<Obsolete("Seq.make")>]
+[<Obsolete("FSharp.Idioms.Seq.make")>]
 let rec makeSeq tryNext = make tryNext
+

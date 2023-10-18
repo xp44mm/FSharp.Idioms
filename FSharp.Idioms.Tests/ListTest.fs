@@ -5,11 +5,18 @@ open Xunit.Abstractions
 open FSharp.Literals
 open FSharp.xUnit
 
-type ListTest(output : ITestOutputHelper) =
+type ListTest(output:ITestOutputHelper) =
     let show res = 
         res 
         |> Render.stringify
         |> output.WriteLine
+
+    //static let splitData = [
+    //    {|body=[];symbol="x";res=[]|}
+    //    {|body=["y"];symbol="x";res=["y"]|}
+    //    {|body=["y"];symbol="x";res=["y"]|}
+    //]
+
     [<Fact>]
     member this.``Pair List toMap``() =
         // 有重复键
@@ -209,3 +216,83 @@ type ListTest(output : ITestOutputHelper) =
         let es = [1;2;3;4;5]
         Should.equal count 5
         Should.equal ys es
+
+
+    [<Fact>]
+    member _.``empty test`` () =
+        let y = List.splitBy "x" []
+        Should.equal [] y
+
+    [<Fact>]
+    member _.``splitBy noexists test`` () =
+        let y = List.splitBy "x" ["y"]
+        Should.equal [["y"]] y
+
+    [<Fact>]
+    member _.``splitBy noexists 2 test`` () =
+        let y = List.splitBy "x" ["a";"y"]
+        Should.equal [["a";"y"]] y
+
+    [<Fact>]
+    member _.``splitBy exists 1 test`` () =
+        let y = List.splitBy "x" ["x"]
+        Should.equal [["x"]] y
+
+    [<Fact>]
+    member _.``splitBy exists abc a test`` () =
+        let y = List.splitBy "a" ["a";"b";"c"]
+        Should.equal [["a"];["b";"c"]] y
+
+    [<Fact>]
+    member _.``splitBy exists abc b test`` () =
+        let y = List.splitBy "b" ["a";"b";"c"]
+        Should.equal [["a"];["b"];["c"]] y
+
+    [<Fact>]
+    member _.``splitBy exists abc c test`` () =
+        let y = List.splitBy "c" ["a";"b";"c"]
+        Should.equal [["a";"b"];["c"]] y
+
+    [<Fact>]
+    member _.``splitBy exists abccb b test`` () =
+        let y = List.splitBy "b" ["a";"b";"c";"c";"b"]
+        Should.equal [["a"];["b"];["c";"c"];["b"]] y
+
+    [<Fact>]
+    member _.``splitBy exists abccb c test`` () =
+        let y = List.splitBy "c" ["a";"b";"c";"c";"b"]
+        Should.equal [["a";"b"];["c"];["c"];["b"]] y
+
+    [<Fact>]
+    member _.``crosspower abcd test`` () =
+        let a = [["a";"b"];["c";"d"];]
+
+        let y1 = List.crosspower 1 a
+        let e1 = [
+            [["a";"b"]]
+            [["c";"d"]]
+            ]
+
+        Should.equal e1 y1
+
+        let y2 = List.crosspower 2 a
+        let e2 = [
+            [["a";"b"];["a";"b"]]
+            [["a";"b"];["c";"d"]]
+            [["c";"d"];["a";"b"]]
+            [["c";"d"];["c";"d"]]
+            ]
+
+        let y3 = List.crosspower 3 a
+        let e3 =[
+            [["a";"b"];["a";"b"];["a";"b"]];
+            [["a";"b"];["a";"b"];["c";"d"]];
+            [["a";"b"];["c";"d"];["a";"b"]];
+            [["a";"b"];["c";"d"];["c";"d"]];
+            [["c";"d"];["a";"b"];["a";"b"]];
+            [["c";"d"];["a";"b"];["c";"d"]];
+            [["c";"d"];["c";"d"];["a";"b"]];
+            [["c";"d"];["c";"d"];["c";"d"]]]
+
+        show y3
+        Should.equal e3 y3
