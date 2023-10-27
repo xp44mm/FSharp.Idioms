@@ -11,11 +11,12 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
-    <Version>1.3.4</Version>
-    <PackageReleaseNotes>bothEnds
+    <Version>1.4.0</Version>
+    <PackageReleaseNotes>merge FSharp.Literals
 </PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/xp44mm/FSharp.Idioms</PackageProjectUrl>
     <PackageTags>fsharp;lib</PackageTags>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,7 +24,6 @@
     <Compile Include="Tsv.fs" />
     <Compile Include="Pair.fs" />
     <Compile Include="Triple.fs" />
-    <Compile Include="Seq.fs" />
     <Compile Include="List.fs" />
     <Compile Include="Array.fs" />
     <Compile Include="Set.fs" />
@@ -33,8 +33,9 @@
     <Compile Include="StringOps.fs" />
     <Compile Include="OrdinalIgnoreCase.fs" />
     <Compile Include="ActivePatterns.fs" />
-    <Compile Include="JsonString.fs" />
     <Compile Include="Line.fs" />
+    <Compile Include="JsonString.fs" />
+    <Compile Include="FSharpCodeUtils.fs" />
     <Compile Include="ComparisonActivePatterns.fs" />
 	  
     <Compile Include="FSharpModules.fs" />
@@ -51,18 +52,59 @@
 	  
     <Compile Include="Iterator.fs" />
 	  
+    <Compile Include="Seq.fs" />
+	  
     <Compile Include="BufferQueue.fs" />
 	  
     <Compile Include="BufferIterator.fs" />
 	  
-    <Compile Include="RetractableIterator.fs" />
-	  
     <Compile Include="Queue.fs" />
     <Compile Include="PointFree.fs" />
+    <Compile Include="Literals\TypePrinter.fs" />
+    <Compile Include="Literals\TypeRender.fs" />
+    <Compile Include="Literals\ParenRender.fs" />
+    <Compile Include="Literals\Render.fs" />
+    <Compile Include="Literal.fs" />
+
+    <Compile Include="Parsers\PrimitiveType.fs" />
+    <Compile Include="Parsers\ParseInteger.fs" />
+    <Compile Include="Parsers\PrimitiveParser.fs" />
+    <Compile Include="DefaultValues\ArrayDefaultValue.fs" />
+    <Compile Include="DefaultValues\DateTimeOffsetDefaultValue.fs" />
+    <Compile Include="DefaultValues\DBNullDefaultValue.fs" />
+    <Compile Include="DefaultValues\EnumDefaultValue.fs" />
+    <Compile Include="DefaultValues\GuidDefaultValue.fs" />
+    <Compile Include="DefaultValues\ListDefaultValue.fs" />
+    <Compile Include="DefaultValues\MapDefaultValue.fs" />
+    <Compile Include="DefaultValues\NullableDefaultValue.fs" />
+    <Compile Include="DefaultValues\OptionDefaultValue.fs" />
+    <Compile Include="DefaultValues\RecordDefaultValue.fs" />
+    <Compile Include="DefaultValues\SetDefaultValue.fs" />
+    <Compile Include="DefaultValues\TimeSpanDefaultValue.fs" />
+    <Compile Include="DefaultValues\TupleDefaultValue.fs" />
+    <Compile Include="DefaultValues\UnionDefaultValue.fs" />
+    <Compile Include="DefaultValues\UriDefaultValue.fs" />
+    <Compile Include="DefaultValues\DefaultValues.fs" />
+    <Compile Include="DefaultValues\DefaultValueDriver.fs" />
+    <Compile Include="DefaultValueUtils.fs" />
+    <Compile Include="Prototypes\CrewInfo.fs" />
+    <Compile Include="Prototypes\PrototypeAssembly.fs" />
+    <Compile Include="Prototypes\CrewInfoUtils.fs" />
+    <Compile Include="Prototypes\RecursGenerators.fs" />
+    <Compile Include="Prototypes\RenderMembersGenerators.fs" />
+
+
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="7.0.400" />
+    <None Include="..\readme.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="FSharp.Core" Version="7.0.401" />
   </ItemGroup>
 
 </Project>

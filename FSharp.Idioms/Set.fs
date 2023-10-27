@@ -112,3 +112,31 @@ let crosspower (n:int) (st:Set<'a>) =
     |> Set.toList
     |> List.crosspower n
     |> Set.ofList
+
+///返回符号的深度优先顺序列表。
+let depthFirstSort (nodes:Map<'t,Set<'t>>) (start:'t) =
+    let rec loop (discovered:list<'t>) (unfinished:list<'t>) =
+        //Console.WriteLine(stringify (discovered,unfinished))
+        match unfinished with
+        | [] -> discovered |> List.rev
+        | current::tail ->
+            match
+                if nodes.ContainsKey current then
+                    nodes.[current]
+                    |> Seq.tryFind(fun x ->
+                        discovered
+                        |> Set.ofList
+                        |> Set.contains x
+                        |> not
+                    )
+                else None
+            with
+            | Some next ->
+                //发现next立即加入discovered
+                //next加入unfinished继续查找自己的下一个
+                loop (next::discovered) (next::unfinished)
+            | None ->
+                //currnet丢弃即可。在next时已经加入discovered，切勿重复加入。
+                loop discovered tail
+
+    loop [start] [start]

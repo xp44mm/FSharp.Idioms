@@ -34,21 +34,32 @@
     <Compile Include="RecordTypeTest.fs" />
     <Compile Include="UnionTypeTest.fs" />
     <Compile Include="SeqTypeTest.fs" />
-    <Compile Include="RetractableIteratorTest.fs" />
     <Compile Include="BufferQueueTest.fs" />
     <Compile Include="BufferIteratorTest.fs" />
     <Compile Include="PointFreeTest.fs" />
     <Compile Include="QueueTest.fs" />
     <Compile Include="BFS.fs" />
     <Compile Include="DFS.fs" />
+    <Compile Include="StringLiteralTest.fs" />
+    <Compile Include="Literals\FSharpEscapeSequenceTest.fs" />
+    <Compile Include="Literals\IEqualityComparerTest.fs" />
+    <Compile Include="Literals\RequireQualifiedAccessTest.fs" />
+    <Compile Include="Literals\TypeRenderTest.fs" />
+    <Compile Include="Literals\RenderTest.fs" />
+    <Compile Include="Literals\DateTimeTest.fs" />
+    <Compile Include="PrimitiveParserTest.fs" />
+    <Compile Include="DefaultValues\DefaultValueFallbackTest.fs" />
+    <Compile Include="DefaultValues\RecordTest.fs" />
+    <Compile Include="DefaultValues\UnionTest.fs" />
+    <Compile Include="DefaultValues\MainDefaultValueTest.fs" />
+
     <Compile Include="Program.fs" />
   </ItemGroup>
 
   <ItemGroup />
 
   <ItemGroup>
-    <PackageReference Include="FSharp.Literals" Version="2.2.15" />
-    <PackageReference Include="FSharp.xUnit" Version="1.2.12" />
+    <PackageReference Include="FSharp.xUnit" Version="1.2.13" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
     <PackageReference Include="xunit" Version="2.5.3" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3">
@@ -66,7 +77,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="7.0.400" />
+    <PackageReference Update="FSharp.Core" Version="7.0.401" />
   </ItemGroup>
 
 </Project>

@@ -3,7 +3,6 @@ open FSharp.Idioms.RegularExpressions
 open System.Text.RegularExpressions
 open System
 
-//[<Obsolete>]
 let (|On|_|) f x = f x
 let (|Wild|) x = failwith $"Wild:{x}"
 

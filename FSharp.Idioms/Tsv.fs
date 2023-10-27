@@ -22,6 +22,7 @@ let getFieldTitles (rows:string[][]) =
     rows.[0]
     |> Array.mapi(fun i s -> s,i)
     |> Map.ofArray
+
 /// get string value
 let getValue (titles:Map<string,int>) title (row:string[]) = 
     row.[titles.[title]]

@@ -3,7 +3,7 @@
 open Xunit
 open Xunit.Abstractions
 
-open FSharp.Literals
+open FSharp.Idioms.Literals
 open FSharp.xUnit
 
 type PairTest(output: ITestOutputHelper) =

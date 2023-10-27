@@ -4,10 +4,10 @@ open System.IO
 
 open Xunit
 open Xunit.Abstractions
-open FSharp.Literals
 open FSharp.xUnit
 
-open FSharp.Literals.Literal
+open FSharp.Idioms.Literals
+open FSharp.Idioms.Literal
 
 type TsvTest(output : ITestOutputHelper) =
     let path = Path.Combine(__SOURCE_DIRECTORY__,"flange.tsv")

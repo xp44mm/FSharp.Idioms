@@ -2,7 +2,6 @@
 
 open Xunit
 open Xunit.Abstractions
-open FSharp.Literals
 open FSharp.Idioms.Memoization
 
 type MemoizationTest(output: ITestOutputHelper) =

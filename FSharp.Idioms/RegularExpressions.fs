@@ -33,7 +33,6 @@ let follows (m:Match) = m.Result("$'")
 /// Substitutes the entire source string.
 let entire (m:Match) = m.Result("$_")
    
-//[<Obsolete("RegExp or Rgi")>]
 
 [<Obsolete("trySearch")>]
 let tryMatch (re: Regex) (input:string) =

@@ -2,7 +2,7 @@
 
 open Xunit
 open Xunit.Abstractions
-open FSharp.Literals
+open FSharp.Idioms.Literals
 
 type SeqTypeTest(output: ITestOutputHelper) =
 

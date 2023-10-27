@@ -1,5 +1,4 @@
-﻿//[<AutoOpen>]
-module FSharp.Idioms.StringOps
+﻿module FSharp.Idioms.StringOps
 
 open System
 open System.Text.RegularExpressions
@@ -9,13 +8,15 @@ let (==) a b = StringComparer.OrdinalIgnoreCase.Equals(a,b)
 let (!=) a b = not(a == b)
 
 let ( ** ) str i = String.replicate i str
+
+[<Obsolete("Line.space")>]
 let space i = " " ** i
 
-let space4 i = space (4*i)
+[<Obsolete("Line.space4")>]
+let space4 i = " " ** (4*i)
 
-[<Obsolete(nameof space4)>]
-let indent i = space (4*i)
-
+[<Obsolete("Line.space4")>]
+let indent i = " " ** (4*i)
 
 /// 匹配输入的开始字符串
 let tryStartsWith (value:string) (inp:string) =
@@ -57,9 +58,6 @@ let tryLongestPrefix (candidates:#seq<string>) (input:string) =
     candidates
     |> Set.ofSeq
     |> loop 0 None
-    //|> Option.map(fun elected -> 
-    //    elected, input.[elected.Length..]
-    //    )
     
 [<Obsolete(nameof RegularExpressions.trySearch)>]
 let tryRegexMatch (re: Regex) (input:string) = 

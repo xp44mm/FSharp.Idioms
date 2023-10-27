@@ -2,7 +2,7 @@ namespace FSharp.Idioms
 
 open Xunit
 open Xunit.Abstractions
-open FSharp.Literals
+open FSharp.Idioms.Literals
 open FSharp.xUnit
 open System.Collections.Generic
 
@@ -31,9 +31,9 @@ type SetTest(output : ITestOutputHelper) =
     member this.``unionByKey``() =
         let mp = 
             [
-                1,set[1;2]; 
-                1,set[3;4];
-                2,set[5;6]
+                1,set [1;2]; 
+                1,set [3;4];
+                2,set [5;6]
             ]
 
         let expected = set [

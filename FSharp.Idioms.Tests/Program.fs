@@ -1,7 +1,7 @@
 module FSharp.Idioms.Program
 
 open System
-open FSharp.Literals.Literal
+open FSharp.Idioms.Literal
 open System.IO
 
 let str a b c = sprintf "%s%s%s" a b c

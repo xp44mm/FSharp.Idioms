@@ -2,6 +2,11 @@
 
 open System.Text.RegularExpressions
 open ActivePatterns
+open FSharp.Idioms.StringOps
+
+let space i (s:string) = " " ** i + s
+
+let space4 i (s:string) = space (4*i) s
 
 /// 行位置，行，数量包括结尾的\n，行的内容。
 let splitLines(text:string) =
@@ -59,7 +64,6 @@ let getColumnAndLpos (lpos:int, linp:string) (pos:int) =
     //fst:pos对应的列数，snd:pos的下一行开始位置。
     loop lpos
 
-
 /// 每行开始的空格数
 let startSpaces lines =
     lines
@@ -69,8 +73,7 @@ let startSpaces lines =
 /// 各行同时缩进
 /// spaces: 行首将要新增的空格个数
 let indentCodeBlock (spaces:int) (codeBlock:string) =
-    let spaces = StringOps.space spaces
     codeBlock
     |> splitLines
-    |> Seq.map(fun (_,line) -> spaces+line)
+    |> Seq.map(fun (_,line) -> line |> space spaces)
     |> String.concat ""

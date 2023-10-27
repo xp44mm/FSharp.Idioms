@@ -2,7 +2,7 @@
 
 open Xunit
 open Xunit.Abstractions
-open FSharp.Literals
+open FSharp.Idioms.Literals
 open FSharp.xUnit
 
 type GraphTest(output : ITestOutputHelper) =
@@ -23,8 +23,8 @@ type GraphTest(output : ITestOutputHelper) =
         //合并有共同元素的集合元素
         let expected =
             set [
-                set[1;2];
-                set[3;4;5]
+                set [1;2];
+                set [3;4;5]
             ]
         let res = Graph.disjoint pairs
         Should.equal expected res

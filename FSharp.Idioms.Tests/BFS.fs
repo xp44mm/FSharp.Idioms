@@ -27,7 +27,7 @@ type Vertex = {
 }
 
 open System
-open FSharp.Literals
+open FSharp.Idioms.Literals
 
 // 初始化无向图
 let initializeVertices (vertices:list<char>) =

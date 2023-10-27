@@ -1,7 +1,7 @@
 ﻿module FSharp.Idioms.DFS
 
 open System
-open FSharp.Literals
+open FSharp.Idioms.Literals
 
 //有向图
 let adjacency<'c when 'c:comparison> (u:'c) (graph:list<'c*'c>) =
@@ -38,7 +38,7 @@ let initializeVertices(graph:list<'c*'c>) =
     getVertices graph
     |> List.map(fun v -> {
             tag= v
-            pi= Literal.defaultValue<'c>
+            pi= DefaultValueUtils.defaultValue<'c>
             color= White
             d = 0
             f = 0
