@@ -2,14 +2,13 @@ namespace FSharp.Idioms
 
 open Xunit
 open Xunit.Abstractions
-open FSharp.Idioms.Literals
 open FSharp.xUnit
 open System.Collections.Generic
 
 type SetTest(output : ITestOutputHelper) =
     let show res = 
         res 
-        |> Render.stringify
+        |> Literal.stringify
         |> output.WriteLine
 
     [<Fact>]

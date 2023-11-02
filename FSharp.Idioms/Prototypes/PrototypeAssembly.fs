@@ -1,11 +1,8 @@
 ﻿module FSharp.Idioms.Prototypes.PrototypeAssembly
 
 open FSharp.Reflection
-open FSharp.Idioms.Literal
 
 open System
-open System.Text.RegularExpressions
-open System.Collections.Generic
 open System.Reflection
 
 let getNamespaces (dllFilePath) =

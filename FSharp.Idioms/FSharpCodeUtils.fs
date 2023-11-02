@@ -8,6 +8,13 @@ open System
 let isIdentifier (tok:string) =
     Regex.IsMatch(tok,@"^[\w-[\d]][\w']*$")
 
+/// 如果需要，浮点数给整数加小数点
+let decimalPoint (s:string) =
+    if s.Contains "." || s.Contains "E" || s.Contains "e" then
+        s
+    else
+        s + ".0"
+
 let unescapeChar c =     
     match c with
     | '\\' -> @"\\"
@@ -37,6 +44,14 @@ let toCharLiteral c =
     if c = '\'' then @"\'" else unescapeChar c
     |> sprintf "'%s'"
 
-//表达式不加括號環境優先級設爲0，必加括號環境優先級設爲一个肯定是最大的数字
-let putparen (precContext:int) (precExpr:int) (expr:string) =
-    if precExpr > precContext then expr else "(" + expr + ")"
+
+let getGenericTypeName (type_name:string) =
+    match type_name.Split('`').[0] with
+    | "Void"         -> "unit"
+    | "FSharpOption" -> "option"
+    | "FSharpList"   -> "list"
+    | "IEnumerable"  -> "seq"
+    | "FSharpSet"    -> "Set"
+    | "FSharpMap"    -> "Map"
+    | "List"         -> "ResizeArray"
+    | name -> name

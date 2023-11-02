@@ -8,7 +8,7 @@ open FSharp.xUnit
 type TripleTest(output : ITestOutputHelper) =
     let show res = 
         res 
-        |> Render.stringify
+        |> Literal.stringify
         |> output.WriteLine
 
     [<Fact>]

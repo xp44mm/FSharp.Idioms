@@ -4,8 +4,8 @@ open FSharp.Reflection
 open FSharp.Idioms.Literal
 
 open System
-open System.Text.RegularExpressions
 open System.Collections.Generic
+open System.Text.RegularExpressions
 open System.Reflection
 
 /// 第一行的声明

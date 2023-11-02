@@ -11,9 +11,8 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
-    <Version>1.4.0</Version>
-    <PackageReleaseNotes>merge FSharp.Literals
-</PackageReleaseNotes>
+    <Version>1.4.2</Version>
+    <PackageReleaseNotes>Literal</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/xp44mm/FSharp.Idioms</PackageProjectUrl>
     <PackageTags>fsharp;lib</PackageTags>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
@@ -60,33 +59,20 @@
 	  
     <Compile Include="Queue.fs" />
     <Compile Include="PointFree.fs" />
+    <Compile Include="Literals\Paren.fs" />
     <Compile Include="Literals\TypePrinter.fs" />
-    <Compile Include="Literals\TypeRender.fs" />
-    <Compile Include="Literals\ParenRender.fs" />
-    <Compile Include="Literals\Render.fs" />
+    <Compile Include="Literals\TypePrinterImpls.fs" />
+    <Compile Include="Literals\TypePrinterUtils.fs" />
+    <Compile Include="Literals\ValuePrinter.fs" />
+    <Compile Include="Literals\ValuePrinterImpls.fs" />
+    <Compile Include="Literals\ValuePrinterUtils.fs" />
+    <Compile Include="DefaultValues\DefaultValueGetter.fs" />
+    <Compile Include="DefaultValues\DefaultValueGetters.fs" />
+    <Compile Include="DefaultValues\DefaultValueGetterUtils.fs" />
     <Compile Include="Literal.fs" />
-
     <Compile Include="Parsers\PrimitiveType.fs" />
     <Compile Include="Parsers\ParseInteger.fs" />
     <Compile Include="Parsers\PrimitiveParser.fs" />
-    <Compile Include="DefaultValues\ArrayDefaultValue.fs" />
-    <Compile Include="DefaultValues\DateTimeOffsetDefaultValue.fs" />
-    <Compile Include="DefaultValues\DBNullDefaultValue.fs" />
-    <Compile Include="DefaultValues\EnumDefaultValue.fs" />
-    <Compile Include="DefaultValues\GuidDefaultValue.fs" />
-    <Compile Include="DefaultValues\ListDefaultValue.fs" />
-    <Compile Include="DefaultValues\MapDefaultValue.fs" />
-    <Compile Include="DefaultValues\NullableDefaultValue.fs" />
-    <Compile Include="DefaultValues\OptionDefaultValue.fs" />
-    <Compile Include="DefaultValues\RecordDefaultValue.fs" />
-    <Compile Include="DefaultValues\SetDefaultValue.fs" />
-    <Compile Include="DefaultValues\TimeSpanDefaultValue.fs" />
-    <Compile Include="DefaultValues\TupleDefaultValue.fs" />
-    <Compile Include="DefaultValues\UnionDefaultValue.fs" />
-    <Compile Include="DefaultValues\UriDefaultValue.fs" />
-    <Compile Include="DefaultValues\DefaultValues.fs" />
-    <Compile Include="DefaultValues\DefaultValueDriver.fs" />
-    <Compile Include="DefaultValueUtils.fs" />
     <Compile Include="Prototypes\CrewInfo.fs" />
     <Compile Include="Prototypes\PrototypeAssembly.fs" />
     <Compile Include="Prototypes\CrewInfoUtils.fs" />

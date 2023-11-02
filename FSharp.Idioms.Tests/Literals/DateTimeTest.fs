@@ -4,6 +4,7 @@ open Xunit
 open Xunit.Abstractions
 open System
 open System.Reflection
+open FSharp.Idioms
 
 type DateTimeTest(output: ITestOutputHelper) =
 
@@ -61,7 +62,7 @@ type DateTimeTest(output: ITestOutputHelper) =
         output.WriteLine(
             mins
             |> Array.toList
-            |> ParenRender.instanceToString 0 typeof<uint64 list>
+            |> Literal.stringifyDynamic typeof<uint64 list>
         )
 
         let len ul =

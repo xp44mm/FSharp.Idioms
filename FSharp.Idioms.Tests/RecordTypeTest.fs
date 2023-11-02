@@ -2,7 +2,7 @@
 
 open Xunit
 open Xunit.Abstractions
-open FSharp.Idioms.Literals
+open FSharp.Idioms
 open FSharp.xUnit
 
 type Person = { name : string; age : int }
@@ -10,7 +10,7 @@ type Person = { name : string; age : int }
 type RecordTypeTest(output : ITestOutputHelper) =
     let show res = 
         res 
-        |> Render.stringify
+        |> Literal.stringify
         |> output.WriteLine
 
     [<Fact>]

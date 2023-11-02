@@ -9,10 +9,10 @@ open System.Text.RegularExpressions
 open FSharp.Idioms.ActivePatterns
 
 type ActivePatternsTest(output : ITestOutputHelper) =
-    let show res =
-        res
-        |> Render.stringify
-        |> output.WriteLine
+    //let show res =
+    //    res
+    //    |> ValuePrinterUtils.stringify
+    //    |> output.WriteLine
 
     [<Fact>]
     member this.``on``() =

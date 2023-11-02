@@ -9,12 +9,12 @@ type MainDefaultValueTest(output: ITestOutputHelper) =
     [<Fact>]
     member this.``char dynamic test``() =
         let x = typeof<char>
-        let y = DefaultValueUtils.defaultValueDynamic x :?> char
+        let y = Literal.defaultValueDynamic x :?> char
         Should.equal y '\u0000'
 
     [<Fact>]
     member this.``char test``() =
         let x = typeof<char>
-        let y = DefaultValueUtils.defaultValue<char>
+        let y = Literal.defaultValue<char>
         Should.equal y '\u0000'
 

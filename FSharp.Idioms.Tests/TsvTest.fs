@@ -6,7 +6,6 @@ open Xunit
 open Xunit.Abstractions
 open FSharp.xUnit
 
-open FSharp.Idioms.Literals
 open FSharp.Idioms.Literal
 
 type TsvTest(output : ITestOutputHelper) =

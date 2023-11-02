@@ -2,7 +2,6 @@
 
 open Xunit
 open Xunit.Abstractions
-open FSharp.Idioms.Literals
 open FSharp.xUnit
 open System
 open System.Text.RegularExpressions
@@ -12,7 +11,7 @@ open ComparisonActivePatterns
 type ComparisonActivePatternsTest(output : ITestOutputHelper) =
     let show res =
         res
-        |> Render.stringify
+        |> Literal.stringify
         |> output.WriteLine
 
     [<Fact>]

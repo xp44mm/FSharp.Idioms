@@ -2,7 +2,7 @@
 
 open Xunit
 open Xunit.Abstractions
-open FSharp.Idioms.Literals
+open FSharp.Idioms
 
 type SeqTypeTest(output: ITestOutputHelper) =
 
@@ -30,6 +30,6 @@ type SeqTypeTest(output: ITestOutputHelper) =
                 while(mMoveNext.Invoke(enumerator,[||])|>unbox<bool>) do
                     yield pCurrent.GetValue(enumerator)
             |]
-        Render.stringify arr
+        Literal.stringify arr
         |> output.WriteLine
 
