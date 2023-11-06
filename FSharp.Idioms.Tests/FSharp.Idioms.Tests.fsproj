@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="ReflectionTest.fs" />
     <Compile Include="MemoizationTest.fs" />
     <None Include="flange.tsv" />
     <Compile Include="TsvTest.fs" />
@@ -52,6 +53,8 @@
     <Compile Include="DefaultValues\RecordTest.fs" />
     <Compile Include="DefaultValues\UnionTest.fs" />
     <Compile Include="DefaultValues\MainDefaultValueTest.fs" />
+    <Compile Include="EqualityCheckersTest.fs" />
+    <Compile Include="EqualityCheckerUtilsTest.fs" />
 
     <Compile Include="Program.fs" />
   </ItemGroup>

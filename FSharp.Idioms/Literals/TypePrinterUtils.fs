@@ -30,7 +30,6 @@ let printers = [
     FunctionTypePrinter
     GenericTypeDefinitionTypePrinter
     GenericTypePrinter
-
     ]
 
 /// 根据优先级确定表达式是否带括号

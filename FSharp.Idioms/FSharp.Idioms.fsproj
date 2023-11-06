@@ -70,6 +70,11 @@
     <Compile Include="DefaultValues\DefaultValueGetters.fs" />
     <Compile Include="DefaultValues\DefaultValueGetterUtils.fs" />
     <Compile Include="Literal.fs" />
+    <Compile Include="EqualityCheckers\EqualityChecker.fs" />
+    <Compile Include="EqualityCheckers\EqualityCheckers.fs" />
+    <Compile Include="EqualityCheckers\EqualityCheckerInternal.fs" />
+    <Compile Include="EqualityCheckers\EqualityCheckerUtils.fs" />
+
     <Compile Include="Parsers\PrimitiveType.fs" />
     <Compile Include="Parsers\ParseInteger.fs" />
     <Compile Include="Parsers\PrimitiveParser.fs" />

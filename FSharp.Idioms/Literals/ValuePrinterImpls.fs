@@ -376,14 +376,6 @@ let recordValuePrinter (precContext:int) (ty:Type) (value:obj) =
             |> sprintf "{%s}"
     }
 
-//let typeValuePrinter (precContext:int) (ty:Type) (value:obj) =
-//    {
-//        finder = ty = typeof<Type>
-//        print = fun loop ->
-//            TypePrinterUtils.stringifyTypeDynamic (unbox<Type> value)
-//            |> sprintf "typeof<%s>"
-//    }
-
 //没有类型信息，null,nullable,None都打印成null
 let nullValuePrinter (precContext:int) (ty:Type) (value:obj) =
     {
