@@ -1,6 +1,7 @@
 ﻿module FSharp.Idioms.EqualityCheckers.EqualityCheckers
 
 open System
+open System.Collections.Generic
 open System.Reflection
 
 open FSharp.Idioms
@@ -171,6 +172,15 @@ let UnionEqualityChecker (ty:Type) =
             Array.zip3 uc.fieldTypes objs1 objs2
             |> Array.forall(fun(fty,obj1,obj2)-> loop fty obj1 obj2)
         else false
+    }
+
+let HashSetEqualityChecker (ty:Type) =
+    {
+    check = ty.IsGenericType && ty.GetGenericTypeDefinition() = typedefof<HashSet<_>>
+    equal = fun (loop:Type->obj->obj->bool) (x:obj) (y:obj) ->
+        let setEquals = ty.GetMethod("SetEquals", BindingFlags.Instance ||| BindingFlags.Public)
+        setEquals.Invoke(x, [|y|])
+        |> unbox<bool>
     }
 
 let op_EqualityEqualityChecker (ty:Type) =

@@ -7,6 +7,7 @@ open System.Text.RegularExpressions
 open FSharp.xUnit
 open FSharp.Idioms.Literals
 open FSharp.Idioms
+open System.Collections.Generic
 
 type Point = {x:int;y:int}
 
@@ -117,6 +118,15 @@ type EqualityCheckersTest(output: ITestOutputHelper) =
         Assert.False(eq (Some 1) (Some 2))
 
     [<Fact>]
+    member this.``HashSetEqualityChecker``() =
+        let checker = EqualityCheckers.HashSetEqualityChecker typeof<HashSet<Type>>
+
+        Assert.True(checker.check)
+        let eq = checker.equal (fun ty x y -> x=y)
+        Assert.True(eq (HashSet[typeof<int>]) (HashSet[typeof<int>]))
+        Assert.False(eq (HashSet[typeof<int>]) (HashSet[typeof<float>]))
+
+    [<Fact>]
     member this.``op_EqualityEqualityChecker``() =
         let checker = EqualityCheckers.op_EqualityEqualityChecker typeof<Type>
 
@@ -124,6 +134,8 @@ type EqualityCheckersTest(output: ITestOutputHelper) =
         let eq = checker.equal (fun ty x y -> x=y)
         Assert.True(eq typeof<int> typeof<int>)
         Assert.False(eq typeof<int> typeof<float>)
+
+
 
     [<Fact>]
     member this.``SeqEqualityChecker``() =

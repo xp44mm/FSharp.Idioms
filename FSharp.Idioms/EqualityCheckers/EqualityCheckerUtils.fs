@@ -18,6 +18,7 @@ let checkers = [
     SetEqualityChecker
     MapEqualityChecker
     UnionEqualityChecker
+    HashSetEqualityChecker
     op_EqualityEqualityChecker
     SeqEqualityChecker
     IEquatableEqualityChecker

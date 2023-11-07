@@ -4,30 +4,64 @@ module FSharp.Idioms.EqualityCheckers.EqualityCheckerInternal
 open System
 open System.Collections
 
+let IReadOnlySetEqualityChecker (ty:Type) =
+    let iname = "IReadOnlySet`1"
+    let ity = ty.GetInterface(iname)
+    {
+    check = ity <> null
+    equal = fun (loop:Type->obj->obj->bool) (x:obj) (y:obj) ->
+        let setEquals = ity.GetMethod("SetEquals")
+        setEquals.Invoke(x, [|y|])
+        |> unbox<bool>
+    }
+
+let ISetEqualityChecker (ty:Type) =
+    let iname = "ISet`1"
+    let ity = ty.GetInterface(iname)
+    {
+    check = ity <> null
+    equal = fun (loop:Type->obj->obj->bool) (x:obj) (y:obj) ->
+        let setEquals = ity.GetMethod("SetEquals")
+        setEquals.Invoke(x, [|y|])
+        |> unbox<bool>
+    }
+
+
 let SeqEqualityChecker (ty:Type) =
     let iname = "IEnumerable"
     let ity = ty.GetInterface(iname)
     {
     check = ity <> null
     equal = fun (loop:Type->obj->obj->bool) (x:obj) (y:obj) ->
-        let mGetEnumerator = ity.GetMethod("GetEnumerator")
-        let enumType = mGetEnumerator.ReturnType
-        let mMoveNext = enumType.GetMethod("MoveNext")
-        let pCurrent = enumType.GetProperty("Current")
+        let getEnum = ity.GetMethod("GetEnumerator")
+        let ienum = getEnum.ReturnType
+        let moveNext = ienum.GetMethod("MoveNext")
+        let current = ienum.GetProperty("Current")
         let loopElement = loop ty.GenericTypeArguments.[0]
-        let e1 = mGetEnumerator.Invoke(x,[||])
-        let e2 = mGetEnumerator.Invoke(y,[||])
+        let e1 = getEnum.Invoke(x,[||])
+        let e2 = getEnum.Invoke(y,[||])
         let rec loopNext i =
-            let hasNext1 = mMoveNext.Invoke(e1,[||]) |> unbox<bool>
-            let hasNext2 = mMoveNext.Invoke(e2,[||]) |> unbox<bool>
+            let hasNext1 = moveNext.Invoke(e1,[||]) |> unbox<bool>
+            let hasNext2 = moveNext.Invoke(e2,[||]) |> unbox<bool>
             if hasNext1 && hasNext2 then
-                let c1 = pCurrent.GetValue(e1)
-                let c2 = pCurrent.GetValue(e2)
+                let c1 = current.GetValue(e1)
+                let c2 = current.GetValue(e2)
                 if loopElement c1 c2 && i < 999 then
                     loopNext(i+1)
                 else false
             else hasNext1 = hasNext2
         loopNext 0
+    }
+
+let IEquatableEqualityChecker (ty:Type) =
+    let iname = "IEquatable`1"
+    let ity = ty.GetInterface(iname)
+    {
+    check = ity <> null
+    equal = fun (loop:Type->obj->obj->bool) (x:obj) (y:obj) ->
+        let mi = ity.GetMethod("Equals")
+        mi.Invoke(x, [|y|])
+        |> unbox<bool>
     }
 
 let IComparableEqualityChecker (ty:Type) =
@@ -40,17 +74,6 @@ let IComparableEqualityChecker (ty:Type) =
         mi.Invoke(x,[|y|])
         |> unbox<int>
         |> (=) 0
-    }
-
-let IEquatableEqualityChecker (ty:Type) =
-    let iname = "IEquatable`1"
-    let ity = ty.GetInterface(iname)
-    {
-    check = ity <> null
-    equal = fun (loop:Type->obj->obj->bool) (x:obj) (y:obj) ->
-        let mi = ity.GetMethod("Equals")
-        mi.Invoke(x, [|y|])
-        |> unbox<bool>
     }
 
 let IStructuralEquatableEqualityChecker (ty:Type) =
