@@ -33,16 +33,16 @@ let printers = [
     ]
 
 /// 根据优先级确定表达式是否带括号
-let rec typeStringify (printers:list<int->Type->TypePrinter>) (prec:int) (ty:Type) =
+let rec typeStringify (printers:list<Type->TypePrinter>) (ty:Type) =
     let pickedStringify =
         printers
         |> Seq.tryPick(fun getPrinter -> 
-            let printer = getPrinter prec ty
+            let printer = getPrinter ty
             if printer.finder then
                 Some printer.print
             else None
             )
-        |> Option.defaultValue(fun loop -> ty.Name)
+        |> Option.defaultValue(fun loop prec -> ty.Name)
 
     pickedStringify (typeStringify printers)
 

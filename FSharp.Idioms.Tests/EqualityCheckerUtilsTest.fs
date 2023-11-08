@@ -82,7 +82,7 @@ type EqualityCheckerUtilsTest(output: ITestOutputHelper) =
     member this.``SeqEqualityChecker``() =
         let ex = Assert.Throws<System.NotImplementedException>(
             fun () ->
-            equals (HashSet[0]) (HashSet[0])
+            equals (seq [0]) (seq [0])
             |> ignore
         )
         output.WriteLine(ex.Message)

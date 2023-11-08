@@ -99,7 +99,6 @@ let DefaultValueGetters = [
     getDefault = fun (loop: Type -> obj) -> 
         box (Uri("http://www.contoso.com/"))
     }
-
     EnumDefaultValueGetter
     NullableDefaultValueGetter
     OptionDefaultValueGetter

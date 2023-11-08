@@ -53,6 +53,7 @@ let SeqEqualityChecker (ty:Type) =
         loopNext 0
     }
 
+
 let IEquatableEqualityChecker (ty:Type) =
     let iname = "IEquatable`1"
     let ity = ty.GetInterface(iname)

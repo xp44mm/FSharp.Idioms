@@ -1,8 +1,8 @@
 ﻿namespace FSharp.Idioms.Literals
 open System
 
-/// int -> Type -> 
+/// Type -> 
 type TypePrinter = {
     finder: bool
-    print: (int -> Type -> string) -> string
+    print: (Type -> int -> string) -> int -> string
 }

@@ -37,29 +37,34 @@ let printers = [
     tupleValuePrinter
     unionValuePrinter
     recordValuePrinter
-    fun prec ty value -> {
-    finder = ty = typeof<Type>
-    print = fun loop ->
-        value
-        |> unbox<Type>
-        |> TypePrinterUtils.typeStringify TypePrinterUtils.printers 0
-        |> sprintf "typeof<%s>"
-    }
-    nullValuePrinter
-    underlyingValuePrinter
+    TypeValuePrinter
+    //nullValuePrinter
+    //underlyingValuePrinter
     ]
 
 /// 根据优先级确定表达式是否带括号
-let rec valueStringify (printers:list<int->Type->obj->ValuePrinter>) (prec:int) (ty:Type) (value:obj) =
+let rec valueStringify (printers:list<Type->ValuePrinter>) (ty:Type) =
     let pickedStringify =
         printers
         |> Seq.tryPick(fun getPrinter -> 
-            let printer = getPrinter prec ty value
+            let printer = getPrinter ty
             if printer.finder then
                 Some printer.print
             else None)
-        |> Option.defaultValue(fun loop -> sprintf "%A" value)
+        |> Option.defaultValue(fun loop value precContext ->
+            ////没有类型信息，null,nullable,None都打印成null
+            if ty = null || ty = typeof<obj> then
+                match value with
+                | null -> "null"
+                | _ ->
+                    let underlyingType = value.GetType()
+                    if underlyingType <> typeof<obj> then
+                        loop underlyingType value precContext
+                    else sprintf "%A" value
+            else failwith $"{ty}"
+            )
 
     pickedStringify (valueStringify printers)
+
 
 

@@ -5,6 +5,10 @@ open System
 open FSharp.Idioms
 open FSharp.Idioms.EqualityCheckers.EqualityCheckers
 
+//容器用
+//IEqualityComparer
+//IComparer
+
 let checkers = [
     AtomEqualityChecker
     EnumEqualityChecker
