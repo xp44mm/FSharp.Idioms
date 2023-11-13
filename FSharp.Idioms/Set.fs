@@ -140,3 +140,4 @@ let depthFirstSort (nodes:Map<'t,Set<'t>>) (start:'t) =
                 loop discovered tail
 
     loop [start] [start]
+

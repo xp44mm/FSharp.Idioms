@@ -84,7 +84,7 @@ type ArrayTest(output : ITestOutputHelper) =
                 (2,2,4)
             |]
 
-        Should.equal y res
+        Assert.Equal<int*int*int>(y, res)
 
     [<Fact>]
     member this.``tap``() =
@@ -95,7 +95,7 @@ type ArrayTest(output : ITestOutputHelper) =
             x
             |> Array.tapi(fun i x -> array.[i]<-x)
 
-        Should.equal array x
+        Assert.Equal<int>(array, x)
 
 
     [<Fact>]
@@ -108,5 +108,5 @@ type ArrayTest(output : ITestOutputHelper) =
 
         let ls = [1;2;3;4;5]
 
-        Should.equal y ls
+        Assert.Equal<int>(y, ls)
 

@@ -17,14 +17,18 @@ let AtomEqualityChecker (ty:Type) =
         || ty = typeof<DateTime>
         || ty = typeof<DateTimeOffset>
         || ty = typeof<TimeSpan>
-    equal = fun (loop:Type->obj->obj->bool) (x:obj) (y:obj) -> x = y
+    equal = fun (loop:Type->obj->obj->bool) -> (=)
     }
 
 let EnumEqualityChecker (ty:Type) =
+    let enumUty =
+        if ty.IsEnum then
+            ty.GetEnumUnderlyingType() |> Some
+        else None
     {
-    check = ty.IsEnum
+    check = enumUty.IsSome
     equal = fun (loop:Type->obj->obj->bool) (x:obj) (y:obj) ->
-        let uty = ty.GetEnumUnderlyingType()
+        let uty = enumUty.Value
         loop uty x y
     }
 
@@ -41,35 +45,42 @@ let DBNullEqualityChecker (ty:Type) =
     }
 
 let NullableEqualityChecker (ty:Type) =
+    let elemType =
+        if ty.IsGenericType && ty.GetGenericTypeDefinition() = typedefof<Nullable<_>> then
+            Some ty.GenericTypeArguments.[0]
+        else None
     {
-    check = ty.IsGenericType && ty.GetGenericTypeDefinition() = typedefof<Nullable<_>>
+    check = elemType.IsSome
     equal = fun (loop:Type->obj->obj->bool) (x:obj) (y:obj) ->
         match x,y with
         | null,null -> true
         | null,_ | _,null -> false
         | _ ->
-            let elemType = ty.GenericTypeArguments.[0]
+            let elemType = elemType.Value
             loop elemType x y
     }
 
 let ArrayEqualityChecker (ty:Type) =
+    let maybe =
+        if ty.IsArray && ty.GetArrayRank() = 1 then
+            let reader = ArrayType.toArray // ty
+            let elementType = ty.GetElementType()
+            Some(reader,elementType)
+        else None
     {
-    check = ty.IsArray && ty.GetArrayRank() = 1
+    check = maybe.IsSome
     equal = fun (loop:Type->obj->obj->bool) (x:obj) (y:obj) ->
         match x,y with
         | null,null -> true
         | null,_ | _,null -> false
         | _ ->
-            let reader = ArrayType.readArray ty
-            let _, a1 = reader x
-            let _, a2 = reader y
+            let reader,elementType = maybe.Value
+            let a1 = reader x
+            let a2 = reader y
 
             if a1.Length = a2.Length then
-                let elementType = ty.GetElementType()
-                let loopElement = loop elementType
-
                 Array.zip a1 a2
-                |> Array.forall(fun(b1,b2) -> loopElement b1 b2)
+                |> Array.forall(fun(b1,b2) -> loop elementType b1 b2)
             else false
 
     }
@@ -102,9 +113,9 @@ let ListEqualityChecker (ty:Type) =
     {
     check = ty.IsGenericType && ty.GetGenericTypeDefinition() = typedefof<list<_>>
     equal = fun (loop:Type->obj->obj->bool) (x:obj) (y:obj) ->
-        let readlist = ListType.readList ty
-        let _,x = readlist x
-        let _,y = readlist y
+        //let readlist = ListType.readList ty
+        let x = IEnumerableType.toArray x
+        let y = IEnumerableType.toArray y
         if x.Length = y.Length then
             let elementType = ty.GenericTypeArguments.[0]
             let loopElement = loop elementType
@@ -117,12 +128,12 @@ let SetEqualityChecker (ty:Type) =
     {
     check = ty.IsGenericType && ty.GetGenericTypeDefinition() = typedefof<Set<_>>
     equal = fun (loop:Type->obj->obj->bool) (x:obj) (y:obj) ->
-        let reader = SetType.readSet ty
+        //let reader = SetType.readSet ty
         let elementType = ty.GenericTypeArguments.[0]
         let loopElement = loop elementType
 
-        let _, a1 = reader x
-        let _, a2 = reader y
+        let a1 = IEnumerableType.toArray x
+        let a2 = IEnumerableType.toArray y
         if a1.Length = a2.Length then
             Array.zip a1 a2
             |> Array.forall(fun(a1,a2) -> loopElement a1 a2)
@@ -133,9 +144,9 @@ let MapEqualityChecker (ty:Type) =
     {
     check = ty.IsGenericType && ty.GetGenericTypeDefinition() = typedefof<Map<_,_>>
     equal = fun (loop:Type->obj->obj->bool) (x:obj) (y:obj) ->
-        let reader = MapType.readMap ty
-        let _, a1 = reader x
-        let _, a2 = reader y
+        let reader = MapType.toArray ty
+        let a1 = reader x
+        let a2 = reader y
         if a1.Length = a2.Length then
             let elementType = FSharpType.MakeTupleType(ty.GenericTypeArguments)
             let loopElement = loop elementType

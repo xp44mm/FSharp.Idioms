@@ -249,8 +249,9 @@ let arrayValuePrinter (ty:Type) =
         ty.IsArray && ty.GetArrayRank() = 1
 
     print = fun loop value prec ->
-        let reader = ArrayType.readArray ty
-        let elemType, elements = reader value
+        let elemType = ty.GetElementType()
+        let reader = ArrayType.toArray // ty
+        let elements = reader value
 
         elements
         |> Array.map(fun x -> loop elemType x valuePrecedences.[";"])
@@ -261,10 +262,11 @@ let arrayValuePrinter (ty:Type) =
 
 let listValuePrinter (ty:Type) =
     { 
-    finder = ty.IsGenericType && ty.GetGenericTypeDefinition() = typedefof<list<_>>
+    finder = ty.IsGenericType && ty.GetGenericTypeDefinition() = typeof<list<_>>.GetGenericTypeDefinition()
     print = fun loop (value:obj) (precContext:int) ->
-        let reader = ListType.readList ty
-        let elemType, elements = reader value
+        //let reader = ListType.readList ty
+        let elemType = ty.GenericTypeArguments.[0]
+        let elements = IEnumerableType.toArray value
 
         elements
         |> Array.map(fun x -> loop elemType x valuePrecedences.[";"])
@@ -277,8 +279,9 @@ let setValuePrinter (ty:Type) =
     finder =
         ty.IsGenericType && ty.GetGenericTypeDefinition() = typedefof<Set<_>>
     print = fun loop value precContext ->
-        let reader = SetType.readSet ty
-        let elemType, elements = reader value
+        //let reader = SetType.readSet ty
+        let elemType = ty.GenericTypeArguments.[0]
+        let elements = IEnumerableType.toArray value
 
         elements
         |> Array.map(fun x -> loop elemType x valuePrecedences.[";"])
@@ -290,10 +293,12 @@ let setValuePrinter (ty:Type) =
 let hashsetValuePrinter (ty:Type) =
     {
     finder =
-        ty.IsGenericType && ty.GetGenericTypeDefinition() = typedefof<System.Collections.Generic.HashSet<_>>
+        ty.IsGenericType && ty.GetGenericTypeDefinition() = typeof<System.Collections.Generic.HashSet<_>>.GetGenericTypeDefinition()
     print = fun loop (value:obj) (precContext:int) ->
-        let reader = SeqType.seqReader ty
-        let elements = reader value
+        let elements = 
+            value
+            |> IEnumerableType.toArray
+
         let elemType = ty.GenericTypeArguments.[0]
 
         elements
@@ -309,11 +314,12 @@ let mapValuePrinter (ty:Type) =
     finder =
         ty.IsGenericType && ty.GetGenericTypeDefinition() = typedefof<Map<_,_>>
     print = fun loop (value:obj) (precContext:int) ->
-        let reader = MapType.readMap ty
-        let elemType, elements = reader value
+        let reader = MapType.toArray ty
+        let elements = reader value
+        let kvty = elements.GetType().GetElementType()
 
         elements
-        |> Array.map(fun x -> loop elemType x valuePrecedences.[";"])
+        |> Array.map(fun kvp -> loop kvty kvp valuePrecedences.[";"])
         |> String.concat ";"
         |> sprintf "Map [%s]"
         |> putParen precContext valuePrecedences.[" "]

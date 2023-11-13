@@ -1,4 +1,5 @@
-﻿module FSharp.Idioms.EqualityCheckers.EqualityCheckerUtils
+﻿[<System.ObsoleteAttribute("EqualUtils")>]
+module FSharp.Idioms.EqualityCheckers.EqualityCheckerUtils
 
 open System
 
@@ -31,19 +32,25 @@ let checkers = [
     IStructuralComparableEqualityChecker
 ]
 
-let rec equalsFn (checkers:list<Type->EqualityChecker>) (ty:Type) =
-    let picked =
-        checkers
-        |> Seq.tryPick(fun checker ->
-            match checker ty with
-            | {check=true;equal=equal} -> Some equal
-            | {check=false} -> None
+open System.Collections.Concurrent
+
+let rec equalsFn (checkers:list<Type->EqualityChecker>) = 
+    let di = ConcurrentDictionary<Type,obj->obj->bool>(HashIdentity.Structural)
+
+    let fn (ty:Type) =
+        let picked =
+            checkers
+            |> Seq.tryPick(fun checker ->
+                match checker ty with
+                | {check=true;equal=equal} -> Some equal
+                | {check=false} -> None
+                )
+            |> Option.defaultValue(fun loop x y ->
+                NotImplementedException($"Option.defaultValue: {ty}")
+                |> raise
             )
-        |> Option.defaultValue (fun loop x y ->
-            NotImplementedException($"Option.defaultValue: {ty}")
-            |> raise
-        )
-    picked (equalsFn checkers)
+        picked (equalsFn checkers)
+    fun (ty:Type) -> di.GetOrAdd(ty, fn ty)
 
 /// equals dynamic
 let equalsDynamic (tp:Type) : (obj->obj->bool) = equalsFn checkers tp

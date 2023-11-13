@@ -27,6 +27,7 @@
     <Compile Include="JsonStringTest.fs" />
     <Compile Include="LineTest.fs" />
     <Compile Include="EnumTyepTest.fs" />
+    <Compile Include="IEnumerableTypeTest.fs" />
     <Compile Include="ArrayTypeTest.fs" />
     <Compile Include="ListTypeTest.fs" />
     <Compile Include="SetTypeTest.fs" />
@@ -34,7 +35,6 @@
     <Compile Include="TupleTypeTest.fs" />
     <Compile Include="RecordTypeTest.fs" />
     <Compile Include="UnionTypeTest.fs" />
-    <Compile Include="SeqTypeTest.fs" />
     <Compile Include="BufferQueueTest.fs" />
     <Compile Include="BufferIteratorTest.fs" />
     <Compile Include="PointFreeTest.fs" />
@@ -54,6 +54,7 @@
     <Compile Include="DefaultValues\UnionTest.fs" />
     <Compile Include="DefaultValues\MainDefaultValueTest.fs" />
     <Compile Include="EqualityCheckersTest.fs" />
+    <Compile Include="CustomDataExample.fs" />
     <Compile Include="EqualityCheckerUtilsTest.fs" />
 
     <Compile Include="Program.fs" />

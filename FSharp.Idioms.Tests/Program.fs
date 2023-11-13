@@ -17,29 +17,6 @@ open System.Reflection
 //Console.WriteLine($"{ity.IsAssignableTo ty} // ity.IsAssignableTo ty")
 //Console.WriteLine($"{ity.IsAssignableFrom ty} // ity.IsAssignableFrom ty")
 
-
 let [<EntryPoint>] main _ =
-    let ty = typeof<HashSet<Type>>
-    //let mi = ty.GetMethod("SetEquals", BindingFlags.Instance ||| BindingFlags.Public)
-    //Console.WriteLine($"{mi}")
 
-    for itf in ty.GetInterfaces() do
-        Console.WriteLine($"{itf.Name}")
-
-    //let icty = ty.GetInterface("IComparable")
-    //Console.WriteLine($"{icty}")
-
-    //let mis = icty.GetMethods()
-    //for mi in mis do
-    //    Console.WriteLine($"{mi.Name}")
-
-    //let mi = icty.GetMethod("CompareTo")
-    //Console.WriteLine($"{mi}")
-
-    //let x = 1
-    //let y = 1
-    //let z =
-    //    mi.Invoke(x,[|y|])
-    //    |> unbox<int>
-    //Console.WriteLine($"z={z}")
     0

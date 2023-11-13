@@ -45,7 +45,7 @@ type EnumTyepTest(output : ITestOutputHelper) =
             "IgnoreReturn",16777216UL;
             "DoNotWrapExceptions",33554432UL
             |]
-        Should.equal y res
+        Assert.Equal<string*uint64>( y, res)
 
     [<Fact>]
     member this.``getValues``() =

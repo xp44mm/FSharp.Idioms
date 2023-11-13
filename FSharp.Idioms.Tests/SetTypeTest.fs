@@ -10,11 +10,11 @@ type SetTypeTest(output : ITestOutputHelper) =
         |> Literal.stringify
         |> output.WriteLine
 
-    [<Fact>]
-    member this.``getElementType``() =
-        let x = typeof<int list> 
-        let y = SetType.getElementType x
-        Should.equal y typeof<int>
+    //[<Fact>]
+    //member this.``getElementType``() =
+    //    let x = typeof<int list> 
+    //    let y = SetType.getElementType x
+    //    Should.equal y typeof<int>
 
     [<Fact>]
     member this.``getToArray``() =
@@ -30,22 +30,22 @@ type SetTypeTest(output : ITestOutputHelper) =
         let y = ofArray.Invoke(null,Array.singleton x) :?> Set<int>
         Should.equal y (set [1;2])
 
-    [<Fact>]
-    member this.``readSet``() =
-        let x = (box (set [1;2]))
-        let readSet = SetType.readSet typeof<Set<int>>
-        let ty, st = readSet x
+    //[<Fact>]
+    //member this.``readSet``() =
+    //    let x = (box (set [1;2]))
+    //    let readSet = SetType.readSet typeof<Set<int>>
+    //    let ty, st = readSet x
 
-        Should.equal ty typeof<int>
-        Should.equal st [|box 1; box 2|]
+    //    Should.equal ty typeof<int>
+    //    Should.equal st [|box 1; box 2|]
 
-    [<Fact>]
-    member this.``HashSet``() =
-        let x = (box (set [1;2]))
-        let readSet = SetType.readSet typeof<Set<int>>
-        let ty, st = readSet x
+    //[<Fact>]
+    //member this.``HashSet``() =
+    //    let x = (box (set [1;2]))
+    //    let readSet = SetType.readSet typeof<Set<int>>
+    //    let ty, st = readSet x
 
-        Should.equal ty typeof<int>
-        Should.equal st [|box 1; box 2|]
+    //    Should.equal ty typeof<int>
+    //    Should.equal st [|box 1; box 2|]
 
 

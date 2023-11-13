@@ -4,27 +4,27 @@ module FSharp.Idioms.EqualityCheckers.EqualityCheckerInternal
 open System
 open System.Collections
 
-let IReadOnlySetEqualityChecker (ty:Type) =
-    let iname = "IReadOnlySet`1"
-    let ity = ty.GetInterface(iname)
-    {
-    check = ity <> null
-    equal = fun (loop:Type->obj->obj->bool) (x:obj) (y:obj) ->
-        let setEquals = ity.GetMethod("SetEquals")
-        setEquals.Invoke(x, [|y|])
-        |> unbox<bool>
-    }
+//let IReadOnlySetEqualityChecker (ty:Type) =
+//    let iname = "IReadOnlySet`1"
+//    let ity = ty.GetInterface(iname)
+//    {
+//    check = ity <> null
+//    equal = fun (loop:Type->obj->obj->bool) (x:obj) (y:obj) ->
+//        let setEquals = ity.GetMethod("SetEquals")
+//        setEquals.Invoke(x, [|y|])
+//        |> unbox<bool>
+//    }
 
-let ISetEqualityChecker (ty:Type) =
-    let iname = "ISet`1"
-    let ity = ty.GetInterface(iname)
-    {
-    check = ity <> null
-    equal = fun (loop:Type->obj->obj->bool) (x:obj) (y:obj) ->
-        let setEquals = ity.GetMethod("SetEquals")
-        setEquals.Invoke(x, [|y|])
-        |> unbox<bool>
-    }
+//let ISetEqualityChecker (ty:Type) =
+//    let iname = "ISet`1"
+//    let ity = ty.GetInterface(iname)
+//    {
+//    check = ity <> null
+//    equal = fun (loop:Type->obj->obj->bool) (x:obj) (y:obj) ->
+//        let setEquals = ity.GetMethod("SetEquals")
+//        setEquals.Invoke(x, [|y|])
+//        |> unbox<bool>
+//    }
 
 
 let SeqEqualityChecker (ty:Type) =

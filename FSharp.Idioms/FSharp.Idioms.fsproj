@@ -11,8 +11,8 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
-    <Version>1.4.3</Version>
-    <PackageReleaseNotes>equals</PackageReleaseNotes>
+    <Version>1.4.5</Version>
+    <PackageReleaseNotes>refac</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/xp44mm/FSharp.Idioms</PackageProjectUrl>
     <PackageTags>fsharp;lib</PackageTags>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
@@ -38,7 +38,13 @@
     <Compile Include="ComparisonActivePatterns.fs" />
 	  
     <Compile Include="FSharpModules.fs" />
+	  
+    <Compile Include="Iterator.fs" />
+	  
+    <Compile Include="Seq.fs" />
     <Compile Include="EnumType.fs" />
+    <Compile Include="IEnumerableType.fs" />
+    <Compile Include="IEnumeratorType.fs" />
     <Compile Include="ArrayType.fs" />
     <Compile Include="ListType.fs" />
     <Compile Include="SetType.fs" />
@@ -46,12 +52,7 @@
     <Compile Include="TupleType.fs" />
     <Compile Include="RecordType.fs" />
     <Compile Include="UnionType.fs" />
-    <Compile Include="SeqType.fs" />
     <Compile Include="ClassType.fs" />
-	  
-    <Compile Include="Iterator.fs" />
-	  
-    <Compile Include="Seq.fs" />
 	  
     <Compile Include="BufferQueue.fs" />
 	  
@@ -70,10 +71,20 @@
     <Compile Include="DefaultValues\DefaultValueGetters.fs" />
     <Compile Include="DefaultValues\DefaultValueGetterUtils.fs" />
     <Compile Include="Literal.fs" />
+    
+    <Compile Include="EqualityComparers\EqualityComparerUtils.fs" />
+    
     <Compile Include="EqualityCheckers\EqualityChecker.fs" />
+    
     <Compile Include="EqualityCheckers\EqualityCheckerInternal.fs" />
+    
     <Compile Include="EqualityCheckers\EqualityCheckers.fs" />
+    
     <Compile Include="EqualityCheckers\EqualityCheckerUtils.fs" />
+    
+    <Compile Include="EqualityCheckers\EqResolves.fs" />
+    
+    <Compile Include="EqualityCheckers\EqualUtils.fs" />
 
     <Compile Include="Parsers\PrimitiveType.fs" />
     <Compile Include="Parsers\ParseInteger.fs" />

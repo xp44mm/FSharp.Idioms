@@ -5,48 +5,63 @@ open System.Collections.Concurrent
 open System.Reflection
 
 let listModuleType = FSharpModules.fsharpAssembly.GetType("Microsoft.FSharp.Collections.ListModule")
-let methodOfArrayDef = listModuleType.GetMethod "OfArray"
 
+let Method_OfArray = listModuleType.GetMethod("OfArray")
+let ofArray =
+    let memo = ConcurrentDictionary<Type, MethodInfo>(HashIdentity.Structural)
+    fun (ty:Type) ->
+        memo.GetOrAdd(ty.GenericTypeArguments.[0],
+            Method_OfArray.MakeGenericMethod(ty.GenericTypeArguments)
+            )
 
-let memoElementType = ConcurrentDictionary<Type, Type>(HashIdentity.Structural)
-let getElementType (listType:Type) =
-    let valueFactory (ty:Type) = ty.GenericTypeArguments.[0]
-    memoElementType.GetOrAdd(listType, valueFactory)
+let listTypeDef = typeof<list<_>>.GetGenericTypeDefinition()
 
-let memoIsEmptyProperty = ConcurrentDictionary<Type, PropertyInfo>(HashIdentity.Structural)
-let getIsEmpty (listType:Type) =   
-    let valueFactory (ty:Type) = ty.GetProperty("IsEmpty")
-    let prop = memoIsEmptyProperty.GetOrAdd(listType, valueFactory)
-    fun (ls:obj) -> prop.GetValue(ls) :?> bool
+let get_IsEmpty =
+    let memo = ConcurrentDictionary<Type, MethodInfo>(HashIdentity.Structural)
+    fun (ty:Type) -> memo.GetOrAdd(
+        ty.GenericTypeArguments.[0], ty.GetMethod("get_IsEmpty")
+    )
 
-let memoHeadProperty = ConcurrentDictionary<Type, PropertyInfo>(HashIdentity.Structural)
-let getHead (listType:Type) =   
-    let valueFactory (ty:Type) = ty.GetProperty("Head")
-    let prop = memoHeadProperty.GetOrAdd(listType, valueFactory)
-    fun (ls:obj) -> prop.GetValue(ls)
+let isEmpty (ty:Type) =
+    let mi = get_IsEmpty ty
+    fun (value:obj) -> mi.Invoke(value,[||]) :?> bool
 
-let memoTailProperty = ConcurrentDictionary<Type, PropertyInfo>(HashIdentity.Structural)
-let getTail (listType:Type) = 
-    let valueFactory (ty:Type) = ty.GetProperty("Tail")
-    let prop = memoTailProperty.GetOrAdd(listType, valueFactory)
-    fun (ls:obj) -> prop.GetValue(ls)
+let get_Head =
+    let memo = ConcurrentDictionary<Type, MethodInfo>(HashIdentity.Structural)
+    fun (ty:Type) -> memo.GetOrAdd(
+        ty.GenericTypeArguments.[0], ty.GetMethod("get_Head")
+    )
 
-let memoReadList = ConcurrentDictionary<Type, obj -> Type*obj[]>(HashIdentity.Structural)
+let head (ty:Type) =
+    let mi = get_Head ty
+    fun (value:obj) -> mi.Invoke(value,[||])
+
+let get_Tail =
+    let memo = ConcurrentDictionary<Type, MethodInfo>(HashIdentity.Structural)
+    fun (ty:Type) -> memo.GetOrAdd(
+        ty.GenericTypeArguments.[0], ty.GetMethod("get_Tail")
+    )
+
+let tail (ty:Type) =
+    let mi = get_Tail ty
+    fun (value:obj) -> mi.Invoke(value,[||])
 
 ///列表分解一次为元素
-let readList (listType:Type) =
+[<Obsolete("IEnumerableType.toArray")>]
+let readList  =
+    let memo = ConcurrentDictionary<Type, obj -> Type*obj[]>(HashIdentity.Structural)
 
     let factory (ty:Type) =
-        let pIsEmpty = getIsEmpty ty
-        let pHead = getHead ty
-        let pTail = getTail ty
+        let isEmpty = isEmpty ty
+        let head = head ty
+        let tail = tail ty
 
         let rec objToRevList acc ls =
-            if pIsEmpty ls then
+            if isEmpty ls then
                 acc
             else
-                let elem = pHead(ls)
-                let tail = pTail(ls)
+                let elem = head(ls)
+                let tail = tail(ls)
                 let acc = elem :: acc
                 objToRevList acc tail
 
@@ -56,13 +71,8 @@ let readList (listType:Type) =
                 |> objToRevList []
                 |> List.rev
                 |> List.toArray
-            getElementType ty, values
-    memoReadList.GetOrAdd(listType,Func<_,_> factory)
+            ty.GenericTypeArguments.[0], values
+    fun (listType:Type) -> memo.GetOrAdd(
+        listType.GenericTypeArguments.[0],factory listType)
 
-let memoOfArray = ConcurrentDictionary<Type, MethodInfo>(HashIdentity.Structural)
-
-let getOfArray (listType:Type) =
-    let valueFactory (ty:Type) =
-        let elementType = getElementType ty
-        methodOfArrayDef.MakeGenericMethod(elementType)
-    memoOfArray.GetOrAdd(listType, valueFactory)
+//let toArray (ls:obj) = IEnumerableType.toArray ls
