@@ -1,10 +1,20 @@
-﻿module FSharp.Idioms.EqualityCheckers.EqualityComparerUtils
+﻿module FSharp.Idioms.EqualityComparers.EqualityComparerUtils
 
 open System
 open System.Collections
+open System.Collections.Generic
 
 open FSharp.Idioms
 
+let SetEqualsEquatableEq (ty:Type) =
+    match ty.GetMethod("SetEquals") with
+    | null -> None
+    | mi ->
+        let setEquals x y = mi.Invoke(x, [|y|])
+        Some(fun comparer (x:obj,y:obj) ->
+            setEquals x y
+            |> unbox<bool>
+        )
 
 let IStructuralEquatableEq (ty:Type) =
     match ty.GetInterface("IStructuralEquatable") with
@@ -18,6 +28,7 @@ let IStructuralEquatableEq (ty:Type) =
 
 let equalities = [
     IStructuralEquatableEq
+    SetEqualsEquatableEq
     ]
 
 let equalFn (equalities:list<Type->option<IEqualityComparer->obj*obj->bool>>) : (obj*obj->bool) =

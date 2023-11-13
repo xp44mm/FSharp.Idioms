@@ -1,4 +1,4 @@
-﻿namespace FSharp.Idioms.EqualityCheckers
+﻿namespace FSharp.Idioms.EqualityComparers
 
 open Xunit
 open Xunit.Abstractions
@@ -10,9 +10,9 @@ open FSharp.xUnit
 open FSharp.Idioms.Literals
 open FSharp.Idioms
 
-open FSharp.Idioms.EqualityCheckers.EqualityComparerUtils
+open FSharp.Idioms.EqualityComparers.EqualityComparerUtils
 
-//type Point = {x:int;y:int}
+type Point = {x:int;y:int}
 
 type EqualityCheckerUtilsTest(output: ITestOutputHelper) =
     [<Fact>]

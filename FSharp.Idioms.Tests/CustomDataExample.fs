@@ -1,13 +1,11 @@
-﻿namespace FSharp.Idioms.EqualityCheckers
+﻿namespace FSharp.Idioms.EqualityComparers
+open System
+open System.Collections
 
 type ProductionCrew(production:list<string>,leftside:string,body:list<string>) =
     member _.production = production
     member _.leftside = leftside
     member _.body = body
-
-open System
-open FSharp.Idioms.EqualityCheckers
-open System.Collections
 
 module CustomDataExample =
     let ProductionCrewEq (ty:Type) =
