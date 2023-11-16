@@ -13,22 +13,22 @@ type RecordTypeTest(output : ITestOutputHelper) =
         |> Literal.stringify
         |> output.WriteLine
 
-    [<Fact>]
-    member this.``getRecordFields``() =
-        let x = { name = "cuisl"; age = 18 }
-        let props = 
-            RecordType.getRecordFields typeof<Person>
-            |> Array.map(fun pi -> pi.Name, pi.PropertyType.Name)
-        Should.equal props [|"name","String";"age","Int32"|]
+    //[<Fact>]
+    //member this.``getRecordFields``() =
+    //    let x = { name = "cuisl"; age = 18 }
+    //    let props = 
+    //        RecordType.getRecordFields typeof<Person>
+    //        |> Array.map(fun pi -> pi.Name, pi.PropertyType.Name)
+    //    Should.equal props [|"name","String";"age","Int32"|]
 
-    [<Fact>]
-    member this.``readRecord``() =
-        let x = { name = "cuisl"; age = 18 }
-        let props = 
-            RecordType.readRecord typeof<Person> x
-            |> Array.map(fun (pi,value) -> pi.Name, pi.PropertyType.Name,value)
+    //[<Fact>]
+    //member this.``readRecord``() =
+    //    let x = { name = "cuisl"; age = 18 }
+    //    let props = 
+    //        RecordType.readRecord typeof<Person> x
+    //        |> Array.map(fun (pi,value) -> pi.Name, pi.PropertyType.Name,value)
 
-        Should.equal props [|"name","String",box "cuisl";"age","Int32", box 18|]
+    //    Should.equal props [|"name","String",box "cuisl";"age","Int32", box 18|]
 
 
 

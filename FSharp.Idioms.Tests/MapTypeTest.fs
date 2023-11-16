@@ -32,18 +32,18 @@ type MapTypeTest(output : ITestOutputHelper) =
             )
         output.WriteLine(Literal.stringify arr)
 
-    [<Fact>]
-    member this.``getElementType``() =
-        let x = typeof<Map<string,int>> 
-        let y = MapType.getElementType x
-        Should.equal y typeof<string*int>
+    //[<Fact>]
+    //member this.``getElementType``() =
+    //    let x = typeof<Map<string,int>> 
+    //    let y = MapType.getElementType x
+    //    Should.equal y typeof<string*int>
 
 
-    [<Fact>]
-    member this.``makeArrayType``() =
-        let x = typeof<Map<string,int>>
-        let y = MapType.makeArrayType x
-        Should.equal y typeof<(string*int)[]>
+    //[<Fact>]
+    //member this.``makeArrayType``() =
+    //    let x = typeof<Map<string,int>>
+    //    let y = MapType.makeArrayType x
+    //    Should.equal y typeof<(string*int)[]>
 
     [<Fact>]
     member this.``getToArray``() =

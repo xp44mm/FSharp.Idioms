@@ -11,19 +11,6 @@ let mapModuleType = FSharpModules.fsharpAssembly.GetType("Microsoft.FSharp.Colle
 let mToArrayDef = mapModuleType.GetMethod "ToArray"
 let mOfArrayDef = mapModuleType.GetMethod "OfArray"
 
-let memoElementType = ConcurrentDictionary<Type, Type>(HashIdentity.Structural)
-let getElementType (mapType:Type) =
-    let valueFactory (ty:Type) = 
-        FSharpType.MakeTupleType(ty.GenericTypeArguments)
-    memoElementType.GetOrAdd(mapType, valueFactory)
-
-let memoMakeArrayType = ConcurrentDictionary<Type, Type>(HashIdentity.Structural)
-let makeArrayType (mapType:Type) =
-    let valueFactory (mapType:Type) =
-        let elementType = getElementType mapType
-        elementType.MakeArrayType()
-    memoMakeArrayType.GetOrAdd(mapType,valueFactory)
-
 let memoToArray = ConcurrentDictionary<Type, MethodInfo>(HashIdentity.Structural)
 
 let getToArray (mapType:Type) =
@@ -38,22 +25,18 @@ let getOfArray (mapType:Type) =
         mOfArrayDef.MakeGenericMethod(ty.GenericTypeArguments)
     memoOfArray.GetOrAdd(mapType, valueFactory)
 
-
-let memoReadMap = ConcurrentDictionary<Type, obj -> Type*obj[]>(HashIdentity.Structural)
-
-///Map转化为数组
-[<Obsolete("MapType.toArray")>]
-let readMap (mapType:Type) =
-    let valueFactory (ty:Type) =
-        let arrayType = makeArrayType ty
-        let readArray = ArrayType.toArray // arrayType
-        let mToArray = getToArray ty        
-        fun (mp:obj) ->
-            let arr =
-                mToArray.Invoke(null,[|mp|])
-                |> readArray
-            arr.GetType().GetElementType(),arr
-    memoReadMap.GetOrAdd(mapType,Func<_,_>valueFactory)
+let empty =
+    let memo = ConcurrentDictionary<Type, obj>(HashIdentity.Structural)
+    fun (ty:Type) -> memo.GetOrAdd(ty,
+        let ctor = ty.GetConstructors().[0]
+        // Tuple`2<_,_>
+        let ety = 
+            ctor.GetParameters().[0]
+                .ParameterType
+                .GenericTypeArguments.[0]
+        let arr = Array.CreateInstance(ety, 0)
+        ctor.Invoke([| arr |])
+    )
 
 let toArray (mty:Type) =
     let kty = 

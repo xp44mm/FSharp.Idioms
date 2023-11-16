@@ -11,14 +11,15 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
-    <Version>1.4.6</Version>
-    <PackageReleaseNotes>setEquals</PackageReleaseNotes>
+    <Version>1.4.8</Version>
+    <PackageReleaseNotes>core 8.0</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/xp44mm/FSharp.Idioms</PackageProjectUrl>
     <PackageTags>fsharp;lib</PackageTags>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="PointFree.fs" />
     <Compile Include="Memoization.fs" />
     <Compile Include="Tsv.fs" />
     <Compile Include="Pair.fs" />
@@ -49,42 +50,22 @@
     <Compile Include="ListType.fs" />
     <Compile Include="SetType.fs" />
     <Compile Include="MapType.fs" />
-    <Compile Include="TupleType.fs" />
-    <Compile Include="RecordType.fs" />
     <Compile Include="UnionType.fs" />
     <Compile Include="ClassType.fs" />
-	  
     <Compile Include="BufferQueue.fs" />
-	  
     <Compile Include="BufferIterator.fs" />
 	  
     <Compile Include="Queue.fs" />
-    <Compile Include="PointFree.fs" />
     <Compile Include="Literals\Paren.fs" />
-    <Compile Include="Literals\TypePrinter.fs" />
-    <Compile Include="Literals\TypePrinterImpls.fs" />
-    <Compile Include="Literals\TypePrinterUtils.fs" />
-    <Compile Include="Literals\ValuePrinter.fs" />
-    <Compile Include="Literals\ValuePrinterImpls.fs" />
-    <Compile Include="Literals\ValuePrinterUtils.fs" />
-    <Compile Include="DefaultValues\DefaultValueGetter.fs" />
-    <Compile Include="DefaultValues\DefaultValueGetters.fs" />
-    <Compile Include="DefaultValues\DefaultValueGetterUtils.fs" />
+    <Compile Include="Literals\TypePrinters.fs" />
+    <Compile Include="Literals\TypePrinterApp.fs" />
+    <Compile Include="Literals\ValuePrinters.fs" />
+    <Compile Include="Literals\ValuePrinterApp.fs" />
+    <Compile Include="Zeros\TryZeros.fs" />
+    <Compile Include="Zeros\ZeroUtils.fs" />
     <Compile Include="Literal.fs" />
     
     <Compile Include="EqualityComparers\EqualityComparerUtils.fs" />
-    
-    <Compile Include="EqualityCheckers\EqualityChecker.fs" />
-    
-    <Compile Include="EqualityCheckers\EqualityCheckerInternal.fs" />
-    
-    <Compile Include="EqualityCheckers\EqualityCheckers.fs" />
-    
-    <Compile Include="EqualityCheckers\EqualityCheckerUtils.fs" />
-    
-    <Compile Include="EqualityCheckers\EqResolves.fs" />
-    
-    <Compile Include="EqualityCheckers\EqualUtils.fs" />
 
     <Compile Include="Parsers\PrimitiveType.fs" />
     <Compile Include="Parsers\ParseInteger.fs" />
@@ -106,7 +87,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="7.0.401" />
+    <PackageReference Update="FSharp.Core" Version="8.0.100" />
   </ItemGroup>
 
 </Project>

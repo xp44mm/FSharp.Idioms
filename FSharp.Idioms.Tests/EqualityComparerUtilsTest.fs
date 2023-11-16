@@ -14,7 +14,7 @@ open FSharp.Idioms.EqualityComparers.EqualityComparerUtils
 
 type Point = {x:int;y:int}
 
-type EqualityCheckerUtilsTest(output: ITestOutputHelper) =
+type EqualityComparerUtilsTest(output: ITestOutputHelper) =
     [<Fact>]
     member this.``AtomEqualityChecker``() =
         Assert.True(equal(1, 1))

@@ -26,6 +26,14 @@ let isEmpty (ty:Type) =
     let mi = get_IsEmpty ty
     fun (value:obj) -> mi.Invoke(value,[||]) :?> bool
 
+let empty =
+    let memo = ConcurrentDictionary<Type, obj>(HashIdentity.Structural)
+    fun (ty:Type) -> memo.GetOrAdd(ty, 
+        let get_Empty = ty.GetMethod("get_Empty")
+        get_Empty.Invoke(null,[||])
+    )
+
+
 let get_Head =
     let memo = ConcurrentDictionary<Type, MethodInfo>(HashIdentity.Structural)
     fun (ty:Type) -> memo.GetOrAdd(
@@ -74,5 +82,3 @@ let readList  =
             ty.GenericTypeArguments.[0], values
     fun (listType:Type) -> memo.GetOrAdd(
         listType.GenericTypeArguments.[0],factory listType)
-
-//let toArray (ls:obj) = IEnumerableType.toArray ls

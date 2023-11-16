@@ -18,5 +18,27 @@ open System.Reflection
 //Console.WriteLine($"{ity.IsAssignableFrom ty} // ity.IsAssignableFrom ty")
 
 let [<EntryPoint>] main _ =
+    let ty = typeof<Map<int,string>>
+    //for m in ty.GetConstructors() do
+    //    Console.WriteLine($"{m}")
+    let ctor = ty.GetConstructors().[0]
 
+    let ps = ctor.GetParameters()
+    for p in ps do
+        Console.WriteLine($"{p}")
+    let pty =
+        ps.[0].ParameterType
+    Console.WriteLine($"{pty}")
+
+    let etys = pty.GenericTypeArguments
+    for ety in etys do
+        Console.WriteLine($"{ety}")
+
+    //let y = ctor.Invoke([|Array.CreateInstance(ty.GenericTypeArguments.[0], 0) |])
+    //Console.WriteLine($"{y}")
+
+    //let get_Empty = ty.GetMethod("get_Empty")
+    //Console.WriteLine(sprintf "%A" get_Empty.IsStatic)
+    //let y = get_Empty.Invoke(null,[||])
+    //Console.WriteLine($"{y.GetType()},{y=( [] : list<int>)}")
     0

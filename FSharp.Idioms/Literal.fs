@@ -6,7 +6,7 @@ open FSharp.Idioms.Literals
 /// print dynamic value
 let stringifyTypeDynamic (tp:Type) = 
     (tp,0)
-    ||> TypePrinterUtils.typeStringify TypePrinterUtils.printers
+    ||> TypePrinterApp.typeStringify TypePrinterApp.typePrinters
 
 /// print generic value
 let stringifyType<'t> = stringifyTypeDynamic typeof<'t>
@@ -14,15 +14,15 @@ let stringifyType<'t> = stringifyTypeDynamic typeof<'t>
 /// print dynamic value
 let stringifyDynamic (tp:Type) (value:obj) = 
     (tp, value, 0)
-    |||> ValuePrinterUtils.valueStringify ValuePrinterUtils.printers
+    |||> ValuePrinterApp.valueStringify ValuePrinterApp.printers
 
 /// print generic value
 let stringify<'t> (value:'t) = stringifyDynamic typeof<'t> value
 
-open FSharp.Idioms.DefaultValues
+open FSharp.Idioms.Zeros
 
 let zeroDynamic (ty:Type) = 
     ty
-    |> DefaultValueGetterUtils.getDefaultValue DefaultValueGetterUtils.DefaultValueGetters 
+    |> ZeroUtils.getZero ZeroUtils.tries 
 
 let zero<'t> = zeroDynamic typeof<'t> :?> 't

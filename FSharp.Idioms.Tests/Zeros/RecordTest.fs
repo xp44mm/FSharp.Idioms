@@ -1,4 +1,4 @@
-﻿namespace FSharp.Idioms.DefaultValues
+﻿namespace FSharp.Idioms.Zeros
 
 open Xunit
 open Xunit.Abstractions

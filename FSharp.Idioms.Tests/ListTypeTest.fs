@@ -22,8 +22,11 @@ type ListTypeTest(output : ITestOutputHelper) =
     [<Fact>]
     member this.``list type members``() =
         let listTypeDef = typeof<list<_>>.GetGenericTypeDefinition()
-        for m in listTypeDef.GetMembers() do
+        for m in listTypeDef.GetMembers(
+            BindingFlags.Static ||| BindingFlags.Public
+            ) do
             output.WriteLine($"{m.MemberType}, {m.Name}")
+
 
     [<Fact>]
     member this.``list type isEmpty``() =

@@ -1,4 +1,4 @@
-﻿namespace FSharp.Idioms.DefaultValues
+﻿namespace FSharp.Idioms.Zeros
 
 open Xunit
 open Xunit.Abstractions
@@ -148,16 +148,6 @@ type DefaultValueFallbackTest(output: ITestOutputHelper) =
         let x = RegexOptions.None
         let y = Literal.zeroDynamic typeof<RegexOptions> :?> RegexOptions
         Should.equal x y
-
-    [<Fact>]
-    member this.``guid test``() =
-        let y = Literal.zeroDynamic typeof<Guid> :?> Guid
-        Assert.IsType<Guid>(y)
-
-    [<Fact>]
-    member this.``uri test``() =
-        let y = Literal.zeroDynamic typeof<Uri> :?> Uri
-        Assert.IsType<Uri>(y)
 
     [<Fact>]
     member this.``datetimeoffset test``() =

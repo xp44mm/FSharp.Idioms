@@ -65,7 +65,8 @@ type TypeRenderTest(output: ITestOutputHelper) =
 
     [<Fact>]
     member this.``generic type definition test``() =
-        let ty = typedefof<Nullable<_>>
+        let ty = typeof<Nullable<_>>.GetGenericTypeDefinition()
+        Should.equal true ty.IsGenericTypeDefinition
         let y = Literal.stringifyTypeDynamic ty
         Should.equal y "Nullable<'T>"
 

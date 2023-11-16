@@ -32,7 +32,6 @@
     <Compile Include="ListTypeTest.fs" />
     <Compile Include="SetTypeTest.fs" />
     <Compile Include="MapTypeTest.fs" />
-    <Compile Include="TupleTypeTest.fs" />
     <Compile Include="RecordTypeTest.fs" />
     <Compile Include="UnionTypeTest.fs" />
     <Compile Include="BufferQueueTest.fs" />
@@ -49,13 +48,12 @@
     <Compile Include="Literals\RenderTest.fs" />
     <Compile Include="Literals\DateTimeTest.fs" />
     <Compile Include="PrimitiveParserTest.fs" />
-    <Compile Include="DefaultValues\DefaultValueFallbackTest.fs" />
-    <Compile Include="DefaultValues\RecordTest.fs" />
-    <Compile Include="DefaultValues\UnionTest.fs" />
-    <Compile Include="DefaultValues\MainDefaultValueTest.fs" />
-    <Compile Include="EqualityCheckersTest.fs" />
+    <Compile Include="Zeros\DefaultValueFallbackTest.fs" />
+    <Compile Include="Zeros\RecordTest.fs" />
+    <Compile Include="Zeros\UnionTest.fs" />
+    <Compile Include="Zeros\MainDefaultValueTest.fs" />
     <Compile Include="CustomDataExample.fs" />
-    <Compile Include="EqualityCheckerUtilsTest.fs" />
+    <Compile Include="EqualityComparerUtilsTest.fs" />
 
     <Compile Include="Program.fs" />
   </ItemGroup>
@@ -63,9 +61,9 @@
   <ItemGroup />
 
   <ItemGroup>
-    <PackageReference Include="FSharp.xUnit" Version="1.2.15" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
-    <PackageReference Include="xunit" Version="2.6.0" />
+    <PackageReference Include="FSharp.xUnit" Version="1.2.19" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageReference Include="xunit" Version="2.6.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -81,7 +79,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="7.0.401" />
+    <PackageReference Update="FSharp.Core" Version="8.0.100" />
   </ItemGroup>
 
 </Project>
