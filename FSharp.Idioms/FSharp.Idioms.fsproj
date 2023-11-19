@@ -11,8 +11,8 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
-    <Version>1.4.8</Version>
-    <PackageReleaseNotes>core 8.0</PackageReleaseNotes>
+    <Version>1.4.9</Version>
+    <PackageReleaseNotes>tsv, array</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/xp44mm/FSharp.Idioms</PackageProjectUrl>
     <PackageTags>fsharp;lib</PackageTags>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
@@ -21,7 +21,6 @@
   <ItemGroup>
     <Compile Include="PointFree.fs" />
     <Compile Include="Memoization.fs" />
-    <Compile Include="Tsv.fs" />
     <Compile Include="Pair.fs" />
     <Compile Include="Triple.fs" />
     <Compile Include="List.fs" />
@@ -34,6 +33,7 @@
     <Compile Include="OrdinalIgnoreCase.fs" />
     <Compile Include="ActivePatterns.fs" />
     <Compile Include="Line.fs" />
+    <Compile Include="Tsv.fs" />
     <Compile Include="JsonString.fs" />
     <Compile Include="FSharpCodeUtils.fs" />
     <Compile Include="ComparisonActivePatterns.fs" />

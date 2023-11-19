@@ -66,3 +66,32 @@ let ofJaggedMap (mp:Map<'u,Map<'v,'w>>) =
         |> Array.map(fun(v,w)->u,v,w)
     )
     |> Array.concat
+
+/// 把所有行的列数对齐到最大
+let alignCols (cells:'a[][]) =
+    if cells.Length > 0 then
+        let mlen =
+            cells
+            |> Array.map(fun arr -> arr.Length)
+            |> Array.max
+        cells
+        |> Array.map(fun arr ->
+            match mlen - arr.Length with
+            | 0 -> arr
+            | dlen ->
+                [|
+                    yield! arr
+                    for _ in [1..dlen] do
+                        yield Unchecked.defaultof<'a>
+                |]
+        )
+    else [||]
+
+let createJaggedArray<'a> rows cols =
+    [| 
+        for r in [0..rows-1] do
+            [|
+                for c in [0..cols-1] do
+                    Unchecked.defaultof<'a>
+            |]
+    |]

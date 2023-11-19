@@ -2,11 +2,6 @@
 module  FSharp.Idioms.Tsv
 
 open System
-open System.Collections
-open System.Collections.Generic
-open System.Diagnostics
-open System.Reflection
-open System.Runtime.InteropServices
 open System.IO
 open System.Text
 open System.Text.RegularExpressions
@@ -16,6 +11,21 @@ let parseTsv path =
     let lines = File.ReadAllLines(path,Encoding.UTF8)
     lines
     |> Array.map(fun ln -> ln.Split [|'\t'|])
+
+/// get cells
+let parseText (text:string) =
+    let text = Regex.Replace(text,@"(\r\n|\r|\n)$","")
+    let lines = Regex.Split(text,@"\r\n|\r|\n")
+    lines
+    |> Array.map(fun ln -> ln.Split [|'\t'|])
+
+/// 合成tsv格式的文本
+let stringify (cells:string[][]) =
+    cells
+    |> Array.map(fun cols ->
+        cols |> String.concat "\t"
+    )
+    |> String.concat "\r\n"
 
 /// 第一行是标题行
 let getFieldTitles (rows:string[][]) =

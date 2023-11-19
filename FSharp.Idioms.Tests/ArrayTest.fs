@@ -110,3 +110,34 @@ type ArrayTest(output : ITestOutputHelper) =
 
         Assert.Equal<int>(y, ls)
 
+    [<Fact>]
+    member this.``alignCols``() =
+        let arr = [|
+            [|2|]
+            [|5;4;3|]
+            [|1|]
+            |]
+        
+        let y = 
+            arr
+            |> Array.alignCols
+
+        let e = [|
+            [|2;0;0|]
+            [|5;4;3|]
+            [|1;0;0|]
+            |]
+
+        Should.equal y e
+
+
+    [<Fact>]
+    member this.``createJaggedArray``() =        
+        let y = Array.createJaggedArray<int> 3 2
+        let e = [|
+            [|0;0|]
+            [|0;0|]
+            [|0;0|]
+        |]
+        Should.equal y e
+
