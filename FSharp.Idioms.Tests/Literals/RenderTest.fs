@@ -206,6 +206,13 @@ type RenderTest(output: ITestOutputHelper) =
         Assert.Equal("Some 123",res)
 
     [<Fact>]
+    member this.``render None test``() =
+        let x = None
+        let y = Literal.stringifyDynamic typeof<int option> x
+        Assert.Equal("None",y)
+
+
+    [<Fact>]
     member this.``render record test``() =
         let record = {| name = "xyz"; ``your age`` = 18 |}
         let res = Literal.stringify record

@@ -17,52 +17,49 @@ let ofArray =
 let listTypeDef = typeof<list<_>>.GetGenericTypeDefinition()
 
 let get_IsEmpty =
-    let memo = ConcurrentDictionary<Type, MethodInfo>(HashIdentity.Structural)
-    fun (ty:Type) -> memo.GetOrAdd(
-        ty.GenericTypeArguments.[0], ty.GetMethod("get_IsEmpty")
+    let memo = ConcurrentDictionary<Type, obj->bool>(HashIdentity.Structural)
+    fun (ty:Type) -> memo.GetOrAdd(ty.GenericTypeArguments.[0], 
+        let mi = ty.GetMethod("get_IsEmpty")
+        fun (value:obj) -> mi.Invoke(value,[||]) :?> bool
     )
 
-let isEmpty (ty:Type) =
-    let mi = get_IsEmpty ty
-    fun (value:obj) -> mi.Invoke(value,[||]) :?> bool
-
+// []
 let empty =
     let memo = ConcurrentDictionary<Type, obj>(HashIdentity.Structural)
-    fun (ty:Type) -> memo.GetOrAdd(ty, 
+    fun (ty:Type) -> memo.GetOrAdd(ty.GenericTypeArguments.[0],
         let get_Empty = ty.GetMethod("get_Empty")
         get_Empty.Invoke(null,[||])
     )
 
-
 let get_Head =
-    let memo = ConcurrentDictionary<Type, MethodInfo>(HashIdentity.Structural)
-    fun (ty:Type) -> memo.GetOrAdd(
-        ty.GenericTypeArguments.[0], ty.GetMethod("get_Head")
+    let memo = ConcurrentDictionary<Type, obj->obj>(HashIdentity.Structural)
+    fun (ty:Type) -> memo.GetOrAdd(ty.GenericTypeArguments.[0], 
+        let mi = ty.GetMethod("get_Head")
+        fun (value:obj) -> mi.Invoke(value,[||])
     )
-
-let head (ty:Type) =
-    let mi = get_Head ty
-    fun (value:obj) -> mi.Invoke(value,[||])
 
 let get_Tail =
-    let memo = ConcurrentDictionary<Type, MethodInfo>(HashIdentity.Structural)
-    fun (ty:Type) -> memo.GetOrAdd(
-        ty.GenericTypeArguments.[0], ty.GetMethod("get_Tail")
+    let memo = ConcurrentDictionary<Type, obj->obj>(HashIdentity.Structural)
+    fun (ty:Type) -> memo.GetOrAdd(ty.GenericTypeArguments.[0], 
+        let mi = ty.GetMethod("get_Tail")
+        fun (value:obj) -> mi.Invoke(value,[||])
     )
-
-let tail (ty:Type) =
-    let mi = get_Tail ty
-    fun (value:obj) -> mi.Invoke(value,[||])
+// ctor
+let Cons =
+    let memo = ConcurrentDictionary<Type, obj*obj->obj>(HashIdentity.Structural)
+    fun (ty:Type) -> memo.GetOrAdd(ty.GenericTypeArguments.[0], 
+        let m = ty.GetMethod("Cons")
+        fun (e:obj,ls:obj) -> m.Invoke(null,[|e; ls|])
+    )
 
 ///列表分解一次为元素
 [<Obsolete("IEnumerableType.toArray")>]
 let readList  =
-    let memo = ConcurrentDictionary<Type, obj -> Type*obj[]>(HashIdentity.Structural)
-
-    let factory (ty:Type) =
-        let isEmpty = isEmpty ty
-        let head = head ty
-        let tail = tail ty
+    let memo = ConcurrentDictionary<Type, obj->obj[]>(HashIdentity.Structural)
+    fun (ty:Type) -> memo.GetOrAdd(ty.GenericTypeArguments.[0],
+        let isEmpty = get_IsEmpty ty
+        let head = get_Head ty
+        let tail = get_Tail ty
 
         let rec objToRevList acc ls =
             if isEmpty ls then
@@ -74,11 +71,15 @@ let readList  =
                 objToRevList acc tail
 
         fun (ls:obj) ->
-            let values =
-                ls
-                |> objToRevList []
-                |> List.rev
-                |> List.toArray
-            ty.GenericTypeArguments.[0], values
-    fun (listType:Type) -> memo.GetOrAdd(
-        listType.GenericTypeArguments.[0],factory listType)
+            ls
+            |> objToRevList []
+            |> List.rev
+            |> List.toArray
+    )
+
+let writelist (ty:Type) (revseq:seq<obj>) =
+    let cons = Cons ty
+    let empty = empty ty
+
+    revseq
+    |> Seq.fold(fun ls e -> cons(e,ls)) empty

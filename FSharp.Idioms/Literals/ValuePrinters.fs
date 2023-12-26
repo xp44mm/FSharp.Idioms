@@ -16,11 +16,6 @@ let tryBool =
             )
         else None
 
-//let boolValuePrinter (ty:Type) =
-//    {
-//    finder = 
-//    print = 
-//    }
 let tryString =
     fun (ty:Type) ->
         if ty = typeof<string> then
@@ -29,12 +24,6 @@ let tryString =
                 |> FSharpCodeUtils.toStringLiteral
             )
         else None
-
-//let stringValuePrinter (ty:Type) =
-//    {
-//    finder = 
-//    print = fun loop (value:obj) (precContext:int) ->
-//    }
 
 let tryChar =
     fun (ty:Type) ->
@@ -45,12 +34,6 @@ let tryChar =
             )
         else None
 
-//let charValuePrinter (ty:Type) =
-//    {
-//    finder = 
-//    print = fun loop (value:obj) (precContext:int) ->
-//    }
-
 let trySbyte =
     fun (ty:Type) ->
         if ty = typeof<sbyte> then
@@ -60,11 +43,6 @@ let trySbyte =
             )
         else None
 
-//let sbyteValuePrinter (ty:Type) =
-//    {
-//    finder = 
-//    print = fun loop (value:obj) (precContext:int) ->
-//    }
 let tryByte =
     fun (ty:Type) ->
         if ty = typeof<byte> then
@@ -73,12 +51,6 @@ let tryByte =
                 Convert.ToString value + "uy"
             )
         else None
-
-//let byteValuePrinter (ty:Type) =
-//    {
-//    finder = 
-//    print = fun loop (value:obj) (precContext:int) ->
-//    }
 
 let tryInt16 =
     fun (ty:Type) ->
@@ -89,12 +61,6 @@ let tryInt16 =
             )
         else None
 
-//let ValuePrinter (ty:Type) =
-//    {
-//    finder = 
-//    print = fun loop (value:obj) (precContext:int) ->
-//    }
-
 let tryUint16 =
     fun (ty:Type) ->
         if ty = typeof<uint16> then
@@ -104,11 +70,6 @@ let tryUint16 =
             )
         else None
 
-//let uint16ValuePrinter (ty:Type) =
-//    {
-//    finder = 
-//    print = fun loop (value:obj) (precContext:int) ->
-//    }
 let tryInt =
     fun (ty:Type) ->
         if ty = typeof<int> then
@@ -118,11 +79,6 @@ let tryInt =
             )
         else None
 
-//let intValuePrinter (ty:Type) =
-//    {
-//    finder = 
-//    print = fun loop (value:obj) (precContext:int) ->
-//    }
 let tryUint32 =
     fun (ty:Type) ->
         if ty = typeof<uint32> then
@@ -132,11 +88,6 @@ let tryUint32 =
             )
         else None
 
-//let uint32ValuePrinter (ty:Type) =
-//    {
-//    finder = 
-//    print = fun loop (value:obj) (precContext:int) ->
-//    }
 let tryInt64 =
     fun (ty:Type) ->
         if ty = typeof<int64> then
@@ -146,11 +97,6 @@ let tryInt64 =
             )
         else None
 
-//let int64ValuePrinter (ty:Type) =
-//    {
-//    finder = 
-//    print = fun loop (value:obj) (precContext:int) ->
-//    }
 let tryUint64 =
     fun (ty:Type) ->
     if ty = typeof<uint64> then
@@ -160,11 +106,6 @@ let tryUint64 =
         )
     else None
 
-//let uint64ValuePrinter (ty:Type) =
-//    {
-//    finder = 
-//    print = fun loop (value:obj) (precContext:int) ->
-//    }
 let trySingle =
     fun (ty:Type) ->
     if ty = typeof<single> then
@@ -175,11 +116,6 @@ let trySingle =
         )
     else None
 
-//let singleValuePrinter (ty:Type) =
-//    {
-//    finder = 
-//    print = fun loop (value:obj) (precContext:int) ->
-//    }
 let tryFloat =
     fun (ty:Type) ->
     if ty = typeof<float> then
@@ -190,11 +126,6 @@ let tryFloat =
         )
     else None
 
-//let floatValuePrinter (ty:Type) =
-//    {
-//    finder = ty = typeof<>
-//    print = fun loop (value:obj) (precContext:int) ->
-//    }
 let tryDecimal =
     fun (ty:Type) ->
     if ty = typeof<decimal> then
@@ -204,11 +135,6 @@ let tryDecimal =
         )
     else None
 
-//let decimalValuePrinter (ty:Type) =
-//    {
-//    finder = 
-//    print = fun loop (value:obj) (precContext:int) ->
-//    }
 let tryNativeint =
     fun (ty:Type) ->
     if ty = typeof<nativeint> then
@@ -218,11 +144,6 @@ let tryNativeint =
         )
     else None
 
-//let nativeintValuePrinter (ty:Type) =
-//    {
-//    finder = 
-//    print = fun loop (value:obj) (precContext:int) ->
-//    }
 let tryUnativeint =
     fun (ty:Type) ->
     if ty = typeof<unativeint> then
@@ -231,12 +152,6 @@ let tryUnativeint =
         Convert.ToString value + "un"
         )
     else None
-
-//let unativeintValuePrinter (ty:Type) =
-//    {
-//    finder = 
-//    print = fun loop (value:obj) (precContext:int) ->
-//    }
 
 let tryBigint =
     fun (ty:Type) ->
@@ -247,12 +162,6 @@ let tryBigint =
         )
     else None
 
-//let bigintValuePrinter (ty:Type) =
-//    {
-//    finder = 
-//    print = fun loop (value:obj) (precContext:int) ->
-//    }
-
 let tryUnit =
     fun (ty:Type) ->
     if ty = typeof<unit> then
@@ -261,11 +170,6 @@ let tryUnit =
         )
     else None
 
-//let unitValuePrinter (ty:Type) =
-//    {
-//    finder = 
-//    print = fun loop (value:obj) (precContext:int) -> 
-//    }
 let tryDBNull =
     fun (ty:Type) ->
     if ty = typeof<DBNull> then
@@ -274,12 +178,6 @@ let tryDBNull =
         )
     else None
 
-//let ValuePrinter (ty:Type) =
-//    {
-//    finder = 
-//    print = fun loop (value:obj) (precContext:int) ->
-        
-//    }
 let tryGuid =
     fun (ty:Type) ->
     if ty = typeof<Guid> then
@@ -290,11 +188,6 @@ let tryGuid =
         )
     else None
 
-//let ValuePrinter (ty:Type) =
-//    {
-//    finder = 
-//    print = fun loop (value:obj) (precContext:int) ->
-//    }
 let tryEnum =
     fun (ty:Type) ->
     if ty.IsEnum then
@@ -312,11 +205,6 @@ let tryEnum =
         )
     else None
 
-//let enumValuePrinter (ty:Type) =
-//    {
-//    finder = 
-//    print = fun loop (value:obj) (precContext:int) ->
-//    }
 let tryTimeSpan =
     fun (ty:Type) ->
     if ty = typeof<TimeSpan> then
@@ -336,11 +224,6 @@ let tryTimeSpan =
         )
     else None
 
-//let timeSpanValuePrinter (ty:Type) =
-//    {
-//    finder = 
-//    print = fun loop (value:obj) (precContext:int) ->
-//    }
 let tryDateTimeOffset =
     fun (ty:Type) ->
     if ty = typeof<DateTimeOffset> then
@@ -362,11 +245,6 @@ let tryDateTimeOffset =
         )
     else None
 
-//let dateTimeOffsetValuePrinter (ty:Type) =
-//    {
-//    finder = 
-//    print = fun loop (value:obj) (precContext:int) ->
-//    }
 let tryDateTime =
     fun (ty:Type) ->
     if ty = typeof<DateTime> then
@@ -376,11 +254,6 @@ let tryDateTime =
         )
     else None
 
-//let dateTimeValuePrinter (ty:Type) =
-//    {
-//    finder = 
-//    print = fun loop (value:obj) (precContext:int) ->
-//    }
 let tryNullable =
     fun (ty:Type) ->
     if ty.IsGenericType && ty.GetGenericTypeDefinition() = typeof<Nullable<_>>.GetGenericTypeDefinition() then
@@ -395,12 +268,6 @@ let tryNullable =
         )
     else None
     
-//let nullableValuePrinter (ty:Type) =
-//    {
-//    finder = 
-        
-//    print = fun loop (value:obj) (precContext:int) ->
-//    }
 let tryArray =
     fun (ty:Type) ->
     if ty.IsArray && ty.GetArrayRank() = 1 then
@@ -416,12 +283,6 @@ let tryArray =
         )
     else None
 
-//let arrayValuePrinter (ty:Type) =
-//    {
-//    finder =
-//    print = fun loop value prec ->
-//    }
-
 let tryList =
     fun (ty:Type) ->
     if ty.IsGenericType && ty.GetGenericTypeDefinition() = typeof<list<_>>.GetGenericTypeDefinition() then
@@ -436,12 +297,6 @@ let tryList =
         )
     else None
 
-//let listValuePrinter (ty:Type) =
-//    { 
-//    finder = 
-//    print = fun loop (value:obj) (precContext:int) ->
-//        //let reader = ListType.readList ty
-//    }
 let trySet =
     fun (ty:Type) ->
     if ty.IsGenericType && ty.GetGenericTypeDefinition() = typeof<Set<_>>.GetGenericTypeDefinition() then
@@ -456,13 +311,6 @@ let trySet =
         )
     else None
 
-
-//let setValuePrinter (ty:Type) =
-//    {
-//    finder =
-//    print = fun loop value precContext ->
-//        //let reader = SetType.readSet ty
-//    }
 let tryHashSet =
     fun (ty:Type) ->
     if ty.IsGenericType && ty.GetGenericTypeDefinition() = typeof<System.Collections.Generic.HashSet<_>>.GetGenericTypeDefinition() then
@@ -478,36 +326,6 @@ let tryHashSet =
         )
     else None
 
-//let hashsetValuePrinter (ty:Type) =
-//    {
-//    finder =
-        
-//    print = fun loop (value:obj) (precContext:int) ->
-
-
-//    }
-let tryMap =
-    fun (ty:Type) ->
-    if ty.IsGenericType && ty.GetGenericTypeDefinition() = typeof<Map<_,_>>.GetGenericTypeDefinition() then
-        let reader = MapType.toArray ty
-        Some(fun (loop:Loop) (value:obj) (precContext:int) ->
-        let elements = reader value
-        let kvty = elements.GetType().GetElementType() //(k,v) tuple type
-
-        elements
-        |> Array.map(fun kvp -> loop kvty kvp valuePrecedences.[";"])
-        |> String.concat ";"
-        |> sprintf "Map [%s]"
-        |> putParen precContext valuePrecedences.[" "]
-        )
-    else None
-
-//let mapValuePrinter (ty:Type) =
-//    {
-//    finder =
-//        //ty.IsGenericType && ty.GetGenericTypeDefinition() = typedefof<>
-//    print = fun loop (value:obj) (precContext:int) ->
-//    }
 let tryTuple =
     fun (ty:Type) ->
     if FSharpType.IsTuple ty then
@@ -525,11 +343,29 @@ let tryTuple =
         )
     else None
 
-//let tupleValuePrinter (ty:Type) =
-//    {
-//        finder = 
-//        print = fun loop (value:obj) (precContext:int) ->
-//    }
+let tryMap =
+    fun (ty:Type) ->
+    if ty.IsGenericType && ty.GetGenericTypeDefinition() = typeof<Map<_,_>>.GetGenericTypeDefinition() then
+        let reader = MapType.toArray ty
+        let kty = ty.GenericTypeArguments.[0]
+        let vty = ty.GenericTypeArguments.[1]
+        Some(fun (loop:Loop) (value:obj) (precContext:int) ->
+        let elements = reader value
+
+        elements
+        |> Array.map(fun (k,v) ->
+            [
+                loop kty k valuePrecedences.[","]
+                loop vty v valuePrecedences.[","]
+            ]
+            |> String.concat ","
+            )
+        |> String.concat ";"
+        |> sprintf "Map [%s]"
+        |> putParen precContext valuePrecedences.[" "]
+        )
+    else None
+
 let tryUnion =
     fun (ty:Type) ->
     if FSharpType.IsUnion ty then
@@ -554,11 +390,6 @@ let tryUnion =
         )
     else None
 
-//let unionValuePrinter (ty:Type) =
-//    {
-//        finder = 
-//        print = fun loop (value:obj) (precContext:int) ->
-//    }
 let tryRecord =
     fun (ty:Type) ->
     if FSharpType.IsRecord ty then
@@ -583,11 +414,6 @@ let tryRecord =
         )
     else None
 
-//let recordValuePrinter (ty:Type) =
-//    {
-//        finder = 
-//        print = fun loop (value:obj) (precContext:int) ->
-//    }
 let tryType =
     fun (ty:Type) ->
     if ty = typeof<Type> then
@@ -599,7 +425,3 @@ let tryType =
         )
     else None
 
-//let TypeValuePrinter ty = {
-//    finder = 
-//    print = fun loop value prec ->
-//    }

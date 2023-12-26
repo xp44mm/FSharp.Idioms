@@ -21,16 +21,21 @@ type ListTypeTest(output : ITestOutputHelper) =
 
     [<Fact>]
     member this.``list type members``() =
-        let listTypeDef = typeof<list<_>>.GetGenericTypeDefinition()
-        for m in listTypeDef.GetMembers(
-            BindingFlags.Static ||| BindingFlags.Public
-            ) do
-            output.WriteLine($"{m.MemberType}, {m.Name}")
+        let ty = typeof<list<int>>
+        let elemType = ty.GenericTypeArguments.[0]
+        Should.equal elemType typeof<int>
+        for m in ty.GetMembers() do
+            output.WriteLine($"{m}")
 
+    [<Fact>]
+    member this.``list type Cons``() =
+        let ty = typeof<list<int>>
+        let y = ListType.Cons ty (box 1, box [2;3])
+        Should.equal ty (y.GetType())
+        Should.equal y (box [1;2;3])
 
     [<Fact>]
     member this.``list type isEmpty``() =
-        let listTypeDef = typeof<list<_>>.GetGenericTypeDefinition()
         let get_IsEmpty =
             let memo = ConcurrentDictionary<Type, MethodInfo>(HashIdentity.Structural)
             fun (ty:Type) -> memo.GetOrAdd(
@@ -46,23 +51,22 @@ type ListTypeTest(output : ITestOutputHelper) =
         Assert.False(y)
 
     [<Fact>]
-    member this.``isEmpty``() =
+    member this.``get_IsEmpty``() =
         let x = [1]
-        //let isEmpty = getIsEmpty <| x.GetType()
-        let y = ListType.isEmpty (x.GetType()) x
+        let y = ListType.get_IsEmpty (x.GetType()) x
         Should.equal y false
 
     [<Fact>]
-    member this.``head``() =
+    member this.``get_Head``() =
         let x = [1]
-        let head = ListType.head <| x.GetType()
+        let head = ListType.get_Head <| x.GetType()
         let y = head x
         Should.equal y (box 1)
 
     [<Fact>]
-    member this.``tail``() =
+    member this.``get_Tail``() =
         let x = [1;2]
-        let tail = ListType.tail <| x.GetType()
+        let tail = ListType.get_Tail <| x.GetType()
         let y = tail x
         Should.equal y (box [2])
 
@@ -83,6 +87,19 @@ type ListTypeTest(output : ITestOutputHelper) =
         let y = ofArray.Invoke(null, Array.singleton x) :?> int list
         Should.equal y [1;2]
 
+    [<Fact>]
+    member this.``interfaces of list``() =
+        let ls = box [1;2]
+        let ty = typeof<int list>
+        for nf in ty.GetInterfaces() do
+            output.WriteLine($"{nf.Name}")
+        Assert.NotNull(ty.GetInterface("IEnumerable`1"))
 
+    [<Fact>]
+    member this.``fold of list``() =
+        let ls = [1;2]
+        let revls =
+            ls
+            |> List.fold(fun ls e -> e::ls) []
 
-
+        Should.equal revls [2;1]

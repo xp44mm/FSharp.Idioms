@@ -24,10 +24,6 @@ let tryNext(enumerator:IEnumerator) =
         None
 
 let toArray (enumerator:IEnumerator) =
-    //match sq.GetType().GetInterface("IEnumerable") with
-    //| null -> failwith "type mismatch"
-    //| _ ->
-    //let enumerator = sq |> getEnumerator
     [|
         while enumerator.MoveNext() do
             yield enumerator.Current

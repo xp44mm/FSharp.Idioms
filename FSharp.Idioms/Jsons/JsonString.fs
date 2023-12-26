@@ -1,10 +1,10 @@
-﻿module FSharp.Idioms.JsonString
+﻿module FSharp.Idioms.Jsons.JsonString
 
 open System
 open System.Globalization
 open System.Text.RegularExpressions
-open ActivePatterns
-open RegularExpressions
+open FSharp.Idioms.ActivePatterns
+open FSharp.Idioms.RegularExpressions
 
 /// JSON格式加引号：xyz -> "xyz"
 let quote (value:string) =

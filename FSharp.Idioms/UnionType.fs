@@ -1,7 +1,7 @@
 ﻿module FSharp.Idioms.UnionType
+open FSharp.Reflection
 
 open System
-open Microsoft.FSharp.Reflection
 open System.Collections.Concurrent
 open System.Reflection
 
@@ -50,3 +50,12 @@ let getQualifiedAccess(unionType:Type) =
         else ""
 
     memoQualifiedAccess.GetOrAdd(unionType, valueFacotry)
+
+let getQualifiedNameIfNeed =
+    let memo = ConcurrentDictionary<Type, string -> string >(HashIdentity.Structural)
+    fun (ty:Type) -> memo.GetOrAdd(ty,
+        fun (name:string) ->
+            if ty.IsDefined(typeof<RequireQualifiedAccessAttribute>,false) then
+                $"{ty.Name}.{name}"
+            else name
+    )

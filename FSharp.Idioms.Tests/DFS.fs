@@ -38,7 +38,7 @@ let initializeVertices(graph:list<'c*'c>) =
     getVertices graph
     |> List.map(fun v -> {
             tag= v
-            pi= zero<'c>
+            pi= defaultof<'c>
             color= White
             d = 0
             f = 0

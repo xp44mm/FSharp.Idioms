@@ -23,10 +23,16 @@ let getOfArray (setType:Type) =
         mOfArrayDef.MakeGenericMethod(ty.GenericTypeArguments)
     memoOfArray.GetOrAdd(setType, valueFactory)
 
+let ctor =
+    let memo = ConcurrentDictionary<Type, obj->obj>(HashIdentity.Structural)
+    fun (ty:Type) -> memo.GetOrAdd(ty.GenericTypeArguments.[0],
+        let ctor = ty.GetConstructors().[0]
+        fun sq -> ctor.Invoke([|sq|])
+    )
+
 let empty =
     let memo = ConcurrentDictionary<Type, obj>(HashIdentity.Structural)
-    fun (ty:Type) -> memo.GetOrAdd(ty,
-        let ctor = ty.GetConstructors().[0]
+    fun (ty:Type) -> memo.GetOrAdd(ty.GenericTypeArguments.[0],
         let arr = Array.CreateInstance(ty.GenericTypeArguments.[0], 0)
-        ctor.Invoke([| arr |])
+        ctor ty arr
     )

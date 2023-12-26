@@ -34,7 +34,6 @@
     <Compile Include="ActivePatterns.fs" />
     <Compile Include="Line.fs" />
     <Compile Include="Tsv.fs" />
-    <Compile Include="JsonString.fs" />
     <Compile Include="FSharpCodeUtils.fs" />
     <Compile Include="ComparisonActivePatterns.fs" />
 	  
@@ -44,11 +43,15 @@
 	  
     <Compile Include="Seq.fs" />
     <Compile Include="EnumType.fs" />
-    <Compile Include="IEnumerableType.fs" />
-    <Compile Include="IEnumeratorType.fs" />
+    <Compile Include="OptionType.fs" />
     <Compile Include="ArrayType.fs" />
+    <Compile Include="IEnumerableType.fs" />
+    <Compile Include="KeyValuePairType.fs" />
+    <Compile Include="IDictionaryType.fs" />
+    <Compile Include="IEnumeratorType.fs" />
     <Compile Include="ListType.fs" />
     <Compile Include="SetType.fs" />
+    <Compile Include="HashSetType.fs" />
     <Compile Include="MapType.fs" />
     <Compile Include="UnionType.fs" />
     <Compile Include="ClassType.fs" />
@@ -64,8 +67,15 @@
     <Compile Include="Zeros\TryZeros.fs" />
     <Compile Include="Zeros\ZeroUtils.fs" />
     <Compile Include="Literal.fs" />
-    
     <Compile Include="EqualityComparers\EqualityComparerUtils.fs" />
+    <Compile Include="Jsons\Json.fs" />
+    <Compile Include="Jsons\JsonString.fs" />
+    <Compile Include="Jsons\JsonRender.fs" />
+    <Compile Include="Jsons\JsonReaders.fs" />
+    <Compile Include="Jsons\JsonReaderApp.fs" />
+    <Compile Include="Jsons\JsonWriters.fs" />
+    <Compile Include="Jsons\JsonWriterApp.fs" />
+    <Compile Include="Json.fs" />
 
     <Compile Include="Parsers\PrimitiveType.fs" />
     <Compile Include="Parsers\ParseInteger.fs" />

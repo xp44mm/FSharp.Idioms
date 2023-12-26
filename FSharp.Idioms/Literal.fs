@@ -2,6 +2,7 @@
 
 open System
 open FSharp.Idioms.Literals
+open FSharp.Idioms.Zeros
 
 /// print dynamic value
 let stringifyTypeDynamic (tp:Type) = 
@@ -19,10 +20,6 @@ let stringifyDynamic (tp:Type) (value:obj) =
 /// print generic value
 let stringify<'t> (value:'t) = stringifyDynamic typeof<'t> value
 
-open FSharp.Idioms.Zeros
+let defaultofDynamic : Type->obj = ZeroUtils.getZero ZeroUtils.tries
 
-let zeroDynamic (ty:Type) = 
-    ty
-    |> ZeroUtils.getZero ZeroUtils.tries 
-
-let zero<'t> = zeroDynamic typeof<'t> :?> 't
+let defaultof<'t> = defaultofDynamic typeof<'t> :?> 't

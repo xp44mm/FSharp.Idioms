@@ -7,238 +7,163 @@ open FSharp.Reflection
 
 type Loop = Type -> obj
 
-
-let tryBool =
-    fun (ty:Type) -> 
+let tryBool = 
+    let x = box false    
+    fun (ty:Type) ->
     if ty=typeof<bool> then
-        Some(fun loop -> box false)
+        Some(fun (loop:Loop) -> x)
     else None
 
-let trysbyte =
+let trySbyte = 
+    let x = box 0y
     fun (ty:Type) ->
-    if ty=typeof<sbyte>
-    then Some(fun loop -> box 0y
-    ) else None
-let tryint16 =
-    fun (ty:Type) ->
-    if ty=typeof<int16>
-    then Some(fun loop -> box 0s
-    ) else None
-let tryint =
-    fun (ty:Type) ->
-    if ty=typeof<int>
-    then Some(fun loop -> box 0
-    ) else None
-let tryint64 =
-    fun (ty:Type) ->
-    if ty=typeof<int64>
-    then Some(fun loop -> box 0L
-    ) else None
-let trynativeint =
-    fun (ty:Type) ->
-    if ty=typeof<nativeint>
-    then Some(fun loop -> box 0n
-    ) else None
-let trybyte =
-    fun (ty:Type) ->
-    if ty=typeof<byte>
-    then Some(fun loop -> box 0uy
-    ) else None
-let tryuint16 =
-    fun (ty:Type) ->
-    if ty=typeof<uint16>
-    then Some(fun loop -> box 0us
-    ) else None
-let trychar =
-    fun (ty:Type) ->
-    if ty=typeof<char>
-    then Some(fun loop -> box '\u0000'
-    ) else None
-let tryuint32 =
-    fun (ty:Type) ->
-    if ty=typeof<uint32>
-    then Some(fun loop -> box 0u
-    ) else None
-let tryuint64 =
-    fun (ty:Type) ->
-    if ty=typeof<uint64>
-    then Some(fun loop -> box 0UL
-    ) else None
-let tryunativeint =
-    fun (ty:Type) ->
-    if ty=typeof<unativeint>
-    then Some(fun loop -> box 0un
-    ) else None
-let trydecimal =
-    fun (ty:Type) ->
-    if ty=typeof<decimal>
-    then Some(fun loop -> box 0M
-    ) else None
-let tryfloat =
-    fun (ty:Type) ->
-    if ty=typeof<float>
-    then Some(fun loop -> box 0.0
-    ) else None
-let tryfloat32 =
-    fun (ty:Type) ->
-    if ty=typeof<float32>
-    then Some(fun loop -> box 0.0f
-    ) else None
-let trybigint =
-    fun (ty:Type) ->
-    if ty=typeof<bigint>
-    then Some(fun loop -> box 0I
-    ) else None
-let trystring =
-    fun (ty:Type) ->
-    if ty=typeof<string>
-    then Some(fun loop -> box ""
-    ) else None
-//let tryBool =
-//    fun (ty:Type) ->
-//    finder = ty = typeof<Guid>
-//    getDefault = fun (loop: Type -> obj) ->
-//        Guid() |> box
-//    ) else None
-let tryDBNull =
-    fun (ty:Type) ->
-    if ty = typeof<DBNull> 
-    then Some( fun (loop: Type -> obj) ->
-        box DBNull.Value
-    ) else None
-let tryDateTimeOffset =
-    fun (ty:Type) ->
-    if ty = typeof<DateTimeOffset>
-    then Some( fun (loop: Type -> obj) ->
-        box DateTimeOffset.MinValue
-    ) else None
-let tryTimeSpan =
-    fun (ty:Type) ->
-    if ty = typeof<TimeSpan>
-    then Some ( fun (loop: Type -> obj) -> 
-        box TimeSpan.Zero
-    ) else None
-//let tryBool =
-//    fun (ty:Type) ->
-//    finder = ty = typeof<Uri>
-//    getDefault = fun (loop: Type -> obj) -> 
-//        box (Uri("http://www.contoso.com/"))
-//    ) else None
-
-let tryEnum =
-    fun (ty:Type) ->
-    if ty.IsEnum then
-        Some(fun loop -> 
-        Enum.GetNames(ty)
-        |> Array.map(fun name ->
-            ty.GetField(
-                name, BindingFlags.Public ||| BindingFlags.Static
-                ).GetValue(null)
-        )
-        |> Array.minBy(hash)
-        )
+    if ty=typeof<sbyte> then
+        Some(fun (loop:Loop) -> x)
     else None
 
-//let EnumDefaultValueGetter (ty:Type) =
-//    {
-//    finder = 
-//    getDefault = fun (loop: Type -> obj) ->
-//    ) else None
-
-let tryNullable =
+let tryInt16 = 
+    let s = box 0s
     fun (ty:Type) ->
-    if ty.IsGenericType && ty.GetGenericTypeDefinition() = typeof<Nullable<_>>.GetGenericTypeDefinition() then
-        Some(fun loop -> 
-        null
-        )
+    if ty=typeof<int16> then
+        Some(fun (loop:Loop) -> s)
     else None
 
-//let NullableDefaultValueGetter (ty:Type) =
-//    {
-//    finder = 
-//    getDefault = fun (loop: Type -> obj) -> 
-//    ) else None
-
-let tryOption =
+let tryInt =
+    let x = box 0
     fun (ty:Type) ->
+    if ty=typeof<int> then 
+        Some(fun (loop:Loop) -> x)
+    else None
+
+let tryInt64 = 
+    let x = box 0L
+    fun (ty:Type) ->
+    if ty=typeof<int64> then Some(fun (loop:Loop) -> x) else None
+
+let tryNativeint = 
+    let x = box 0n
+    fun (ty:Type) ->
+    if ty=typeof<nativeint> then Some(fun (loop:Loop) -> x) else None
+
+let tryByte = 
+    let x = box 0uy 
+    fun (ty:Type) ->
+    if ty=typeof<byte> then Some(fun (loop:Loop) -> x) else None
+
+let tryUint16 = 
+    let x = box 0us 
+    fun (ty:Type) ->
+    if ty=typeof<uint16> then Some(fun (loop:Loop) -> x) else None
+
+let tryChar = 
+    let x = box '\u0000' 
+    fun (ty:Type) ->
+    if ty=typeof<char> then Some(fun (loop:Loop) -> x) else None
+
+let tryUint32 = 
+    let x = box 0u 
+    fun (ty:Type) ->
+    if ty=typeof<uint32> then Some(fun (loop:Loop) -> x) else None
+
+let tryUint64 = 
+    let x = box 0UL 
+    fun (ty:Type) ->
+    if ty=typeof<uint64> then Some(fun (loop:Loop) -> x) else None
+
+let tryUnativeint = 
+    let x = box 0un
+    fun (ty:Type) ->
+    if ty=typeof<unativeint> then Some(fun (loop:Loop) -> x ) else None
+
+let tryDecimal = 
+    let x = box 0M
+    fun (ty:Type) ->
+    if ty=typeof<decimal> then Some(fun (loop:Loop) -> x) else None
+
+let tryFloat = 
+    let x = box 0.0 
+    fun (ty:Type) ->
+    if ty=typeof<float> then Some(fun (loop:Loop) -> x) else None
+
+let tryFloat32 = 
+    let x = box 0.0f
+    fun (ty:Type) ->
+    if ty=typeof<float32> then Some(fun (loop:Loop) -> x) else None
+
+let tryBigint = 
+    let x = box 0I
+    fun (ty:Type) ->
+    if ty=typeof<bigint> then Some(fun (loop:Loop) -> x) else None
+
+let tryString = 
+    let x = box ""
+    fun (ty:Type) ->
+    if ty=typeof<string> then Some(fun (loop:Loop) -> x) else None
+
+let tryDBNull = 
+    let x = box DBNull.Value
+    fun (ty:Type) ->
+    if ty = typeof<DBNull> then Some( fun (loop: Type -> obj) -> x) else None
+
+let tryDateTimeOffset = 
+    let x = box DateTimeOffset.MinValue
+    fun (ty:Type) ->
+    if ty = typeof<DateTimeOffset> then Some( fun (loop: Type -> obj) -> x ) else None
+
+let tryTimeSpan = 
+    let x = box TimeSpan.Zero
+    fun (ty:Type) ->
+    if ty = typeof<TimeSpan> then Some(fun (loop: Type -> obj) -> x) else None
+
+let tryEnum = 
+    fun (ty:Type) ->
+    if ty.IsEnum then 
+        let value = Enum.GetValues(ty).GetValue 0
+        let x = Enum.ToObject(ty,value)
+        Some(fun (loop:Loop) -> x) 
+    else None
+
+let tryNullable = 
+    let typedef = typeof<Nullable<_>>.GetGenericTypeDefinition()
+    fun (ty:Type) ->
+    if ty.IsGenericType && ty.GetGenericTypeDefinition() = typedef then
+        Some(fun (loop:Loop) -> null : obj)
+    else None
+
+let tryOption = fun (ty:Type) ->
     if FSharpType.IsUnion ty && ty.IsGenericType && ty.GetGenericTypeDefinition() = typeof<Option<_>>.GetGenericTypeDefinition() then
-        Some(fun loop -> 
-        null
-        )
+        Some(fun (loop:Loop) -> null : obj )
     else None
 
-//let OptionDefaultValueGetter (ty:Type) =
-//    {
-//    finder = 
-//    getDefault = fun (loop: Type -> obj) -> null
-//    ) else None
-
-//动态创建泛型数组：
-//需要使用`Array.CreateInstance(elementType,length)`方式创建一个新的数组。elementType为数组元素的类型，length为数组的长度。
-//然后使用Array.SetValue(object,index)方法将元素插入
-
-let tryArray =
-    fun (ty:Type) ->
+let tryArray = fun (ty:Type) ->
     if ty.IsArray && ty.GetArrayRank() = 1 then
-        Some(fun loop -> 
-        Array.CreateInstance(ty.GetElementType(), 0)
-        |> box
-        )
+        let ety = ty.GetElementType()
+        let arr = Array.CreateInstance(ety, 0) |> box
+        Some(fun (loop:Loop) -> arr)
     else None
 
-//let ArrayDefaultValueGetter (ty:Type) =
-//    {
-//    finder = ty.Is
-//    getDefault = fun (loop: Type -> obj) ->
-//    ) else None
-let tryList =
-    fun (ty:Type) ->
+let tryList = fun (ty:Type) ->
     if ty.IsGenericType && ty.GetGenericTypeDefinition() = typeof<list<_>>.GetGenericTypeDefinition() then
-        Some(fun loop ->
-        ListType.empty ty
-        )
+        let empty = ListType.empty ty
+        Some(fun (loop:Loop) -> empty)
     else None
 
-//let DefaultValueGetter (ty:Type) =
-//    {
-//    finder = 
-//    getDefault = fun (loop: Type -> obj) ->
-//    ) else None
-
-let trySet =
-    fun (ty:Type) ->
+let trySet = fun (ty:Type) ->
     if ty.IsGenericType && ty.GetGenericTypeDefinition() = typeof<Set<_>>.GetGenericTypeDefinition() then
-        Some(fun loop ->
-        SetType.empty ty
-        )
+        let empty = SetType.empty ty
+        Some(fun (loop:Loop) -> empty)
     else None
 
-//let SetDefaultValueGetter (ty:Type) =
-//    {
-//    finder = 
-//    getDefault = fun (loop: Type -> obj) -> 
-//    ) else None
-let tryMap =
-    fun (ty:Type) ->
+let tryMap = fun (ty:Type) ->
     if ty.IsGenericType && ty.GetGenericTypeDefinition() = typeof<Map<_,_>>.GetGenericTypeDefinition() then
-        Some(fun loop ->
-        MapType.empty ty
-        )
+        let empty = MapType.empty ty
+        Some(fun (loop:Loop) -> empty)
     else None
 
-//let MapDefaultValueGetter (ty:Type) =
-//    {
-//    finder = ty.IsGenericType && ty.GetGenericTypeDefinition() = typedefof<>
-//    getDefault = fun (loop: Type -> obj) ->
-//        let emptyGeneric = MapType.mapModuleType.GetMethod "Empty"
-//        let empty = emptyGeneric.MakeGenericMethod(ty.GenericTypeArguments)
-//        empty.Invoke(null, [||]) 
-//    ) else None
-let tryTuple =
-    fun (ty:Type) ->
+let tryTuple = fun (ty:Type) ->
     if FSharpType.IsTuple ty then
-        Some(fun loop ->
         let elementTypes = FSharpType.GetTupleElements(ty)
+        Some(fun (loop:Loop) ->
         let values =
             elementTypes
             |> Array.map(fun ety -> loop ety)
@@ -246,68 +171,57 @@ let tryTuple =
         )
     else None
 
-//let TupleDefaultValueGetter (ty:Type) =
-//    {
-//    finder = 
-//    getDefault = fun (loop: Type -> obj) -> 
-//    ) else None
-let tryRecord =
-    fun (ty:Type) ->
+let tryRecord = fun (ty:Type) ->
     if FSharpType.IsRecord ty then
-        Some(fun loop ->
-        let fields = FSharpType.GetRecordFields(ty)
+        let props = 
+            FSharpType.GetRecordFields(ty)
+            |> Array.map (fun pi -> pi.PropertyType)
+        Some(fun (loop:Loop) ->
         let values =
-            fields
-            |> Array.map (fun pi -> loop pi.PropertyType)
+            props
+            |> Array.map (fun pty -> loop pty)
         FSharpValue.MakeRecord(ty, values)
         )
     else None
 
-//let RecordDefaultValueGetter (ty:Type) =
-//    {
-//    finder = 
-//    getDefault = fun (loop: Type -> obj) -> 
-//    ) else None
-let tryUnion =
-    fun (ty:Type) ->
+let tryUnion = fun (ty:Type) ->
     if FSharpType.IsUnion ty then
-        Some(fun loop ->
         let unionCaseInfo =
             FSharpType.GetUnionCases(ty)
             |> Array.minBy(fun i -> i.Tag)
-
         let uionFieldTypes =
             unionCaseInfo.GetFields()
             |> Array.map(fun info -> info.PropertyType)
 
-        let fields =
-            uionFieldTypes
-            |> Array.map loop
-
-        FSharpValue.MakeUnion(unionCaseInfo, fields)
+        Some(fun (loop:Loop) ->
+            let fields =
+                uionFieldTypes
+                |> Array.map loop
+            FSharpValue.MakeUnion(unionCaseInfo, fields)
         )
     else None
-    
-//let UnionDefaultValueGetter (ty:Type) =
-//    {
-//    finder = 
-//    getDefault = fun (loop: Type -> obj) -> 
-//    ) else None
 
-let tryZero =
-    fun (ty:Type) ->
-    match ty.GetProperty("Zero", BindingFlags.Static ||| BindingFlags.Public) with
+let tryZero = fun (ty:Type) ->
+    match ty.GetProperty("Zero", BindingFlags.Static ||| BindingFlags.Public ||| BindingFlags.NonPublic) with
     | null -> None
-    | pinfo -> Some(fun loop ->
-        pinfo.GetValue(null, [||])
-        )
+    | pinfo -> 
+        let x = pinfo.GetValue(null, [||])
+        Some(fun (loop:Loop) -> x)
 
-//let fallbackDefaultValueGetter (ty:Type) =
-//    {
-//    finder = true
-//    getDefault = fun (loop: Type -> obj) -> 
-//        try
-//            let pinfo =
-                
-//        with _ -> null
-//    ) else None
+let tryValueType = fun (ty:Type) ->
+    if ty.IsValueType then
+        let obj = Activator.CreateInstance ty
+        Some(fun (loop:Loop) -> obj)
+    else None
+
+/// parameterless constructor
+let tryCtor = fun (ty:Type) ->
+    match 
+        ty.GetConstructor(BindingFlags.Instance ||| BindingFlags.Public ||| BindingFlags.NonPublic, null, [||], null)
+    with
+    | null -> None
+    | ctor -> 
+        let obj = ctor.Invoke [||]
+        Some(fun (loop:Loop) -> obj)
+
+

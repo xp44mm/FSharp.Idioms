@@ -3,6 +3,7 @@
 open Xunit
 open Xunit.Abstractions
 open FSharp.xUnit
+open System.Collections.Generic
 
 type SetTypeTest(output : ITestOutputHelper) =
     let show res = 
@@ -29,6 +30,30 @@ type SetTypeTest(output : ITestOutputHelper) =
         let ofArray = SetType.getOfArray typeof<Set<int>>
         let y = ofArray.Invoke(null,Array.singleton x) :?> Set<int>
         Should.equal y (set [1;2])
+
+    [<Fact>]
+    member this.``set type members``() =
+        let ty = typeof<Set<int>>
+        let elemType = ty.GenericTypeArguments.[0]
+        Should.equal elemType typeof<int>
+        for m in ty.GetMembers() do
+            output.WriteLine($"{m}")
+
+    [<Fact>]
+    member this.``set type ctor``() =
+        let ty = typeof<Set<int>>
+        let x = [2;1]
+        let y =  SetType.ctor ty x
+        Should.equal y <| set [1;2]
+
+    [<Fact>]
+    member this.``set type empty``() =
+        let ty = typeof<Set<int>>
+        let y = SetType.empty ty
+        let e:Set<int> = set []
+        Should.equal y e
+
+
 
     //[<Fact>]
     //member this.``readSet``() =

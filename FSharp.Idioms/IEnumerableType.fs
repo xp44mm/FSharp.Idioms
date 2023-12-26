@@ -2,9 +2,9 @@
 
 open System.Collections
 
-let EnumerableType = typeof<IEnumerable>
+let IEnumerableType = typeof<IEnumerable>
 
-let GetEnumerator  = EnumerableType.GetMethod("GetEnumerator")
+let GetEnumerator  = IEnumerableType.GetMethod("GetEnumerator")
 
 let getEnumerator (x:obj) = 
     GetEnumerator.Invoke(x,[||])
@@ -16,4 +16,11 @@ let toArray (value:obj) =
         while enm.MoveNext() do
             yield enm.Current
     |]
+
+let toList (value:obj) =
+    let enm = getEnumerator value
+    [
+        while enm.MoveNext() do
+            yield enm.Current
+    ]
 
