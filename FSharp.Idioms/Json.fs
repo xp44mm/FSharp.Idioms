@@ -4,20 +4,24 @@ open FSharp.Idioms.Jsons
 
 open System
 
-/// 
-let stringifyUnquotedJson (json:Json) = JsonRender.stringifyUnquotedJson json
+/// string -> "string"
+let quote:string->string = JsonString.quote
 
-let stringify (json:Json) = JsonRender.stringifyNormalJson json
+/// "string" -> string
+let unquote:string->string = JsonString.unquote
+
+let stringify:Json->string = JsonRender.stringifyNormalJson
+
+/// 
+let stringifyUnquotedJson:Json->string = JsonRender.stringifyUnquotedJson
 
 /// obj -> Json 
-let readDynamic (ty:Type) (value:obj) =
-    JsonReaderApp.readDynamic ty value
+let readDynamic: Type -> obj -> Json = JsonReaderApp.readDynamic
 
 /// 't -> Json
 let read<'t> (value:'t) = readDynamic typeof<'t> value
 
-let writeDynamic (ty:Type) (json:Json) =
-    JsonWriterApp.writeDynamic ty json
+let writeDynamic: Type -> Json -> obj = JsonWriterApp.writeDynamic
 
 /// Json -> 't
 let write<'t> (json:Json) =

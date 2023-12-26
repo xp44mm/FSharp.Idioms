@@ -86,7 +86,7 @@ let tryInt64 = fun (ty:Type) ->
     if ty = typeof<int64> then
         Some(fun (loop:Loop) (value:obj) ->
         let value = unbox<int64> value
-        Json.Number <|Convert.ToDouble value
+        Json.Decimal <| Convert.ToDecimal value
         )
     else None
 
@@ -94,7 +94,7 @@ let tryUint64 = fun (ty:Type) ->
     if ty = typeof<uint64> then
         Some(fun (loop:Loop) (value:obj) ->
         let value = unbox<uint64> value
-        Json.Number <|Convert.ToDouble value
+        Json.Decimal <| Convert.ToDecimal value
         )
     else None
 
@@ -118,7 +118,8 @@ let tryFloat = fun (ty:Type) ->
 let tryDecimal = fun (ty:Type) ->
     if ty = typeof<decimal> then
         Some(fun (loop:Loop) (value:obj) ->
-        Json.Number <|Convert.ToDouble value
+        let value = unbox<decimal> value
+        Json.Decimal value
         )
     else None
 
@@ -126,7 +127,7 @@ let tryNativeint = fun (ty:Type) ->
     if ty = typeof<nativeint> then
         Some(fun (loop:Loop) (value:obj) ->
         let value = unbox<nativeint> value
-        Json.Number <| float(value.ToInt64())
+        Json.Decimal <| Convert.ToDecimal (value.ToInt64())
         )
     else None
 
@@ -134,7 +135,7 @@ let tryUnativeint = fun (ty:Type) ->
     if ty = typeof<unativeint> then
         Some(fun (loop:Loop) (value:obj) ->
         let value = unbox<unativeint> value
-        Json.Number <| float(value.ToUInt64())
+        Json.Decimal <| Convert.ToDecimal (value.ToUInt64())
         )
     else None
 

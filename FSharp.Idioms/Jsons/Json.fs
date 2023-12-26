@@ -9,7 +9,7 @@ type Json =
     | True
     | String of string
     | Number of float
-    //| Decimal of decimal // int64 uint64 nativeint unativeint
+    | Decimal of decimal // int64 uint64 nativeint unativeint
 
     member t.Item with get(idx:int) =
         match t with

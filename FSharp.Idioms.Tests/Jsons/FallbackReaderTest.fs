@@ -55,13 +55,13 @@ type FallbackReaderTest(output: ITestOutputHelper) =
     member _.``covert from int64 test``() =
         let x = 0L
         let y = JsonReaderApp.readDynamic (x.GetType()) x
-        Assert.Equal(y,Json.Number 0.0)
+        Assert.Equal(y,Json.Decimal 0M)
 
     [<Fact>]
     member _.``covert from uint64 test``() =
         let x = 0UL
         let y = JsonReaderApp.readDynamic (x.GetType()) x
-        Assert.Equal(y,Json.Number 0.0)
+        Assert.Equal(y,Json.Decimal 0M)
 
     [<Fact>]
     member _.``covert from single test``() =
@@ -73,19 +73,19 @@ type FallbackReaderTest(output: ITestOutputHelper) =
     member _.``covert from decimal test``() =
         let x = 0M
         let y = JsonReaderApp.readDynamic (x.GetType()) x
-        Assert.Equal(y,Json.Number 0.0)
+        Assert.Equal(y,Json.Decimal x)
 
     [<Fact>]
     member _.``covert from nativeint test``() =
         let x = 0n
         let y = JsonReaderApp.readDynamic (x.GetType()) x
-        Assert.Equal(y, Json.Number 0.0)
+        Assert.Equal(y, Json.Decimal 0M)
 
     [<Fact>]
     member _.``covert from unativeint test``() =
         let x = 0un
         let y = JsonReaderApp.readDynamic (x.GetType()) x
-        Assert.Equal(y,Json.Number 0.0)
+        Assert.Equal(y,Json.Decimal 0M)
 
     [<Fact>]
     member _.``covert from nullable test``() =
