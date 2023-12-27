@@ -1,4 +1,4 @@
-﻿module FSharp.Idioms.IDictionaryType
+﻿module FSharp.Idioms.Reflection.IDictionaryType
 
 open System.Collections
 open System

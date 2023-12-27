@@ -1,4 +1,4 @@
-﻿module FSharp.Idioms.OptionType
+﻿module FSharp.Idioms.Reflection.OptionType
 
 open System
 open System.Collections.Concurrent

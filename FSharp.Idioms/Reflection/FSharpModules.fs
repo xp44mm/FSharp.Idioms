@@ -1,4 +1,4 @@
-﻿module FSharp.Idioms.FSharpModules
+﻿module FSharp.Idioms.Reflection.FSharpModules
 
 open System.Reflection
 

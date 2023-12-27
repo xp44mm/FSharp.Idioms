@@ -1,4 +1,4 @@
-﻿module FSharp.Idioms.EnumType
+﻿module FSharp.Idioms.Reflection.EnumType
 
 open System
 open System.Reflection
@@ -22,10 +22,6 @@ let toUInt64 (enumType:Type) =
         unbox<int64> >> uint64
     elif enumType = typeof<uint64> then
         unbox<uint64>
-    //elif ty = typeof<nativeint> then
-    //    unbox<nativeint> >> uint64
-    //elif ty = typeof<unativeint> then
-    //    unbox<unativeint> >> uint64
     else
         failwith "Unknown Enum Underlying Type."
 
@@ -48,10 +44,6 @@ let fromUInt64 (enumType:Type) (src:uint64) =
         int64 >> box
     elif enumType = typeof<uint64> then
         box
-    //elif ty = typeof<nativeint> then
-    //    nativeint >> box
-    //elif ty = typeof<unativeint> then
-    //    unativeint >> box
     else
         failwith "Unknown Enum Underlying Type."
 

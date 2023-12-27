@@ -1,6 +1,7 @@
 ﻿module FSharp.Idioms.Jsons.JsonWriters // Json -> 'obj
 
 open FSharp.Idioms
+open FSharp.Idioms.Reflection
 open FSharp.Reflection
 
 open System

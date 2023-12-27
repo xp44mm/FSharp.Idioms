@@ -1,4 +1,4 @@
-﻿module FSharp.Idioms.IEnumerableType
+﻿module FSharp.Idioms.Reflection.IEnumerableType
 
 open System.Collections
 

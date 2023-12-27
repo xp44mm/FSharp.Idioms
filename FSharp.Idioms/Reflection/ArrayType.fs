@@ -1,4 +1,4 @@
-﻿module FSharp.Idioms.ArrayType
+﻿module FSharp.Idioms.Reflection.ArrayType
 
 open System
 open System.Collections.Concurrent

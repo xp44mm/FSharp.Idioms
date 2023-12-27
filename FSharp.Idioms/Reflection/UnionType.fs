@@ -1,4 +1,4 @@
-﻿module FSharp.Idioms.UnionType
+﻿module FSharp.Idioms.Reflection.UnionType
 open FSharp.Reflection
 
 open System

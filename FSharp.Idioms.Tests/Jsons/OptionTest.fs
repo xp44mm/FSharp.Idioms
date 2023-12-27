@@ -5,6 +5,7 @@ open Xunit.Abstractions
 open FSharp.xUnit
 open System
 open FSharp.Idioms
+open FSharp.Idioms.Reflection
 
 type OptionTest(output: ITestOutputHelper) =
     do()

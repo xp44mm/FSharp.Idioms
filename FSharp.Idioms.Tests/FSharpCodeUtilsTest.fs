@@ -7,7 +7,7 @@ open FSharp.xUnit
 open FSharp.Idioms.Literals
 open FSharp.Idioms
 
-type StringLiteralTest(output: ITestOutputHelper) =
+type FSharpCodeUtilsTest(output: ITestOutputHelper) =
     [<Fact>]
     member this.``escape sequence in string``() =
         //https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/strings

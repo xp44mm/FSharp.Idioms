@@ -1,4 +1,4 @@
-﻿module FSharp.Idioms.MapType
+﻿module FSharp.Idioms.Reflection.MapType
 
 open System
 open System.Collections.Concurrent

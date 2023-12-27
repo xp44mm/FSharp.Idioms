@@ -11,8 +11,8 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
-    <Version>1.4.9</Version>
-    <PackageReleaseNotes>tsv, array</PackageReleaseNotes>
+    <Version>1.4.10</Version>
+    <PackageReleaseNotes>json</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/xp44mm/FSharp.Idioms</PackageProjectUrl>
     <PackageTags>fsharp;lib</PackageTags>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
@@ -37,28 +37,40 @@
     <Compile Include="FSharpCodeUtils.fs" />
     <Compile Include="ComparisonActivePatterns.fs" />
 	  
-    <Compile Include="FSharpModules.fs" />
-	  
     <Compile Include="Iterator.fs" />
 	  
     <Compile Include="Seq.fs" />
-    <Compile Include="EnumType.fs" />
-    <Compile Include="OptionType.fs" />
-    <Compile Include="ArrayType.fs" />
-    <Compile Include="IEnumerableType.fs" />
-    <Compile Include="KeyValuePairType.fs" />
-    <Compile Include="IDictionaryType.fs" />
-    <Compile Include="IEnumeratorType.fs" />
-    <Compile Include="ListType.fs" />
-    <Compile Include="SetType.fs" />
-    <Compile Include="HashSetType.fs" />
-    <Compile Include="MapType.fs" />
-    <Compile Include="UnionType.fs" />
-    <Compile Include="ClassType.fs" />
+	  
     <Compile Include="BufferQueue.fs" />
+	  
     <Compile Include="BufferIterator.fs" />
 	  
     <Compile Include="Queue.fs" />
+	  
+    <Compile Include="Reflection\FSharpModules.fs" />
+	  
+    <Compile Include="Reflection\IEnumerableType.fs" />
+	  
+    <Compile Include="Reflection\HashSetType.fs" />
+	  
+    <Compile Include="Reflection\SetType.fs" />
+	  
+    <Compile Include="Reflection\ListType.fs" />
+	  
+    <Compile Include="Reflection\IEnumeratorType.fs" />
+	  
+    <Compile Include="Reflection\IDictionaryType.fs" />
+	  
+    <Compile Include="Reflection\KeyValuePairType.fs" />
+	  
+    <Compile Include="Reflection\ArrayType.fs" />
+	  
+    <Compile Include="Reflection\OptionType.fs" />
+	  
+    <Compile Include="Reflection\EnumType.fs" />
+    <Compile Include="Reflection\MapType.fs" />
+    <Compile Include="Reflection\UnionType.fs" />
+    <Compile Include="Reflection\ClassType.fs" />
     <Compile Include="Literals\Paren.fs" />
     <Compile Include="Literals\TypePrinters.fs" />
     <Compile Include="Literals\TypePrinterApp.fs" />

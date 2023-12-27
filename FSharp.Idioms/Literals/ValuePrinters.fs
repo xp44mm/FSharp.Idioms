@@ -1,5 +1,6 @@
 ﻿module FSharp.Idioms.Literals.ValuePrinters
 open FSharp.Idioms.Literals.Paren
+open FSharp.Idioms.Reflection
 
 open System
 open System.Globalization

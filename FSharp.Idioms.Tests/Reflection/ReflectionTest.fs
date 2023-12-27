@@ -1,10 +1,10 @@
-﻿namespace FSharp.Idioms
-
-open System
-open System.Collections.Generic
+﻿namespace FSharp.Idioms.Reflection
 
 open Xunit
 open Xunit.Abstractions
+open System
+open System.Collections.Generic
+
 
 type ReflectionTest(output:ITestOutputHelper) =
 

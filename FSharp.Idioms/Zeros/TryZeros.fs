@@ -1,9 +1,10 @@
 ﻿module FSharp.Idioms.Zeros.TryZeros
+open FSharp.Idioms.Reflection
+open FSharp.Idioms
+open FSharp.Reflection
 
 open System
 open System.Reflection
-open FSharp.Idioms
-open FSharp.Reflection
 
 type Loop = Type -> obj
 

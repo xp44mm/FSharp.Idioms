@@ -1,4 +1,4 @@
-﻿namespace FSharp.Idioms
+﻿namespace FSharp.Idioms.Reflection
 
 open Xunit
 open Xunit.Abstractions

@@ -30,7 +30,7 @@ let equalities = [
     SetEqualsEquatableEq
     ]
 
-let equalFn (equalities:list<Type->option<IEqualityComparer->obj*obj->bool>>) : (obj*obj->bool) =
+let equalFn (equalities:list<Type->option<IEqualityComparer->obj*obj->bool>>) =
     let rec main (x:obj,y:obj) =
         match x,y with
         | null,null -> true
@@ -54,6 +54,6 @@ let equalFn (equalities:list<Type->option<IEqualityComparer->obj*obj->bool>>) : 
             else false
     main
 
-let equalObj (x:obj,y:obj) = equalFn equalities (x,y)
+let equalObj:obj*obj->bool = equalFn equalities
 
-let equal<'t> (x:'t,y:'t) = equalFn equalities (x,y)
+let equal<'t> (x:'t,y:'t) = equalObj(x,y)

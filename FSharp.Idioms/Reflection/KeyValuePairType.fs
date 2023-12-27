@@ -1,4 +1,4 @@
-﻿module FSharp.Idioms.KeyValuePairType
+﻿module FSharp.Idioms.Reflection.KeyValuePairType
 
 open System
 open System.Collections.Concurrent

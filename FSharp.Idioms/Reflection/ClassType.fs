@@ -1,4 +1,4 @@
-﻿module FSharp.Idioms.ClassType
+﻿module FSharp.Idioms.Reflection.ClassType
 
 open System.Reflection
 open System
@@ -75,8 +75,4 @@ let CanWriteMemberValue (mmbr:MemberInfo) =
         propertyInfo.CanWrite 
      | _ -> false
 
-//let getMember (ty:Type) (name:string) =
-//    let method = 
-//        ty.GetMember(name, Array.empty, BindingFlags.Public ||| BindingFlags.Instance)
-//        |> Array.exactlyOne
 

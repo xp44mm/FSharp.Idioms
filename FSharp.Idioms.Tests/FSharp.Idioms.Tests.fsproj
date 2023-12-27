@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="ReflectionTest.fs" />
+    <Compile Include="PointFreeTest.fs" />
     <Compile Include="MemoizationTest.fs" />
     <None Include="flange.tsv" />
     <Compile Include="TsvTest.fs" />
@@ -25,29 +25,28 @@
     <Compile Include="ActivePatternsTest.fs" />
     <Compile Include="ComparisonActivePatternsTest.fs" />
     <Compile Include="LineTest.fs" />
-    <Compile Include="EnumTyepTest.fs" />
-    <Compile Include="IEnumerableTypeTest.fs" />
-    <Compile Include="ArrayTypeTest.fs" />
-    <Compile Include="ListTypeTest.fs" />
-    <Compile Include="SetTypeTest.fs" />
-    <Compile Include="HashSetTest.fs" />
-    <Compile Include="MapTypeTest.fs" />
-    <Compile Include="RecordTypeTest.fs" />
-    <Compile Include="UnionTypeTest.fs" />
+    <Compile Include="Reflection\ReflectionTest.fs" />
+    <Compile Include="Reflection\UnionTypeTest.fs" />
+    <Compile Include="Reflection\RecordTypeTest.fs" />
+    <Compile Include="Reflection\MapTypeTest.fs" />
+    <Compile Include="Reflection\HashSetTest.fs" />
+    <Compile Include="Reflection\SetTypeTest.fs" />
+    <Compile Include="Reflection\ListTypeTest.fs" />
+    <Compile Include="Reflection\ArrayTypeTest.fs" />
+    <Compile Include="Reflection\IEnumerableTypeTest.fs" />
+    <Compile Include="Reflection\EnumTyepTest.fs" />
     <Compile Include="BufferQueueTest.fs" />
     <Compile Include="BufferIteratorTest.fs" />
-    <Compile Include="PointFreeTest.fs" />
     <Compile Include="QueueTest.fs" />
     <Compile Include="BFS.fs" />
     <Compile Include="DFS.fs" />
-    <Compile Include="StringLiteralTest.fs" />
+    <Compile Include="FSharpCodeUtilsTest.fs" />
     <Compile Include="Literals\FSharpEscapeSequenceTest.fs" />
     <Compile Include="Literals\IEqualityComparerTest.fs" />
     <Compile Include="Literals\RequireQualifiedAccessTest.fs" />
     <Compile Include="Literals\TypeRenderTest.fs" />
     <Compile Include="Literals\RenderTest.fs" />
     <Compile Include="Literals\DateTimeTest.fs" />
-    <Compile Include="PrimitiveParserTest.fs" />
     <Compile Include="Zeros\DefaultValueFallbackTest.fs" />
     <Compile Include="Zeros\RecordTest.fs" />
     <Compile Include="Zeros\UnionTest.fs" />
@@ -69,6 +68,7 @@
     <Compile Include="Jsons\UnionTest.fs" />
     <Compile Include="Jsons\FallbackReaderTest.fs" />
     <Compile Include="Jsons\FallbackWriterTest.fs" />
+    <Compile Include="PrimitiveParserTest.fs" />
 
     <Compile Include="Program.fs" />
   </ItemGroup>
