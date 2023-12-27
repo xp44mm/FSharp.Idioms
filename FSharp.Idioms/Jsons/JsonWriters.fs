@@ -94,7 +94,7 @@ let tryInt64 = fun (ty:Type) ->
     if ty = typeof<int64> then
         Some(fun (loop:Loop) (json: Json) ->
         match json with
-        | Json.Decimal x -> int64 x
+        | Json.String x -> Int64.Parse x
         | _ -> failwith $"{json}"
         |> box)
     else None
@@ -103,7 +103,7 @@ let tryUint64 = fun (ty:Type) ->
     if ty = typeof<uint64> then
         Some(fun (loop:Loop) (json: Json) ->
         match json with
-        | Json.Decimal x -> uint64 x
+        | Json.String x -> UInt64.Parse x
         | _ -> failwith $"{json}"
         |> box)
     else None
@@ -130,7 +130,7 @@ let tryDecimal = fun (ty:Type) ->
     if ty = typeof<decimal> then
         Some(fun (loop:Loop) (json: Json) ->
         match json with
-        | Json.Decimal x -> x
+        | Json.String x -> Decimal.Parse x
         | _ -> failwith $"{json}"
         |> box)
     else None
@@ -139,7 +139,7 @@ let tryNativeint = fun (ty:Type) ->
     if ty = typeof<nativeint> then
         Some(fun (loop:Loop) (json: Json) ->
         match json with
-        | Json.Decimal x -> nativeint x
+        | Json.String x -> IntPtr(Int64.Parse x)
         | _ -> failwith $"{json}"
         |> box)
     else None
@@ -148,7 +148,7 @@ let tryUnativeint = fun (ty:Type) ->
     if ty = typeof<unativeint> then
         Some(fun (loop:Loop) (json: Json) ->
         match json with
-        | Json.Decimal x -> unativeint x
+        | Json.String x -> UIntPtr(UInt64.Parse x)
         | _ -> failwith $"{json}"
         |> box)
     else None

@@ -25,7 +25,7 @@ let rec stringifyNormalJson (json:Json) =
     | Json.True -> "true"
     | Json.String x -> JsonString.quote x
     | Json.Number c -> Convert.ToString c
-    | Json.Decimal c -> Convert.ToString c
+    //| Json.Decimal c -> Convert.ToString c
 
 ///用于unquoted json 模式，如果需要加引号
 let stringifyKey x =
@@ -65,5 +65,5 @@ let rec stringifyUnquotedJson (json:Json)=
     | Json.True -> "true"
     | Json.String x -> stringifyStringValue x
     | Json.Number c -> Convert.ToString c
-    | Json.Decimal c -> Convert.ToString c
+    //| Json.Decimal c -> Convert.ToString c
 

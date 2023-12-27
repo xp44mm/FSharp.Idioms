@@ -8,6 +8,7 @@ open System.Collections.Generic
 
 type Loop = Type -> obj -> Json
 
+//https://learn.microsoft.com/en-us/dotnet/standard/base-types/conversion-tables
 let tryBool = fun (ty:Type) ->
     if ty = typeof<bool> then
         Some(fun (loop:Loop) (value: obj) ->
@@ -86,7 +87,7 @@ let tryInt64 = fun (ty:Type) ->
     if ty = typeof<int64> then
         Some(fun (loop:Loop) (value:obj) ->
         let value = unbox<int64> value
-        Json.Decimal <| Convert.ToDecimal value
+        Json.String <| value.ToString()
         )
     else None
 
@@ -94,7 +95,7 @@ let tryUint64 = fun (ty:Type) ->
     if ty = typeof<uint64> then
         Some(fun (loop:Loop) (value:obj) ->
         let value = unbox<uint64> value
-        Json.Decimal <| Convert.ToDecimal value
+        Json.String <| value.ToString()
         )
     else None
 
@@ -119,7 +120,7 @@ let tryDecimal = fun (ty:Type) ->
     if ty = typeof<decimal> then
         Some(fun (loop:Loop) (value:obj) ->
         let value = unbox<decimal> value
-        Json.Decimal value
+        Json.String <| value.ToString()
         )
     else None
 
@@ -127,7 +128,7 @@ let tryNativeint = fun (ty:Type) ->
     if ty = typeof<nativeint> then
         Some(fun (loop:Loop) (value:obj) ->
         let value = unbox<nativeint> value
-        Json.Decimal <| Convert.ToDecimal (value.ToInt64())
+        Json.String <| value.ToString()
         )
     else None
 
@@ -135,7 +136,7 @@ let tryUnativeint = fun (ty:Type) ->
     if ty = typeof<unativeint> then
         Some(fun (loop:Loop) (value:obj) ->
         let value = unbox<unativeint> value
-        Json.Decimal <| Convert.ToDecimal (value.ToUInt64())
+        Json.String <| value.ToString()
         )
     else None
 

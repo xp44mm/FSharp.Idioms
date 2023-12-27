@@ -84,13 +84,13 @@ type FallbackWriterTest(output: ITestOutputHelper) =
 
     [<Fact>]
     member _.``number int64``() =
-        let x = Json.Decimal 0M
+        let x = Json.String "0"
         let y = JsonWriterApp.writeDynamic typeof<int64> x
         Assert.Equal(y, 0L)
 
     [<Fact>]
     member _.``number uint64``() =
-        let x = Json.Decimal 0M
+        let x = Json.String "0"
         let y = JsonWriterApp.writeDynamic typeof<uint64> x
         Assert.Equal(y,0UL)
 
@@ -102,19 +102,19 @@ type FallbackWriterTest(output: ITestOutputHelper) =
 
     [<Fact>]
     member _.``number decimal``() =
-        let x = Json.Decimal 0M
+        let x = Json.String "0"
         let y = JsonWriterApp.writeDynamic typeof<decimal> x
         Assert.Equal(y, 0M)
 
     [<Fact>]
     member _.``number nativeint``() =
-        let x = Json.Decimal 0M
+        let x = Json.String "0"
         let y = JsonWriterApp.writeDynamic typeof<nativeint> x
         Assert.Equal(y, 0n)
 
     [<Fact>]
     member _.``number unativeint``() =
-        let x = Json.Decimal 0M
+        let x = Json.String "0"
         let y = JsonWriterApp.writeDynamic typeof<unativeint> x
         Assert.Equal(y, 0un)
 

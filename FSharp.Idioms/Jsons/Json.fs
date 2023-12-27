@@ -1,5 +1,5 @@
 ﻿namespace FSharp.Idioms.Jsons
-//https://learn.microsoft.com/en-us/dotnet/standard/base-types/conversion-tables
+
 [<RequireQualifiedAccess>]
 type Json =
     | Object of list<string*Json>
@@ -8,8 +8,8 @@ type Json =
     | False
     | True
     | String of string
-    | Number of float
-    | Decimal of decimal // int64 uint64 nativeint unativeint
+    | Number of float //15~17位有效数字e308
+    //| Decimal of decimal // int64 uint64 nativeint unativeint
 
     member t.Item with get(idx:int) =
         match t with
