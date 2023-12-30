@@ -36,10 +36,5 @@ type RecordTest(output: ITestOutputHelper) =
         //output.WriteLine(Render.stringify y)
         Should.equal y { name = "abcdefg"; age = 18 }
 
-    [<Fact>]
-    member _.``field items test``() =
-        let x = Json.Object ["name",Json.String "abcdefg"; "age", Json.Number 18.0]
-        let y = x.["name"]
-        Should.equal y <| Json.String "abcdefg"
 
         

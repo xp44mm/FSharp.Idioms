@@ -367,11 +367,14 @@ let tryMap =
         )
     else None
 
+//todo:[<RequireQualifiedAccess>]
 let tryUnion =
     fun (ty:Type) ->
     if FSharpType.IsUnion ty then
         let reader = UnionType.readUnion ty
         let qa = UnionType.getQualifiedAccess ty
+        //let prf = ty.IsDefined(typeof<RequireQualifiedAccessAttribute>,true)
+
         Some(fun loop (value:obj) (precContext:int) ->
             let name,fields = reader value
             let name = qa + name

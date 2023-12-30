@@ -8,7 +8,7 @@ type Json =
     | False
     | True
     | String of string
-    | Number of float //15~17位有效数字e308
+    | Number of float // 15 ~ 17 位有效数字 e308
     //| Decimal of decimal // int64 uint64 nativeint unativeint
 
     member t.Item with get(idx:int) =
@@ -30,3 +30,13 @@ type Json =
             pairs
             |> List.exists(fst>>(=)key)
         | _ -> false
+
+    member json.floatValue with get() =
+        match json with
+        | Json.Number x -> x
+        | _ -> failwith "only for Json.Number"
+
+    member json.stringText with get() =
+        match json with
+        | Json.String x -> x
+        | _ -> failwith "only for Json.String"

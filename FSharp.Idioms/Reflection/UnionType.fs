@@ -45,7 +45,7 @@ let readUnion (unionType:Type) =
 let memoQualifiedAccess = ConcurrentDictionary<Type, string>(HashIdentity.Structural)
 let getQualifiedAccess(unionType:Type) =
     let valueFacotry (unionType:Type) = 
-        if unionType.IsDefined(typeof<RequireQualifiedAccessAttribute>,false) then
+        if unionType.IsDefined(typeof<RequireQualifiedAccessAttribute>,true) then
             unionType.Name + "."
         else ""
 
