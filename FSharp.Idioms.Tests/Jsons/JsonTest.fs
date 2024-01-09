@@ -39,6 +39,19 @@ type JsonTest(output:ITestOutputHelper) =
         let y = x.stringText
         Should.equal y "abcdefg"
 
+    [<Fact>]
+    member _.``get array elements``() =
+        let elements = [Json.Number 1.0;Json.Number 2.0;Json.Number 3.0]
+        let x = Json.Array elements
+        let y = x.elements
+        Should.equal y elements
+
+    [<Fact>]
+    member _.``get object fields``() =
+        let fields = ["name",Json.String "abcdefg"; "age", Json.Number 18.0]
+        let x = Json.Object fields
+        let y = x.fields
+        Should.equal y fields
 
 
 

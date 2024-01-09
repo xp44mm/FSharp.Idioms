@@ -10,10 +10,10 @@ let quote:string->string = JsonString.quote
 /// "string" -> string
 let unquote:string->string = JsonString.unquote
 
-let stringify:Json->string = JsonRender.stringifyNormalJson
+let print:Json->string = JsonRender.stringifyNormalJson
 
 /// 
-let stringifyUnquotedJson:Json->string = JsonRender.stringifyUnquotedJson
+let printUnquotedJson:Json->string = JsonRender.stringifyUnquotedJson
 
 /// obj -> Json 
 let readDynamic: Type -> obj -> Json = JsonReaderApp.readDynamic

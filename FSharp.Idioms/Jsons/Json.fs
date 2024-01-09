@@ -1,4 +1,5 @@
 ﻿namespace FSharp.Idioms.Jsons
+open System
 
 [<RequireQualifiedAccess>]
 type Json =
@@ -40,3 +41,16 @@ type Json =
         match json with
         | Json.String x -> x
         | _ -> failwith "only for Json.String"
+
+    member json.fields with get() =
+        match json with
+        | Json.Object fields -> fields
+        | _ -> ArgumentOutOfRangeException "only for Json.Object" |> raise
+
+    member json.elements with get() =
+        match json with
+        | Json.Array elems -> elems
+        | _ -> ArgumentOutOfRangeException "only for Json.Array" |> raise
+
+
+

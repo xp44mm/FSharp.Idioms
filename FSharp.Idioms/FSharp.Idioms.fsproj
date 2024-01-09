@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Authors>xp44m</Authors>
     <Company>34696643@qq.com</Company>
     <Description>A practical functional library for F# programmers.</Description>
@@ -11,8 +12,8 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
-    <Version>1.4.11</Version>
-    <PackageReleaseNotes>json floatValue stringText</PackageReleaseNotes>
+    <Version>1.4.12</Version>
+    <PackageReleaseNotes>json fields elements</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/xp44mm/FSharp.Idioms</PackageProjectUrl>
     <PackageTags>fsharp;lib</PackageTags>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
