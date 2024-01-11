@@ -122,8 +122,11 @@ let tryFloat =
     if ty = typeof<float> then
         Some(fun loop (value:obj) (precContext:int) ->
         let value = unbox<float> value
-        let s = value.ToString("R", CultureInfo.InvariantCulture) // "G17"
-        FSharpCodeUtils.decimalPoint s
+        if Double.IsNaN value then
+            "nan"
+        else
+            let s = value.ToString("R", CultureInfo.InvariantCulture) // "G17"
+            FSharpCodeUtils.decimalPoint s
         )
     else None
 

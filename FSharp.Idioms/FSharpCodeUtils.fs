@@ -8,12 +8,12 @@ open System
 let isIdentifier (tok:string) =
     Regex.IsMatch(tok,@"^[\w-[\d]][\w']*$")
 
-/// 如果需要，浮点数给整数加小数点
+/// 如果是整数格式，浮点数给整数加小数点
 let decimalPoint (s:string) =
-    if s.Contains "." || s.Contains "E" || s.Contains "e" then
-        s
-    else
+    if Regex.IsMatch(s,@"^\d+$") then
         s + ".0"
+    else
+        s
 
 let unescapeChar c =     
     match c with
