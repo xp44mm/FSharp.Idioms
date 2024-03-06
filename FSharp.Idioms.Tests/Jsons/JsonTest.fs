@@ -4,7 +4,7 @@ open FSharp.Idioms
 open Xunit
 open Xunit.Abstractions
 open FSharp.xUnit
-
+open FSharp.Idioms.Literal
 
 type JsonTest(output:ITestOutputHelper) =
     [<Fact>]
@@ -20,10 +20,10 @@ type JsonTest(output:ITestOutputHelper) =
         Should.equal y <| Json.String "abcdefg"
 
     [<Fact>]
-    member _.``ContainsKey``() =
+    member _.``hasProperty``() =
         let x = Json.Object ["name",Json.String "abcdefg"; "age", Json.Number 18.0]
-        let y = x.ContainsKey "age"
-        let z = x.ContainsKey "Name"
+        let y = x.hasProperty "age"
+        let z = x.hasProperty "Name"
         Assert.True y
         Assert.False z
 
@@ -47,11 +47,34 @@ type JsonTest(output:ITestOutputHelper) =
         Should.equal y elements
 
     [<Fact>]
-    member _.``get object fields``() =
+    member _.``get object entries``() =
         let fields = ["name",Json.String "abcdefg"; "age", Json.Number 18.0]
         let x = Json.Object fields
-        let y = x.fields
+        let y = x.entries
         Should.equal y fields
+
+    [<Fact>]
+    member _.``addProperty``() =
+        let fields = ["name",Json.String "abcdefg"; "age", Json.Number 18.0]
+        let x = Json.Object fields
+        let y = x.addProperty("name",Json.String "abc").entries
+        output.WriteLine(stringify y)
+        //注意有两个name，新name在前
+        let e = ["name",Json.String "abc";"name",Json.String "abcdefg";"age",Json.Number 18.0]
+        Should.equal y e
+
+    [<Fact>]
+    member _.``replaceProperty``() =
+        let fields = ["name",Json.String "abcdefg"; "age", Json.Number 18.0]
+        let x = Json.Object fields
+        let y = x.replaceProperty("name",Json.String "abc").entries
+        output.WriteLine(stringify y)
+        let e = ["name",Json.String "abc";"age",Json.Number 18.0]
+        Should.equal y e
+
+
+
+
 
 
 

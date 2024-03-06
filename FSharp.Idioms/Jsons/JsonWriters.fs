@@ -267,7 +267,7 @@ let tryRecord = fun (ty:Type) ->
             let values =
                 pis
                 |> Array.map(fun pi -> 
-                    if json.ContainsKey pi.Name then
+                    if json.hasProperty pi.Name then
                         loop pi.PropertyType json.[pi.Name]
                     else 
                         Zeros.ZeroUtils.getZero Zeros.ZeroUtils.tries pi.PropertyType

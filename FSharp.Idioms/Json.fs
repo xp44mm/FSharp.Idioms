@@ -15,16 +15,17 @@ let print:Json->string = JsonRender.stringifyNormalJson
 /// 
 let printUnquotedJson:Json->string = JsonRender.stringifyUnquotedJson
 
-/// obj -> Json 
-let readDynamic: Type -> obj -> Json = JsonReaderApp.readDynamic
+/// fromObj: obj -> Json 
+let fromObj: Type -> obj -> Json = JsonReaderApp.readDynamic
 
-/// 't -> Json
-let read<'t> (value:'t) = readDynamic typeof<'t> value
+/// from: 't -> Json
+let from<'t> (value:'t) = fromObj typeof<'t> value
 
-let writeDynamic: Type -> Json -> obj = JsonWriterApp.writeDynamic
+// toObj
+let toObj: Type -> Json -> obj = JsonWriterApp.writeDynamic
 
-/// Json -> 't
-let write<'t> (json:Json) =
-    writeDynamic typeof<'t> json 
+/// to: Json -> 't 
+let To<'t> (json:Json) =
+    toObj typeof<'t> json 
     :?> 't
 
