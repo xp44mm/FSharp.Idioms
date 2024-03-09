@@ -19,3 +19,8 @@ let dictionary (pairs:#seq<string*'v>) =
     for (k,v) in pairs do
         dict.Add (k,v) |> ignore
     dict
+
+let (|IgnoreCase|_|) a b =
+    if StringComparer.OrdinalIgnoreCase.Equals(a,b) then
+        Some()
+    else None

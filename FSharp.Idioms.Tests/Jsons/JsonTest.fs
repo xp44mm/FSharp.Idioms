@@ -20,6 +20,25 @@ type JsonTest(output:ITestOutputHelper) =
         Should.equal y <| Json.String "abcdefg"
 
     [<Fact>]
+    member _.``floatValue or getValue``() =
+        let x = Json.Number 2.0
+        let y = x.getValue()
+        Should.equal y 2.0
+
+    [<Fact>]
+    member _.``stringText or getText``() =
+        let x = Json.String "abcdefg"
+        let y = x.getText()
+        Should.equal y "abcdefg"
+
+    [<Fact>]
+    member _.``elements or getElements``() =
+        let elements = [Json.Number 1.0;Json.Number 2.0;Json.Number 3.0]
+        let x = Json.Array elements
+        let y = x.getElements()
+        Should.equal y elements
+
+    [<Fact>]
     member _.``hasProperty``() =
         let x = Json.Object ["name",Json.String "abcdefg"; "age", Json.Number 18.0]
         let y = x.hasProperty "age"
@@ -28,29 +47,10 @@ type JsonTest(output:ITestOutputHelper) =
         Assert.False z
 
     [<Fact>]
-    member _.``floatValue``() =
-        let x = Json.Number 2.0
-        let y = x.floatValue
-        Should.equal y 2.0
-
-    [<Fact>]
-    member _.``stringText``() =
-        let x = Json.String "abcdefg"
-        let y = x.stringText
-        Should.equal y "abcdefg"
-
-    [<Fact>]
-    member _.``get array elements``() =
-        let elements = [Json.Number 1.0;Json.Number 2.0;Json.Number 3.0]
-        let x = Json.Array elements
-        let y = x.elements
-        Should.equal y elements
-
-    [<Fact>]
-    member _.``get object entries``() =
+    member _.``entries or getEntries``() =
         let fields = ["name",Json.String "abcdefg"; "age", Json.Number 18.0]
         let x = Json.Object fields
-        let y = x.entries
+        let y = x.getEntries()
         Should.equal y fields
 
     [<Fact>]
@@ -67,11 +67,30 @@ type JsonTest(output:ITestOutputHelper) =
     member _.``replaceProperty``() =
         let fields = ["name",Json.String "abcdefg"; "age", Json.Number 18.0]
         let x = Json.Object fields
-        let y = x.replaceProperty("name",Json.String "abc").entries
+        let y = x.replaceProperty("age", Json.Number 22.0).entries
         output.WriteLine(stringify y)
-        let e = ["name",Json.String "abc";"age",Json.Number 18.0]
+        let e = ["name",Json.String "abcdefg";"age",Json.Number 22.0]
         Should.equal y e
 
+    [<Fact>]
+    member _.``assign``() =
+        let target = Json.Object ["name",Json.String "guxin"; "age", Json.Number 18.0]
+        let source = Json.Object ["state",Json.String "single"; "age", Json.Number 22.0] 
+        let y = target.assign(source)
+
+        //output.WriteLine(stringify y)
+        let e = Json.Object ["name",Json.String "guxin";"age",Json.Number 22.0;"state",Json.String "single"]
+        Should.equal y e
+
+    [<Fact>]
+    member _.``merge``() =
+        let target = Json.Object ["name",Json.String "guxin"; "age", Json.Number 18.0]
+        let source = Json.Object ["state",Json.String "single"; "age", Json.Number 22.0] 
+        let y = target.merge(source)
+
+        //output.WriteLine(stringify y)
+        let e = Json.Object ["name",Json.String "guxin";"age",Json.Number 18.0;"state",Json.String "single"]
+        Should.equal y e
 
 
 
