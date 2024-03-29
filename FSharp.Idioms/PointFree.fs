@@ -13,20 +13,23 @@ let either f g x = f x || g x
 
 let complement f = not << f
 
+///两个输入值，结果总是第一个值
 let always<'a,'b> (x:'a) (_:'b) = x
 
-let truthy<'a> = always<_,'a> true
+let truthy<'b> = always<bool,'b> true
 
-let falsy<'a> = always<_,'a> false
+let falsy<'b> = always<bool,'b> false
 
 let ifElse predicate onTrue onFalse x =
-    if predicate x 
-    then onTrue x
-    else onFalse x
+    if predicate x then onTrue x else onFalse x
 
-let case predicate onTrue = ifElse predicate onTrue id
+/// if not pred then nochange else .
+let case predicate onTrue (*x*) = 
+    ifElse predicate onTrue id (*x*)
 
-let unless predicate onFalse = ifElse predicate id onFalse
+/// if pred=true then onTrue x else nochange.
+let unless predicate onFalse = 
+    ifElse predicate id onFalse
 
 let cond (ls:(('a->bool)*('a->'b))list) x =
     match ls
@@ -40,3 +43,16 @@ let cond (ls:(('a->bool)*('a->'b))list) x =
     | _ -> failwith "cond fail because all false"
 
 let thunk x () = x
+
+//柯里函数元组化
+let tuple2 fn (a,b) = fn a b
+let tuple3 fn (a,b,c) = fn a b c
+let tuple4 fn (a,b,c,d) = fn a b c d
+let tuple5 fn (a,b,c,d,e) = fn a b c d e
+
+//元组函数柯里化
+let curried2 fn a b = fn(a, b)
+let curried3 fn a b c = fn(a, b, c)
+let curried4 fn a b c d = fn(a, b, c, d)
+let curried5 fn a b c d e = fn(a, b, c, d, e)
+

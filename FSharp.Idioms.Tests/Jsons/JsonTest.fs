@@ -57,17 +57,16 @@ type JsonTest(output:ITestOutputHelper) =
     member _.``addProperty``() =
         let fields = ["name",Json.String "abcdefg"; "age", Json.Number 18.0]
         let x = Json.Object fields
-        let y = x.addProperty("name",Json.String "abc").entries
+        let y = x.assign(["name",Json.String "abc"]).entries
         output.WriteLine(stringify y)
-        //注意有两个name，新name在前
-        let e = ["name",Json.String "abc";"name",Json.String "abcdefg";"age",Json.Number 18.0]
+        let e = ["name",Json.String "abc";"age",Json.Number 18.0]
         Should.equal y e
 
     [<Fact>]
     member _.``replaceProperty``() =
         let fields = ["name",Json.String "abcdefg"; "age", Json.Number 18.0]
         let x = Json.Object fields
-        let y = x.replaceProperty("age", Json.Number 22.0).entries
+        let y = x.assign(["age", Json.Number 22.0]).entries
         output.WriteLine(stringify y)
         let e = ["name",Json.String "abcdefg";"age",Json.Number 22.0]
         Should.equal y e
@@ -83,10 +82,11 @@ type JsonTest(output:ITestOutputHelper) =
         Should.equal y e
 
     [<Fact>]
-    member _.``merge``() =
+    member _.``coalesce``() =
+        //先来者赢，后来者补充
         let target = Json.Object ["name",Json.String "guxin"; "age", Json.Number 18.0]
         let source = Json.Object ["state",Json.String "single"; "age", Json.Number 22.0] 
-        let y = target.merge(source)
+        let y = target.coalesce(source)
 
         //output.WriteLine(stringify y)
         let e = Json.Object ["name",Json.String "guxin";"age",Json.Number 18.0;"state",Json.String "single"]

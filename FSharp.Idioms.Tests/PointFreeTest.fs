@@ -5,6 +5,7 @@ open Xunit.Abstractions
 open FSharp.xUnit
 
 open FSharp.Idioms.PointFree
+open FSharp.Idioms.Literal
 
 type PointFreeTest(output: ITestOutputHelper) =
     
@@ -124,3 +125,14 @@ type PointFreeTest(output: ITestOutputHelper) =
         let fn = thunk 0
         Should.equal (fn())  0
 
+    [<Fact>]
+    member this.``012 tuple2``() =
+        let fn x y = x,y
+        let ls =
+            [
+                1,"x"
+            ]
+            |> List.map(tuple2 fn)
+        output.WriteLine(stringify ls)
+
+        //Should.equal (fn())  0

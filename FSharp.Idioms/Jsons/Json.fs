@@ -62,6 +62,31 @@ type Json =
     /// entries
     member json.entries with get() = json.getEntries()
 
+    /// Object.assign：保持先来者顺序，取后来者数值
+    member json.assign (entries:seq<string*Json>) =
+        [
+            yield! json.entries
+            yield! entries
+        ]
+        |> List.groupBy fst
+        |> List.map(snd>>List.last) //后来者赢
+        |> Json.Object
+
+    /// Object.assign
+    member a.assign (b:Json) = a.assign(b.entries)
+
+    /// 先来者赢，后来者补充coalesce
+    member json.coalesce (entries:seq<string*Json>) =
+        [
+            yield! json.entries
+            yield! entries
+        ]
+        |> List.distinctBy fst //先来者赢
+        |> Json.Object
+
+    member a.coalesce (b:Json) = a.coalesce(b.entries)
+
+    [<Obsolete("Json.assign")>]
     member json.addProperty(key,value) =
         match json with
         | Json.Object entries ->
@@ -70,6 +95,7 @@ type Json =
         | _ -> ArgumentOutOfRangeException "only for Json.Object" |> raise
 
     //保留键位置，新增附后
+    [<Obsolete("Json.assign")>]
     member json.replaceProperty(key, value) =
         if json.hasProperty key then
             json.getEntries()
@@ -82,34 +108,3 @@ type Json =
         else
             json.getEntries() @ [key,value]
             |> Json.Object
-
-    /// Object.assign
-    member json.assign (entries:seq<string*Json>) =
-        [
-            yield! json.entries |> List.map fst
-            yield! entries |> Seq.map fst
-        ]
-        |> List.distinct
-        |> List.map(fun name -> 
-            match entries |> Seq.tryFind(fst >> (=) name) with
-            | Some x -> x
-            | _ -> name,json.[name]
-        )
-        |> Json.Object
-
-    /// Object.assign
-    member a.assign (b:Json) = a.assign(b.entries)
-
-    /// 先来者赢，后来者补充
-    member json.merge (entries:seq<string*Json>) = 
-        let ls = 
-            json.entries 
-            |> List.map fst
-            |> Set.ofList
-
-        let entries = 
-            entries 
-            |> Seq.filter(fun(name,_) -> ls.Contains name |> not)
-        json.assign(entries)
-
-    member a.merge (b:Json) = a.merge(b.entries)

@@ -4,6 +4,8 @@ open FSharp.Idioms.Jsons
 
 open System
 
+let Boolean (b:bool) = if b then Json.True else Json.False
+
 /// string -> "string"
 let quote:string->string = JsonString.quote
 
@@ -25,7 +27,7 @@ let from<'t> (value:'t) = fromObj typeof<'t> value
 let toObj: Type -> Json -> obj = JsonWriterApp.writeDynamic
 
 /// to: Json -> 't 
-let To<'t> (json:Json) =
+let cast<'t> (json:Json) =
     toObj typeof<'t> json 
     :?> 't
 
