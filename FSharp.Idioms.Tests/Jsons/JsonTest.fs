@@ -92,8 +92,12 @@ type JsonTest(output:ITestOutputHelper) =
         let e = Json.Object ["name",Json.String "guxin";"age",Json.Number 18.0;"state",Json.String "single"]
         Should.equal y e
 
-
-
+    [<Fact>]
+    member _.``json boolean value``() =
+        Should.equal true Json.True.boolValue
+        Should.equal false Json.False.boolValue
+        let err = Assert.Throws(fun () -> Json.Null.boolValue |> ignore)
+        Should.equal err.Message "only for Json.Boolean"
 
 
 

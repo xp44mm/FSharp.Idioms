@@ -108,3 +108,12 @@ type Json =
         else
             json.getEntries() @ [key,value]
             |> Json.Object
+
+    member json.getBooleanValue() =
+        match json with
+        | Json.True -> true
+        | Json.False -> false
+        | _ -> failwith "only for Json.Boolean"
+
+    member json.boolValue with get() = json.getBooleanValue()
+
