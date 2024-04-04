@@ -28,7 +28,10 @@ let readUnion (unionType:Type) =
             |> Array.map(fun uc ->
                 {|
                     name =  uc.Name
-                    fieldTypes = uc |> getCaseFields |> Array.map(fun pi -> pi.PropertyType)
+                    fieldTypes = 
+                        uc 
+                        |> getCaseFields 
+                        |> Array.map(fun pi -> pi.PropertyType)
                     reader = FSharpValue.PreComputeUnionReader uc
                 |})
         fun (value:obj) ->

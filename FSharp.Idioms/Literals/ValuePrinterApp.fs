@@ -33,11 +33,12 @@ let printers = [
     tryList
     trySet
     tryHashSet
-    tryMap
     tryTuple
+    tryMap
     tryUnion
     tryRecord
     tryType
+    tryClass
     ]
 
 /// 根据优先级确定表达式是否带括号
@@ -46,7 +47,7 @@ let rec valueStringify (printers:list<Type->option<Loop->obj->int->string>>) (ty
         printers
         |> Seq.tryPick(fun getPrinter -> getPrinter ty )
         |> Option.defaultValue(fun loop value precContext ->
-            ////没有类型信息，null,nullable,None都打印成null
+            // 没有类型信息，null,nullable,None 都打印成 null
             if ty = null || ty = typeof<obj> then
                 match value with
                 | null -> "null"

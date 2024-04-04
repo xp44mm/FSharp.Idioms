@@ -6,6 +6,7 @@ open System
 open System.Globalization
 open FSharp.Reflection
 open FSharp.Idioms
+open System.Reflection
 
 type Loop = Type -> obj -> int -> string
 
@@ -430,3 +431,27 @@ let tryType =
         )
     else None
 
+let tryClass =
+    fun (ty:Type) ->
+    if ty.IsClass && ty <> typeof<obj> then
+        Some(fun loop (value:obj) (precContext:int) ->
+        ty.GetProperties(BindingFlags.Public ||| BindingFlags.Instance)
+        |> Array.filter(fun pi -> 
+            pi.CanRead && (
+            pi.PropertyType.IsPrimitive || 
+            pi.PropertyType = typeof<string> ||
+            pi.PropertyType = typeof<Guid>)
+            )
+        |> Array.map(fun pi ->
+            let nm = 
+                if FSharpCodeUtils.isIdentifier pi.Name then
+                    pi.Name
+                else $"``{pi.Name}``"
+            let pvalue = pi.GetValue(value)
+            let loopvalue = loop pi.PropertyType pvalue 0
+            $"{nm} = {loopvalue}"
+        )
+        |> String.concat ";"
+        |> sprintf "{%s}"
+        )
+    else None

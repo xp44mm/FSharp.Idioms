@@ -9,7 +9,7 @@ type Json =
     | False
     | True
     | String of text:string
-    | Number of value:float // 15~17 位有效数字 e308
+    | Number of value:float // 15~17 位有效数字 max e308
 
     member t.Item with get(idx:int) =
         match t with

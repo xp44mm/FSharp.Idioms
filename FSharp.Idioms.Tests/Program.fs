@@ -14,6 +14,5 @@ open System.Xml
 open System.Reflection
 
 let [<EntryPoint>] main _ =
-    let text = File.ReadAllText("D:\excel.tsv",Encoding.UTF8)
-    Console.Write(Literal.stringify text)
+    Console.Write($"{typeof<obj>.IsClass}")
     0
