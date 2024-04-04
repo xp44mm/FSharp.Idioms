@@ -12,8 +12,8 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
-    <Version>1.4.17</Version>
-    <PackageReleaseNotes>Json.assign,Json.coalesce,Json.boolean,Json.cast,PointFree.tuple2345</PackageReleaseNotes>
+    <Version>1.4.18</Version>
+    <PackageReleaseNotes>tryClass</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/xp44mm/FSharp.Idioms</PackageProjectUrl>
     <PackageTags>fsharp;lib</PackageTags>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
