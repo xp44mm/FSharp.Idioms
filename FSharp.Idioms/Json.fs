@@ -4,7 +4,7 @@ open FSharp.Idioms.Jsons
 
 open System
 
-let Boolean (b:bool) = if b then Json.True else Json.False
+let boolean (b:bool) = if b then Json.True else Json.False
 
 /// string -> "string"
 let quote:string->string = JsonString.quote
@@ -31,3 +31,11 @@ let cast<'t> (json:Json) =
     toObj typeof<'t> json 
     :?> 't
 
+/// 找到记录中第一个属性
+let tryCapture (field:string) (records:Json list) =
+    records
+    |> List.tryPick(fun h ->
+        if h.hasProperty field then
+            Some h.[field]
+        else None
+    )

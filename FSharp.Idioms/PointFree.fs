@@ -51,8 +51,8 @@ let tuple4 fn (a,b,c,d) = fn a b c d
 let tuple5 fn (a,b,c,d,e) = fn a b c d e
 
 //元组函数柯里化
-let curried2 fn a b = fn(a, b)
-let curried3 fn a b c = fn(a, b, c)
-let curried4 fn a b c d = fn(a, b, c, d)
-let curried5 fn a b c d e = fn(a, b, c, d, e)
+let curry2 fn a b = fn(a, b)
+let curry3 fn a b c = fn(a, b, c)
+let curry4 fn a b c d = fn(a, b, c, d)
+let curry5 fn a b c d e = fn(a, b, c, d, e)
 

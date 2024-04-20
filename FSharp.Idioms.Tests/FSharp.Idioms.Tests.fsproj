@@ -69,6 +69,7 @@
     <Compile Include="Jsons\UnionTest.fs" />
     <Compile Include="Jsons\FallbackReaderTest.fs" />
     <Compile Include="Jsons\FallbackWriterTest.fs" />
+    <Compile Include="JsonTest.fs" />
     <Compile Include="PrimitiveParserTest.fs" />
 
     <Compile Include="Program.fs" />
