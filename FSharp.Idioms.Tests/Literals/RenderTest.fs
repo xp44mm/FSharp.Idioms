@@ -214,9 +214,9 @@ type RenderTest(output: ITestOutputHelper) =
 
     [<Fact>]
     member this.``render record test``() =
-        let record = {| name = "xyz"; ``your age`` = 18 |}
+        let record = {| name = "xyz"; ``your age`` = 18; order = -1|}
         let res = Literal.stringify record
-        Assert.Equal("""{name= "xyz";``your age``= 18}""",res)
+        Assert.Equal("""{name="xyz";order= -1;``your age``=18}""",res)
 
     [<Fact>]
     member this.``render null test``() =

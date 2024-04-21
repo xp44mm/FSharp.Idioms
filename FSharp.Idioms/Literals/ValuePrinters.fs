@@ -401,7 +401,7 @@ let tryRecord =
     if FSharpType.IsRecord ty then
         let pis = FSharpType.GetRecordFields ty
         let reader = FSharpValue.PreComputeRecordReader ty
-        Some(fun loop (value:obj) (precContext:int) ->
+        Some(fun (loop:Loop) (value:obj) (precContext:int) ->
             let fields = reader value
 
             fields
@@ -413,7 +413,9 @@ let tryRecord =
                     else $"``{pi.Name}``"
 
                 let value = loop pi.PropertyType value 0
-                $"{nm}= {value}"
+                match value.[0] with
+                | '-' | '+' -> $"{nm}= {value}" // 避免=-,=+
+                | _ -> $"{nm}={value}"
             )
             |> String.concat ";"
             |> sprintf "{%s}"
