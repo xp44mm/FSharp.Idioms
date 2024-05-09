@@ -42,15 +42,6 @@ let concat (mps:#seq<Map<'k,'v>>) =
 let append (mp1:Map<'k,'v>) (mp2:Map<'k,'v>) =
     concat [mp1;mp2]
 
-///// 获取键的集合(Set)
-//[<System.Obsolete("FSharp.Collections.Map.keys>>Set.ofSeq")>]
-//let keys (mp:Map<'k,'v>) =
-//    //let i = mp :> IDictionary<'k,'v>
-//    //i.Keys |> Set.ofSeq
-//    mp
-//    |> Map.keys
-//    |> Set.ofSeq
-
 /// 从词典接口创建Map
 let fromInterface (dict:IDictionary<'k,'v>) =
     dict

@@ -56,3 +56,4 @@ let curry3 fn a b c = fn(a, b, c)
 let curry4 fn a b c d = fn(a, b, c, d)
 let curry5 fn a b c d e = fn(a, b, c, d, e)
 
+let twice fn a = fn a a
