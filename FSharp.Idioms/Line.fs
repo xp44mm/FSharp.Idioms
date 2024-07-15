@@ -27,8 +27,8 @@ let splitLines(text:string) =
         }
     loop 0 text
 
-///绝对位置计算行列索引值
-let rowColumn lines (pos:int) =
+///绝对位置计算行列索引值 coordinate
+let rowColumn (lines:seq<int*string>) (pos:int) =
     let row,col =
         lines
         |> Seq.mapi(fun r (p,l)-> r,p,l)

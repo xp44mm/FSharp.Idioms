@@ -12,8 +12,8 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
-    <Version>1.4.20</Version>
-    <PackageReleaseNotes>Json.tryCapture</PackageReleaseNotes>
+    <Version>1.4.21</Version>
+    <PackageReleaseNotes>fsharp.core update</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/xp44mm/FSharp.Idioms</PackageProjectUrl>
     <PackageTags>fsharp;lib</PackageTags>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
@@ -111,7 +111,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="8.0.200" />
+    <PackageReference Update="FSharp.Core" Version="8.0.301" />
   </ItemGroup>
 
 </Project>

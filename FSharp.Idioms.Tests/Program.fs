@@ -14,5 +14,4 @@ open System.Xml
 open System.Reflection
 
 let [<EntryPoint>] main _ =
-    Console.Write($"{typeof<obj>.IsClass}")
     0

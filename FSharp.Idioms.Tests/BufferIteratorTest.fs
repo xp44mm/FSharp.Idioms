@@ -19,6 +19,7 @@ type BufferIteratorTest (output: ITestOutputHelper) =
             ]
         let es = [Some 'a';Some 'b';None;None]
         Should.equal es ys
+
     [<Fact>]
     member this.``ongoing test``() =
         let xs = ['a'; 'b']
