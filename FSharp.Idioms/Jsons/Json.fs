@@ -99,7 +99,7 @@ type Json =
     member json.replaceProperty(key, value) =
         if json.hasProperty key then
             json.getEntries()
-            |> List.map(fun ((name,_) as entry) -> 
+            |> List.map(fun ((name,_) as entry) ->
                 if name = key then
                     name,value
                 else entry

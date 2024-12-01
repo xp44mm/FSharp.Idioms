@@ -22,7 +22,7 @@ let (|Rgx|_|) (pattern: string) =
     Regex pattern
     |> trySearch
 
-/// Same as Rgx but RegexOptions.IgnoreCase
+/// Same as Rgx and use RegexOptions.IgnoreCase
 let (|Rgi|_|) (pattern:string) = 
     Regex(pattern,RegexOptions.IgnoreCase)
     |> trySearch

@@ -32,18 +32,20 @@ let unescapeChar c =
 
 /// xyz -> "xyz"
 let toStringLiteral (value:string) =
-    value.ToCharArray()
-    |> Array.map(fun c ->
-        if c = '\"' then "\\\"" else unescapeChar c
-    )
-    |> String.concat ""
-    |> sprintf "\"%s\""
+    match value with
+    | null -> "null"
+    | _ ->
+        value.ToCharArray()
+        |> Array.map(fun c ->
+            if c = '\"' then "\\\"" else unescapeChar c
+        )
+        |> String.concat ""
+        |> sprintf "\"%s\""
 
 /// c -> 'c'
 let toCharLiteral c = 
     if c = '\'' then @"\'" else unescapeChar c
     |> sprintf "'%s'"
-
 
 let getGenericTypeName (type_name:string) =
     match type_name.Split('`').[0] with

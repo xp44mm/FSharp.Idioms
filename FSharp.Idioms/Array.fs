@@ -67,8 +67,8 @@ let ofJaggedMap (mp:Map<'u,Map<'v,'w>>) =
     )
     |> Array.concat
 
-/// 把所有行的列数对齐到最大
-let alignCols (cells:'a[][]) =
+/// 把所有行的列数对齐到最大,value是填充值
+let alignCols (value:'a) (cells:'a[][]) =
     if cells.Length > 0 then
         let mlen =
             cells
@@ -82,7 +82,7 @@ let alignCols (cells:'a[][]) =
                 [|
                     yield! arr
                     for _ in [1..dlen] do
-                        yield Unchecked.defaultof<'a>
+                        yield value
                 |]
         )
     else [||]
