@@ -117,3 +117,33 @@ type Json =
 
     member json.boolValue with get() = json.getBooleanValue()
 
+    member json.setProperty(propertyName:string, value:Json) =
+        match json with
+        | Json.Object pairs ->
+            let pairs =
+                pairs
+                |> List.map(fun (k,v)->
+                    let v =
+                        if k = propertyName then
+                            value
+                        else
+                            v
+                    k,v
+                )
+            Json.Object pairs
+        | _ -> failwith "string index is only for object."
+
+    member json.setElement(index:int, value:Json) =
+        match json with
+        | Json.Array ls -> 
+            let ls =
+                ls
+                |> List.mapi(fun i e ->
+                    if i = index then
+                        value
+                    else
+                        e
+                )
+            Json.Array ls
+        | _ -> failwith "int index is only for array."
+

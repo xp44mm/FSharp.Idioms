@@ -14,10 +14,22 @@ type JsonTest(output:ITestOutputHelper) =
         Should.equal y <| Json.Number 2.0
 
     [<Fact>]
+    member _.``set array element``() =
+        let x = Json.Array [Json.Number 1.0;Json.Number 2.0;Json.Number 3.0]
+        let y = x.setElement(1,Json.Number -2.0)
+        Should.equal y <| Json.Array [Json.Number 1.0;Json.Number -2.0;Json.Number 3.0]
+
+    [<Fact>]
     member _.``get object field``() =
         let x = Json.Object ["name",Json.String "abcdefg"; "age", Json.Number 18.0]
         let y = x.["name"]
         Should.equal y <| Json.String "abcdefg"
+
+    [<Fact>]
+    member _.``set object Property``() =
+        let x = Json.Object ["name",Json.String "abcdefg"; "age", Json.Number 18.0]
+        let y = x.setProperty("age", Json.Number 19.0)        
+        Should.equal y <| Json.Object ["name",Json.String "abcdefg"; "age", Json.Number 19.0]
 
     [<Fact>]
     member _.``floatValue or getValue``() =
