@@ -5,6 +5,7 @@ open FSharp.Reflection
 
 open System
 open System.Collections.Generic
+open System.Reflection
 
 type Loop = Type -> obj -> Json
 
@@ -274,10 +275,28 @@ let tryRecord = fun (ty:Type) ->
     if FSharpType.IsRecord ty then
         let pis = FSharpType.GetRecordFields ty
         let reader = FSharpValue.PreComputeRecordReader ty
+
         Some(fun (loop:Loop) (value:obj) ->
         reader value
         |> Array.zip pis
-        |> Array.map(fun(pi,value) -> pi.Name, (loop:Loop) pi.PropertyType value)
+        |> Array.map(fun(pi,value) -> pi.Name, loop pi.PropertyType value)
+        |> List.ofArray
+        |> Json.Object
+        )
+    else None
+
+let tryClass = fun (ty:Type) ->
+    if ty.IsClass && ty <> typeof<obj> then
+
+        Some(fun (loop:Loop) (value:obj) ->
+        ty.GetProperties(BindingFlags.Public ||| BindingFlags.Instance)
+        |> Array.filter(fun pi -> pi.CanWrite && pi.CanRead)
+        |> Array.map(fun pi ->
+            let pv =
+                pi.GetValue(value)
+                |> loop pi.PropertyType
+            pi.Name, pv
+            )
         |> List.ofArray
         |> Json.Object
         )

@@ -6,6 +6,7 @@ open FSharp.Reflection
 
 open System
 open System.Collections.Generic
+open System.Reflection
 
 type Loop = Type -> Json -> obj
 
@@ -273,7 +274,8 @@ let tryRecord = fun (ty:Type) ->
                         Zeros.ZeroUtils.getZero Zeros.ZeroUtils.tries pi.PropertyType
                 )
             FSharpValue.MakeRecord(ty,values)
-        | _ -> failwith $"{json}")
+        | _ -> failwith $"{json}"
+        )
     else None
 
 let tryList = fun (ty:Type) ->
@@ -292,8 +294,6 @@ let tryList = fun (ty:Type) ->
         | _ -> failwith $"{json}"
         )
     else None
-
-
 
 let trySet = fun (ty:Type) ->
     if ty.IsGenericType && ty.GetGenericTypeDefinition() = typeof<Set<_>>.GetGenericTypeDefinition() then
@@ -381,3 +381,21 @@ let tryUnion = fun (ty:Type) ->
         )
     else None
 
+let tryClass = fun (ty:Type) ->
+    if ty.IsClass && ty <> typeof<obj> then
+        Some(fun (loop:Loop) (json: Json) ->
+        let inst = Activator.CreateInstance(ty)
+
+        ty.GetProperties(BindingFlags.Public ||| BindingFlags.Instance)
+        |> Array.filter(fun pi -> pi.CanWrite)
+        |> Array.iter(fun pi ->
+            let pv =
+                if json.hasProperty pi.Name then
+                    loop pi.PropertyType json.[pi.Name]
+                else
+                    Zeros.ZeroUtils.getZero Zeros.ZeroUtils.tries pi.PropertyType
+            pi.SetValue(inst,pv)
+            )
+        inst
+        )
+    else None

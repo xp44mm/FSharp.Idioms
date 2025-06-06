@@ -34,6 +34,8 @@ let readers = [
     tryTuple
     tryUnion
     tryRecord
+    tryClass
+
     ]
 
 /// 根据优先级确定表达式是否带括号

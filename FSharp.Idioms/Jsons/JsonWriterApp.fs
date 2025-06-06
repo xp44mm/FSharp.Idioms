@@ -37,6 +37,7 @@ let writers = [
     tryHashSet
     tryMap
     tryUnion
+    tryClass
     ]
 
 /// 根据优先级确定表达式是否带括号
@@ -54,7 +55,6 @@ let rec mainWrite (writers:list<Type->option<Loop->Json->obj>>) (ty:Type) =
                 | Json.True -> box true
                 | Json.String s -> box s
                 | Json.Number x -> box x
-                //| Json.Decimal x -> box x
             else failwith $"未实现的类型:{ty}"
             )
 

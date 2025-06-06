@@ -114,3 +114,11 @@ type FallbackReaderTest(output: ITestOutputHelper) =
         let x = ""
         let y = JsonReaderApp.readDynamic (x.GetType()) x
         Assert.Equal(y, Json.String "")
+
+    [<Fact>]
+    member _.``PanelInput``() =
+        let x = new PanelInput()
+        let y = JsonReaderApp.readDynamic (x.GetType()) x
+        let e = Json.Object ["t",Json.Number 6.0;"ribSpec",Json.String "[16a"]
+        //output.WriteLine(FSharp.Idioms.Literal.stringify y)
+        Assert.Equal(e, y)

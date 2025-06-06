@@ -8,8 +8,8 @@ type Json =
     | Null
     | False
     | True
-    | String of text:string
-    | Number of value:float // 15~17 位有效数字 max e308
+    | String of text: string
+    | Number of value: float // 15~17 位有效数字 max 10^308
 
     member t.Item with get(idx:int) =
         match t with
@@ -41,7 +41,9 @@ type Json =
     member json.getElements() =
         match json with
         | Json.Array elems -> elems
-        | _ -> ArgumentOutOfRangeException "only for Json.Array" |> raise
+        | _ -> 
+            ArgumentOutOfRangeException "only for Json.Array" 
+            |> raise
 
     member json.elements with get() = json.getElements()
 
@@ -63,9 +65,9 @@ type Json =
     member json.entries with get() = json.getEntries()
 
     /// Object.assign：保持先来者顺序，取后来者数值
-    member json.assign (entries:seq<string*Json>) =
+    member object.assign (entries:seq<string*Json>) =
         [
-            yield! json.entries
+            yield! object.entries
             yield! entries
         ]
         |> List.groupBy fst
@@ -73,18 +75,18 @@ type Json =
         |> Json.Object
 
     /// Object.assign
-    member a.assign (b:Json) = a.assign(b.entries)
+    member obj1.assign (obj2:Json) = obj1.assign(obj2.entries)
 
-    /// 先来者赢，后来者补充coalesce
-    member json.coalesce (entries:seq<string*Json>) =
+    /// 保持先来者顺序，先来者赢，后来者补充coalesce
+    member object.coalesce (entries:seq<string*Json>) =
         [
-            yield! json.entries
+            yield! object.entries
             yield! entries
         ]
         |> List.distinctBy fst //先来者赢
         |> Json.Object
 
-    member a.coalesce (b:Json) = a.coalesce(b.entries)
+    member obj1.coalesce (obj2:Json) = obj1.coalesce(obj2.entries)
 
     [<Obsolete("Json.assign")>]
     member json.addProperty(key,value) =
@@ -117,8 +119,8 @@ type Json =
 
     member json.boolValue with get() = json.getBooleanValue()
 
-    member json.setProperty(propertyName:string, value:Json) =
-        match json with
+    member object.setProperty(propertyName:string, value:Json) =
+        match object with
         | Json.Object pairs ->
             let pairs =
                 pairs
@@ -133,8 +135,8 @@ type Json =
             Json.Object pairs
         | _ -> failwith "string index is only for object."
 
-    member json.setElement(index:int, value:Json) =
-        match json with
+    member array.setElement(index:int, value:Json) =
+        match array with
         | Json.Array ls -> 
             let ls =
                 ls
