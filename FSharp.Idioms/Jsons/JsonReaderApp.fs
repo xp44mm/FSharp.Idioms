@@ -24,6 +24,7 @@ let readers = [
     tryDecimal
     tryNativeint
     tryUnativeint
+    tryDateTime
     tryUnit
     tryDBNull
     tryOption
@@ -35,7 +36,6 @@ let readers = [
     tryUnion
     tryRecord
     tryClass
-
     ]
 
 /// 根据优先级确定表达式是否带括号

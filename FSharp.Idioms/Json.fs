@@ -7,27 +7,27 @@ open System
 let boolean (b:bool) = if b then Json.True else Json.False
 
 /// string -> "string"
-let quote:string->string = JsonString.quote
+let quote: string->string = JsonString.quote
 
 /// "string" -> string
-let unquote:string->string = JsonString.unquote
+let unquote: string->string = JsonString.unquote
 
-let print:Json->string = JsonRender.stringifyNormalJson
+let print: Json->string = JsonRender.stringifyNormalJson
 
 /// 
-let printUnquotedJson:Json->string = JsonRender.stringifyUnquotedJson
+let printUnquotedJson: Json->string = JsonRender.stringifyUnquotedJson
 
 /// fromObj: obj -> Json 
 let fromObj: Type -> obj -> Json = JsonReaderApp.readDynamic
 
 /// from: 't -> Json
-let from<'t> (value:'t) = fromObj typeof<'t> value
+let from<'t>(value:'t) = fromObj typeof<'t> value
 
 // toObj
 let toObj: Type -> Json -> obj = JsonWriterApp.writeDynamic
 
 /// to: Json -> 't 
-let cast<'t> (json:Json) =
+let cast<'t>(json:Json) =
     toObj typeof<'t> json 
     :?> 't
 

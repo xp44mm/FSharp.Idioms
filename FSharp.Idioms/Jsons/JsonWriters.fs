@@ -155,6 +155,18 @@ let tryUnativeint = fun (ty:Type) ->
         |> box)
     else None
 
+let tryDateTime = fun (ty:Type) ->
+    if ty = typeof<DateTime> then
+        Some(fun (loop:Loop) (json: Json) ->
+        match json with
+        | Json.String x -> 
+            try
+            DateTime.Parse x
+            with _ -> failwith $"DateTime.Parse:{x}"
+        | _ -> failwith $"{json}"
+        |> box)
+    else None
+
 let tryUnit = fun (ty:Type) ->
     if ty = typeof<unit> then
         Some(fun (loop:Loop) (json: Json) ->

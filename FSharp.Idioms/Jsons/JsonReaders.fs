@@ -141,6 +141,14 @@ let tryUnativeint = fun (ty:Type) ->
         )
     else None
 
+let tryDateTime = fun (ty:Type) ->
+    if ty = typeof<System.DateTime> then
+        Some(fun (loop:Loop) (value:obj) ->
+        let value = unbox<System.DateTime> value
+        Json.String <| value.ToString("o")
+        )
+    else None
+
 let tryUnit = fun (ty:Type) ->
     if ty = typeof<unit> then
         Some(fun (loop:Loop) (value:obj) ->

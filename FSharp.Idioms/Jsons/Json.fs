@@ -11,6 +11,7 @@ type Json =
     | String of text: string
     | Number of value: float // 15~17 位有效数字 max 10^308
 
+
     member t.Item with get(idx:int) =
         match t with
         | Json.Array ls -> ls.[idx]
@@ -149,3 +150,15 @@ type Json =
             Json.Array ls
         | _ -> failwith "int index is only for array."
 
+    static member just() = Json.Null
+    static member just(value:bool) = if value then Json.True else Json.False
+    static member just(value:string) = Json.String value
+
+    static member just(value:float) = Json.Number value
+    static member just(value:int) = Json.just(float value)
+
+    static member just(entries:list<string*Json>) = Json.Object(entries)
+    static member just([<ParamArray>] entries: (string*Json)[]) = Json.just(List.ofArray entries)
+
+    static member just(elements:list<Json>) = Json.Array(elements)
+    static member just([<ParamArray>] elements: Json[]) = Json.just(List.ofArray elements)

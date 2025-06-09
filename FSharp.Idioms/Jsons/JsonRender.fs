@@ -62,6 +62,6 @@ let rec stringifyUnquotedJson (json:Json) =
     | Json.Null -> "null"
     | Json.False -> "false"
     | Json.True -> "true"
-    | Json.String x -> JsonString.quote x //stringifyStringText x
+    | Json.String x -> JsonString.quote x
     | Json.Number x -> Convert.ToString x
 

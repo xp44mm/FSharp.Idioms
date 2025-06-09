@@ -24,6 +24,7 @@ let writers = [
     tryDecimal
     tryNativeint
     tryUnativeint
+    tryDateTime
     tryUnit
     tryDBNull
     tryOption
@@ -48,14 +49,14 @@ let rec mainWrite (writers:list<Type->option<Loop->Json->obj>>) (ty:Type) =
         |> Option.defaultValue(fun loop json ->
             if ty = null || ty = typeof<obj> then
                 match json with
-                | Json.Object fields -> failwith $"{json}"
-                | Json.Array elems -> failwith $"{json}"
+                | Json.Object _ 
+                | Json.Array _ -> failwith $"{json}"
                 | Json.Null-> null
                 | Json.False -> box false
                 | Json.True -> box true
                 | Json.String s -> box s
                 | Json.Number x -> box x
-            else failwith $"未实现的类型:{ty}"
+            else failwith $"mainWrite:未实现的类型:{ty}"
             )
 
     pickedFn (mainWrite writers)
