@@ -26,10 +26,13 @@ let from<'t>(value:'t) = fromObj typeof<'t> value
 // toObj
 let toObj: Type -> Json -> obj = JsonWriterApp.writeDynamic
 
-/// to: Json -> 't 
-let cast<'t>(json:Json) =
+/// deserialize to: Json -> 't
+let deserialize<'t>(json:Json) =
     toObj typeof<'t> json 
     :?> 't
+
+[<Obsolete("rename deserialize")>]
+let cast<'t>(json:Json) = deserialize<'t>(json:Json)
 
 /// 找到记录中第一个属性
 let tryCapture (field:string) (records:Json list) =

@@ -11,7 +11,6 @@ type Json =
     | String of text: string
     | Number of value: float // 15~17 位有效数字 max 10^308
 
-
     member t.Item with get(idx:int) =
         match t with
         | Json.Array ls -> ls.[idx]
@@ -48,7 +47,6 @@ type Json =
 
     member json.elements with get() = json.getElements()
 
-    /// hasProperty
     member json.hasProperty(key:string) =
         match json with
         | Json.Object pairs ->
@@ -56,13 +54,11 @@ type Json =
             |> List.exists(fst >> (=) key)
         | _ -> false
 
-    /// entries
     member json.getEntries() =
         match json with
         | Json.Object pairs -> pairs
         | _ -> ArgumentOutOfRangeException "only for Json.Object" |> raise
 
-    /// entries
     member json.entries with get() = json.getEntries()
 
     /// Object.assign：保持先来者顺序，取后来者数值

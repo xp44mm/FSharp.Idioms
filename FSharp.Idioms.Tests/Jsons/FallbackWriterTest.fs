@@ -118,12 +118,11 @@ type FallbackWriterTest(output: ITestOutputHelper) =
         let y = JsonWriterApp.writeDynamic typeof<unativeint> x
         Assert.Equal(y, 0un)
 
-
     [<Fact>]
-    member _.``PanelInput``() =
+    member _.``PanelInput deserialize``() =
         let json = Json.Object [("t", Json.Number 5.0); ("ribSpec", Json.String "[12")]
 
-        let y = FSharp.Idioms.Json.cast<PanelInput> json
+        let y = FSharp.Idioms.Json.deserialize<PanelInput> json
         Assert.Equal(y.t, 5.0)
         Assert.Equal(y.ribSpec, "[12")
 

@@ -22,8 +22,8 @@ type TupleTest(output: ITestOutputHelper) =
         Should.equal y (1,"x")
 
     [<Fact>]
-    member _.``cast typed``() =
+    member _.``deserialize to typed``() =
         let x = Json.Array [Json.Number 1.0;Json.String "x"]
-        let y = Json.cast<int*string> x
+        let y = Json.deserialize<int*string> x
         //output.WriteLine(Render.stringify y)
         Should.equal y (1,"x")

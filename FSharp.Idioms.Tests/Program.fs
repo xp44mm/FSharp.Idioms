@@ -13,5 +13,10 @@ open System
 open System.Xml
 open System.Reflection
 
+
+open System
+open System.IO
+open System.Text
+
 let [<EntryPoint>] main _ =
     0

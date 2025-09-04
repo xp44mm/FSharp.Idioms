@@ -20,6 +20,7 @@
     <Compile Include="SetTest.fs" />
     <Compile Include="MapTest.fs" />
     <Compile Include="GraphTest.fs" />
+    <Compile Include="EulerianTest.fs" />
     <Compile Include="StringOpsTest.fs" />
     <Compile Include="RegularExpressionsTest.fs" />
     <Compile Include="ActivePatternsTest.fs" />
@@ -71,16 +72,19 @@
     <Compile Include="Jsons\FallbackReaderTest.fs" />
     <Compile Include="Jsons\FallbackWriterTest.fs" />
     <Compile Include="JsonTest.fs" />
+    <Compile Include="JsonPathPluckTest.fs" />
+    <Compile Include="JsonPathEnumerateTest.fs" />
+    <Compile Include="JsonPathUpdateTest.fs" />
     <Compile Include="PrimitiveParserTest.fs" />
 
     <Compile Include="Program.fs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="FSharp.xUnit" Version="1.2.31" />
+    <PackageReference Include="FSharp.xUnit" Version="1.2.32" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
     <PackageReference Include="xunit" Version="2.9.3" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.1">
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -95,7 +99,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="9.0.300" />
+    <PackageReference Update="FSharp.Core" Version="9.0.303" />
   </ItemGroup>
 
 </Project>
