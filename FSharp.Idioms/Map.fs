@@ -81,6 +81,7 @@ let differenceByKey (mp1:Map<'k,_>) (mp2:Map<'k,_>) =
 
     mp1 |> Map.filter(fun k v -> kk.Contains k)
 
+/// 交换key,value即value-key
 let inverse (mp:Map<'k,'v>) =
     mp
     |> Map.toSeq

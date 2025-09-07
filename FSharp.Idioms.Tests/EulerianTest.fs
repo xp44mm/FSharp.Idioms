@@ -98,25 +98,15 @@ type EulerianTest(output: ITestOutputHelper) =
         let result = forwardNextVector vectors (10, 10)
         Assert.True(result.IsNone)
 
-    [<Fact>]
-    member this.``lastPoint test``() =
-        let revSortedVectors = [
-            Vector.just ((0, 0), (5, 10), true)
-            Vector.just ((5, 10), (15, 20), false)
-        ]
+    //[<Fact>]
+    //member this.``lastPoint test``() =
+    //    let revSortedVectors = [
+    //        Vector.just ((0, 0), (5, 10), true)
+    //        Vector.just ((5, 10), (15, 20), false)
+    //    ]
 
-        let point = lastPoint revSortedVectors
-        Assert.Equal((5, 10), point)
-
-    [<Fact>]
-    member this.``firstPoint test``() =
-        let sortedVectors = [
-            Vector.just ((0, 0), (5, 10), true)
-            Vector.just ((5, 10), (15, 20), false)
-        ]
-
-        let point = firstPoint sortedVectors
-        Assert.Equal((0, 0), point)
+    //    let point = lastPoint revSortedVectors
+    //    Assert.Equal((5, 10), point)
 
     [<Fact>]
     member this.``basicSort test - simple path``() =
@@ -129,10 +119,11 @@ type EulerianTest(output: ITestOutputHelper) =
         match forwardNextVector vectors p0 with
         | None -> ()
         | Some(startVector, restVectors) ->
-            let sorted, rest = basicSort [ startVector ] restVectors
+            let sorted, rest = simpleSort [ startVector ] restVectors
 
             Assert.Equal(2, sorted.Length)
             Assert.Equal(0, rest.Count)
+            let sorted = List.rev sorted
 
             Assert.Equal((0, 0), sorted.[0].startPoint)
             Assert.Equal((5, 10), sorted.[0].endPoint)
@@ -159,12 +150,14 @@ type EulerianTest(output: ITestOutputHelper) =
         | None -> ()
         | Some(startVector, restVectors) ->
 
-            let sorted, rest = basicSort [ startVector ] restVectors
+            let sorted, rest = simpleSort [ startVector ] restVectors
+            // sorted 逆向
             Should.equal sorted [
-                Vector.just ((0, 0), (5, 10), true)
-                Vector.just ((5, 10), (15, 20), false)
                 Vector.just ((15, 20), p0, false)
+                Vector.just ((5, 10), (15, 20), false)
+                Vector.just ((0, 0), (5, 10), true)
             ]
+
             Assert.True(rest.IsEmpty)
 
     [<Fact>]
@@ -186,7 +179,7 @@ type EulerianTest(output: ITestOutputHelper) =
 
         let (startVector, initialRest) = startVectorOption.Value
 
-        let sorted, rest = basicSort [ startVector ] initialRest
+        let sorted, rest = simpleSort [ startVector ] initialRest
 
         // 检查排序后的路径
         output.WriteLine($"Sorted vectors count: {sorted.Length}")
@@ -195,6 +188,8 @@ type EulerianTest(output: ITestOutputHelper) =
         // 应该能找到完整路径
         Assert.Equal(3, sorted.Length)
         Assert.Equal(0, rest.Count)
+
+        let sorted = List.rev sorted
 
         // 检查路径连续性
         Assert.Equal((0, 0), sorted.[0].startPoint)

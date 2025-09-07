@@ -12,7 +12,11 @@ type Vector = {
         penUp = penUp
     }
 
-    member vector.rev() = { vector with startPoint = vector.endPoint; endPoint = vector.startPoint }
+    member vector.rev() = {
+        vector with
+            startPoint = vector.endPoint
+            endPoint = vector.startPoint
+    }
 
 and Line = {
     points: Set<int * int>
@@ -23,37 +27,56 @@ and Line = {
         if points.Count <> 2 then
             failwith "line has 2 points"
 
-        { points = points; penUp = penUp }
+        {
+            points = points
+            penUp = penUp
+        }
 
     member line.toVectors() =
         let points = line.points |> Set.toArray
         let p1 = points.[0]
         let p2 = points.[1]
-        [ Vector.just (p1, p2, line.penUp); Vector.just (p2, p1, line.penUp) ]
+        [
+            Vector.just (p1, p2, line.penUp)
+            Vector.just (p2, p1, line.penUp)
+        ]
 
 let getLineSet (lines: list<Line>) =
     let st = lines |> Set.ofList
-    if lines.Length > st.Count then failwith "不能重复" else st
+    if lines.Length > st.Count then
+        failwith "不能重复"
+    else
+        st
 
 let forwardNextVector (vectors: Vector Set) (point: int * int) =
     vectors
     |> Seq.tryFind (fun v -> v.startPoint = point)
     |> Option.map (fun vec ->
-        let rest = vectors |> Set.remove vec |> Set.remove (vec.rev ())
+        let rest =
+            vectors
+            |> Set.remove vec
+            |> Set.remove (vec.rev ())
         vec, rest
     )
 
-let lastPoint (revVectors: Vector list) = revVectors.Head.endPoint
-let firstPoint (vectors: Vector list) = vectors.Head.startPoint
+/// 单一线条的一笔连
+let rec simpleSort (sortedVectors: Vector list) (restVectors: Vector Set) =
+    let s0 = sortedVectors.Head.endPoint
+    match forwardNextVector restVectors s0 with
+    | None -> sortedVectors, restVectors
+    | Some(vec, rest) -> simpleSort (vec :: sortedVectors) rest
 
-let rec basicSort (sortedVectors: Vector list) (restVectors: Vector Set) =
-    match sortedVectors |> lastPoint |> forwardNextVector restVectors with
-    | None -> List.rev sortedVectors, restVectors
-    | Some(vec, rest) -> basicSort (vec :: sortedVectors) rest
-
-let rec insertRing (skip: Vector list) (basePath: Vector list) (restVectors: Vector Set) =
+let rec insertRing
+    (skip: Vector list)
+    (basePath: Vector list)
+    (restVectors: Vector Set)
+    =
     match basePath with
-    | [] -> if restVectors.IsEmpty then List.rev skip else failwith "输入线条不是一笔连"
+    | [] ->
+        if restVectors.IsEmpty then
+            List.rev skip
+        else
+            failwith "输入线条不是一笔连"
 
     | vec :: restPath ->
         let pnt = vec.startPoint // from endPoint
@@ -62,21 +85,29 @@ let rec insertRing (skip: Vector list) (basePath: Vector list) (restVectors: Vec
         | None -> insertRing (vec :: skip) restPath restVectors
 
         | Some(ringStart, remainingVectors) ->
-            let ringPath, remainingAfterRing = basicSort [ ringStart ] remainingVectors
-            if (List.last ringPath).endPoint <> pnt then
-                failwith $"找到的环不闭合{ringPath}"
-            let newPath = ringPath @ basePath
+
+            let ringPath, remainingAfterRing =
+                simpleSort [ ringStart ] remainingVectors
+            if (List.head ringPath).endPoint <> pnt then
+                failwith $"环不闭合{ringPath}"
+            let newPath = List.rev ringPath @ basePath
             insertRing skip newPath remainingAfterRing
 
-///
+/// 考虑环的一笔连
 let sortVectors (lines: list<Line>) =
-    let vectors = set [
-        for line in getLineSet lines do
-            yield! line.toVectors ()
-    ]
+    let vectors =
+        set [
+            for line in getLineSet lines do
+                yield! line.toVectors ()
+        ]
 
     match forwardNextVector vectors (0, 0) with
     | None -> failwith $"输入应该开始于原点"
     | Some(startVector, restVectors) ->
-        let sorted, rest = basicSort [ startVector ] restVectors
-        if rest.IsEmpty then sorted else insertRing [] sorted rest
+        let sorted, rest =
+            simpleSort [ startVector ] restVectors
+        let sorted = List.rev sorted
+        if rest.IsEmpty then
+            sorted
+        else
+            insertRing [] sorted rest
