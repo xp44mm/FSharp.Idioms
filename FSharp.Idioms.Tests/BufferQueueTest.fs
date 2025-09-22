@@ -12,10 +12,10 @@ type BufferQueueTest (output: ITestOutputHelper) =
 
         Should.equal true q.isEmpty
 
-        q.enqueue(0)
+        q.enqueue('0')
         Should.equal false q.isEmpty
 
-        q.dequequeNothing()
+        q.dequeueNothing()
 
         Should.equal false q.isEmpty
 
@@ -26,7 +26,7 @@ type BufferQueueTest (output: ITestOutputHelper) =
         for x in xs do
             q.enqueue(x)
 
-        q.dequequeNothing()
+        q.dequeueNothing()
         let ys =
             Seq.make q.tryNext
             |> Seq.toList
@@ -39,7 +39,7 @@ type BufferQueueTest (output: ITestOutputHelper) =
         for x in xs do
             q.enqueue(x)
 
-        q.dequequeNothing()
+        q.dequeueNothing()
 
         q.tryNext() |> ignore
         q.tryNext() |> ignore
@@ -56,7 +56,7 @@ type BufferQueueTest (output: ITestOutputHelper) =
         q.enqueue(0)
         q.enqueue(1)
 
-        q.dequequeNothing()
+        q.dequeueNothing()
         let ex = Assert.Throws<System.InvalidOperationException>(fun()->
             q.enqueue(2)
             )
@@ -67,10 +67,10 @@ type BufferQueueTest (output: ITestOutputHelper) =
     member this.``05 dequeque empty test``() =
         let q = BufferQueue()
 
-        q.dequequeNothing()
+        q.dequeueNothing()
         q.dequeueToCurrent()
         let ex = Assert.Throws<System.InvalidOperationException>(fun()->
-            q.dequeque(2)
+            q.dequeue(2)
             )
         //output.WriteLine(ex.Message)
         Should.equal ex.Message "BufferQueue:Not count enough queue."
@@ -81,16 +81,16 @@ type BufferQueueTest (output: ITestOutputHelper) =
         q.enqueue(1)
         q.enqueue(2)
 
-        q.dequeque(2)
+        q.dequeue(2)
         Assert.True(q.isEmpty)
 
     [<Fact>]
     member this.``06 dequeque error test``() =
         let q = BufferQueue()
-        q.enqueue(1)
+        q.enqueue('1')
 
         let ex = Assert.Throws<System.InvalidOperationException>(fun()->
-            q.dequeque(2)
+            q.dequeue(2)
             )
         //output.WriteLine(ex.Message)
         Should.equal ex.Message "BufferQueue:Not count enough queue."
