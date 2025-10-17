@@ -1,39 +1,31 @@
 ﻿namespace FSharp.Idioms
 
-open System.Collections.Generic
 open System
 
 type ArrayStack<'T>(items: 'T array) =
-    let mutable iStart = 0
-    // iCurrent比最小值小1表示迭代还没有开始，比最大值count-1大1表示迭代已经超过一次结束。
-    let mutable iCurrent = -1
+    let mutable start = 0
+    let mutable current = 0
 
-    member _.count = items.Length - iStart
-    member this.isEmpty = this.count = 0
-
-    member _.current = iCurrent
+    member _.count = items.Length - start
+    member _.isEmpty = items.Length = start
 
     /// 尝试移动到下一个元素
     member this.tryNext() =
-        if iCurrent < this.count then
-            iCurrent <- iCurrent + 1
-        //iCurrent已经变大了
-        if iCurrent < this.count then
-            //返回移动后的元素
-            Some items.[iStart + iCurrent]
-        else
+        if current = items.Length then
             None
+        else
+            let item = Some items.[current]
+            current <- current + 1
+            item
 
     /// 弹出指定数量的元素
     member this.pop(count) =
         if count < 0 then
-            raise (ArgumentException "Count must be non-negative")
-        elif count > Math.Min(iCurrent + 1, this.count) then
-            raise (ArgumentException "只能弹出已经看到的元素")
+            raise(ArgumentException "Count must be non-negative")
+        elif count > current - start then
+            raise(ArgumentException "只能弹出已经看到的元素")
+        start <- start + count
+        this.reset()
 
-        // 移动istart表示弹出新旧之间的元素
-        iStart <- iStart + count
-        this.reset ()
-
-    /// 向前的指针重回开始之前
-    member this.reset() = iCurrent <- -1
+    /// current <- start
+    member this.reset() = current <- start

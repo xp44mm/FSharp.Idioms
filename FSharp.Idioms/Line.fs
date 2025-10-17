@@ -1,14 +1,46 @@
 ﻿module FSharp.Idioms.Line
 
-open System.Text.RegularExpressions
+open System
 open ActivePatterns
-open FSharp.Idioms.StringOps
 
-let space i (s:string) = " " ** i + s
+let ident space (code: string) = String.replicate space " " + code
 
-let space4 i (s:string) = space (4*i) s
+let splitToLines (text: string) =
+    text.Split([| "\r\n"; "\r"; "\n" |], StringSplitOptions.None)
+
+/// 缩进输入块的每一行，并合并为一个字符串
+let identAll space (blocks: string seq) = 
+    blocks
+    |> Seq.collect(fun blck -> splitToLines blck)
+    |> Seq.map(ident space)
+    |> String.concat "\r\n"
+
+/// 每行开始的空格数
+let startSpaces (lines: string seq) =
+    lines
+    |> Seq.map (fun line ->
+        line
+        |> Seq.takeWhile ((=) ' ')
+        |> Seq.length)
+    |> Seq.min
+
+[<Obsolete("ident i s")>]
+let space i (s:string) = ident i s
+
+[<Obsolete("ident (4*i) s")>]
+let space4 i (s:string) = ident (4*i) s
+
+/// 各行同时缩进
+/// spaces: 行首将要新增的空格个数
+[<Obsolete("identAll blocks")>]
+let indentCodeBlock (spaces:int) (codeBlock:string) =
+    codeBlock
+    |> splitToLines
+    |> Seq.map(fun line -> ident spaces line)
+    |> String.concat "\r\n"
 
 /// 行位置，行，数量包括结尾的\n，行的内容。
+[<Obsolete("splitToLines text")>]
 let splitLines(text:string) =
     // pos: 行首的位置
     let rec loop pos (inp:string) =
@@ -64,16 +96,3 @@ let getColumnAndLpos (lpos:int, linp:string) (pos:int) =
     //fst:pos对应的列数，snd:pos的下一行开始位置。
     loop lpos
 
-/// 每行开始的空格数
-let startSpaces lines =
-    lines
-    |> Seq.map(fun line -> Regex.Match(line,"^ *").Length)
-    |> Seq.min
-
-/// 各行同时缩进
-/// spaces: 行首将要新增的空格个数
-let indentCodeBlock (spaces:int) (codeBlock:string) =
-    codeBlock
-    |> splitLines
-    |> Seq.map(fun (_,line) -> line |> space spaces)
-    |> String.concat ""

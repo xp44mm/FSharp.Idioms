@@ -3,7 +3,10 @@
 open System.Collections.Generic
 open System
 
+// todo : dequeque 不修改内存，标记偏移位置offset
+
 ///自动缓存队列，dequeque出队后不再缓存
+[<Obsolete("CircularBufferIterator")>]
 type BufferIterator<'a>(source: IEnumerator<'a>) =
     // 本类型的当前位置
     let mutable _current = None
@@ -22,13 +25,21 @@ type BufferIterator<'a>(source: IEnumerator<'a>) =
             | None ->
                 match iterator.tryNext () with
                 | None -> None
-                | maybe ->
-                    buffer.enqueue (maybe.Value)
-                    maybe
-
+                | (Some value) as this ->
+                    buffer.enqueue (value)
+                    this
         _current
 
-    [<Obsolete("let mutalbe mobile = true")>]
+
+    member this.current = _current
+
+    /// 确认消费出队count个元素，使tryNext指向队头。
+    /// 从上一次dequeue的位置开始dequeue
+    member _.dequeue(count) = buffer.dequeue (count)
+
+    new(source: seq<_>) = BufferIterator<_>(source.GetEnumerator())
+
+    [<Obsolete("this.tryNext();this.current.IsSome")>]
     member _.ongoing() =
         (buffer.count > 0)
         || iterator.current.IsSome
@@ -39,12 +50,6 @@ type BufferIterator<'a>(source: IEnumerator<'a>) =
                 //枚举尚未开始。请调用 MoveNext。
                 //枚举已完成。
                 ex.Message.Contains "MoveNext")
-
-    member this.current = _current
-
-    /// 确认消费出队count个元素，使tryNext指向队头。
-    /// 从上一次dequeue的位置开始dequeue
-    member _.dequeue(count) = buffer.dequeue (count)
 
     /// 确认出队1个元素，使tryNext指向队头
     [<Obsolete("this.dequeue(1)")>]
@@ -59,4 +64,5 @@ type BufferIterator<'a>(source: IEnumerator<'a>) =
     member this.dequeueToCurrent() =
         this.dequeue (buffer.current + 1)
 
-    new(source: seq<_>) = BufferIterator<_>(source.GetEnumerator())
+
+

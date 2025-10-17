@@ -26,6 +26,8 @@
     <Compile Include="ActivePatternsTest.fs" />
     <Compile Include="ComparisonActivePatternsTest.fs" />
     <Compile Include="LineTest.fs" />
+    <Compile Include="HexadecimalTest.fs" />
+    <Compile Include="DecimalTest.fs" />
     <Compile Include="Reflection\ReflectionTest.fs" />
     <Compile Include="Reflection\UnionTypeTest.fs" />
     <Compile Include="Reflection\RecordTypeTest.fs" />
@@ -42,6 +44,8 @@
     <Compile Include="BufferQueueTest.fs" />
     <Compile Include="BufferIteratorTest.fs" />
     <Compile Include="ArrayStackTest.fs" />
+    <Compile Include="CircularBufferTest.fs" />
+    <Compile Include="CircularBufferIteratorTest.fs" />
     <Compile Include="QueueTest.fs" />
     <Compile Include="BFS.fs" />
     <Compile Include="DFS.fs" />

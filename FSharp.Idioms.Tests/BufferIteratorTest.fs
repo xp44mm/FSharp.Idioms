@@ -43,7 +43,7 @@ type BufferIteratorTest(output: ITestOutputHelper) =
         let y = [
             iterator.tryNext().Value
             iterator.tryNext().Value
-            do iterator.dequequeNothing ()
+            do iterator.dequeue (0)
             iterator.tryNext().Value
             iterator.tryNext().Value
             iterator.tryNext().Value //测试衔接是否正确

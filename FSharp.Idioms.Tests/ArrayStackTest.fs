@@ -127,7 +127,7 @@ type ArrayStackTest(output: ITestOutputHelper) =
         Should.equal (stack.tryNext()) (Some 1)
         Should.equal (stack.tryNext()) (Some 2)
         Should.equal (stack.tryNext()) (None)
-        Should.equal stack.current 2
+        //Should.equal stack.current 2
         Should.equal stack.count 2
         
         // 可以弹出0个元素（无操作）
@@ -227,37 +227,37 @@ type ArrayStackTest(output: ITestOutputHelper) =
 
         //没有执行pop，count会保持不变
         Should.equal stack.count 3
-        Should.equal stack.current -1
-        Assert.True(stack.current < stack.count)
+        //Should.equal stack.current -1
+        //Assert.True(stack.current < stack.count)
 
         Assert.Equal(Some 1, stack.tryNext())
-        Should.equal stack.current 0
+        //Should.equal stack.current 0
         Should.equal stack.count 3
-        Assert.True(stack.current < stack.count)
+        //Assert.True(stack.current < stack.count)
 
         Assert.Equal(Some 2, stack.tryNext())
-        Should.equal stack.current 1
+        //Should.equal stack.current 1
         Should.equal stack.count 3
-        Assert.True(stack.current < stack.count)
+        //Assert.True(stack.current < stack.count)
 
         Assert.Equal(Some 3, stack.tryNext())
-        Should.equal stack.current 2
+        //Should.equal stack.current 2
         Should.equal stack.count 3
-        Assert.True(stack.current < stack.count)
+        //Assert.True(stack.current < stack.count)
 
         //重复任意多次下一个
         Assert.Equal(None, stack.tryNext())
-        Should.equal stack.current 3
+        //Should.equal stack.current 3
         Should.equal stack.count 3
-        Assert.True(stack.current = stack.count)
+        //Assert.True(stack.current = stack.count)
 
         Assert.Equal(None, stack.tryNext())
-        Should.equal stack.current 3
+        //Should.equal stack.current 3
         Should.equal stack.count 3
-        Assert.True(stack.current = stack.count)
+        //Assert.True(stack.current = stack.count)
 
         Assert.Equal(None, stack.tryNext())
-        Should.equal stack.current 3
+        //Should.equal stack.current 3
         Should.equal stack.count 3
-        Assert.True(stack.current = stack.count)
+        //Assert.True(stack.current = stack.count)
 

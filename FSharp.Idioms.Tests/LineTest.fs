@@ -11,11 +11,11 @@ type LineTest(output: ITestOutputHelper) =
     [<Fact>]
     member this.``split lines``() =
         let x = "xyz\r\n\nabc"
-        let y = Line.splitLines x |> Seq.toList
+        let y = Line.splitToLines x |> Seq.toList
         let e = [
-            (0, "xyz\r\n"); 
-            (5, "\n"); 
-            (6, "abc")]
+            ("xyz"); 
+            (""); 
+            ("abc")]
         Should.equal e y
 
     [<Fact>]
@@ -31,11 +31,10 @@ type LineTest(output: ITestOutputHelper) =
     [<Fact>]
     member this.``indentCodeBlock test``() =
         let x = "xyz\r\nabc"
-        let y = Line.indentCodeBlock 2 x
+        let y = Line.identAll 2 [x]
         Should.equal y "  xyz\r\n  abc"
 
     [<Fact>]
-
     member _.``getColumnAndRest``() =
         let start = 19
         let inp = "0123456789\nabc"

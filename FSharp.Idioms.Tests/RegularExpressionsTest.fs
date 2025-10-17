@@ -1,5 +1,5 @@
 ﻿namespace FSharp.Idioms
-open FSharp.Idioms.RegularExpressions
+open FSharp.Idioms.ActivePatterns
 open Xunit
 open Xunit.Abstractions
 open System

@@ -1,7 +1,7 @@
 ﻿module FSharp.Idioms.Parsers.PrimitiveParser
 
 open FSharp.Idioms
-open FSharp.Idioms.RegularExpressions
+open FSharp.Idioms.ActivePatterns
 
 open System.Globalization
 open System

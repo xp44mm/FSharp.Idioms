@@ -3,17 +3,17 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Description>A functional library for F# programmers.</Description>
     <Authors>xp44m</Authors>
     <Company>34696643@qq.com</Company>
-    <Description>A functional library for F# programmers.</Description>
     <Copyright>xp44mm</Copyright>
     <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/xp44mm/FSharp.Idioms</RepositoryUrl>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
-    <Version>1.4.35</Version>
-    <PackageReleaseNotes>ArrayStack</PackageReleaseNotes>
+    <Version>1.4.37</Version>
+    <PackageReleaseNotes>CircularBufferIterator</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/xp44mm/FSharp.Idioms</PackageProjectUrl>
     <PackageTags>fsharp;lib</PackageTags>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
@@ -30,11 +30,13 @@
     <Compile Include="Map.fs" />
     <Compile Include="Graph.fs" />
     <Compile Include="Eulerian.fs" />
-    <Compile Include="RegularExpressions.fs" />
     <Compile Include="String.fs" />
-    <Compile Include="StringOps.fs" />
+    <Compile Include="RegularExpressions.fs" />
     <Compile Include="OrdinalIgnoreCase.fs" />
+    <Compile Include="StringOps.fs" />
     <Compile Include="ActivePatterns.fs" />
+    <Compile Include="Hexadecimal.fs" />
+    <Compile Include="Decimal.fs" />
     <Compile Include="Line.fs" />
     <Compile Include="Tsv.fs" />
     <Compile Include="FSharpCodeUtils.fs" />
@@ -43,13 +45,17 @@
 	  
     <Compile Include="Iterator.fs" />
 	  
-    <Compile Include="BufferResizeArray.fs" />
+    <Compile Include="ArrayStack.fs" />
 	  
-    <Compile Include="BufferQueue.fs" />
+    <Compile Include="BufferResizeArray.fs" />
 	  
     <Compile Include="BufferIterator.fs" />
 	  
-    <Compile Include="ArrayStack.fs" />
+    <Compile Include="CircularBuffer.fs" />
+	  
+    <Compile Include="CircularBufferIterator.fs" />
+	  
+    <Compile Include="BufferQueue.fs" />
 	  
     <Compile Include="Queue.fs" />
 	  
@@ -97,21 +103,16 @@
     <Compile Include="Jsons\JsonKeyIndex.fs" />
     <Compile Include="Json.fs" />
     <Compile Include="JsonPath.fs" />
+    <Compile Include="CompletionObserver.fs" />
 
     <Compile Include="Parsers\PrimitiveType.fs" />
     <Compile Include="Parsers\ParseInteger.fs" />
     <Compile Include="Parsers\PrimitiveParser.fs" />
-    <Compile Include="Prototypes\CrewInfo.fs" />
-    <Compile Include="Prototypes\PrototypeAssembly.fs" />
-    <Compile Include="Prototypes\CrewInfoUtils.fs" />
-    <Compile Include="Prototypes\RecursGenerators.fs" />
-    <Compile Include="Prototypes\RenderMembersGenerators.fs" />
 
 
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="CompletionObserver.fs" />
     <None Include="..\readme.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>

@@ -11,7 +11,7 @@ type StringOpsTest(output: ITestOutputHelper) =
     [<Fact>]
     member this.``tryStart empty``() =
         let x = "...rest"
-        let y = StringOps.tryStartsWith ".." x |> Option.get
+        let y = String.tryStartsWith ".." x |> Option.get
         Should.equal y ".."
 
     [<Fact>]
@@ -22,7 +22,7 @@ type StringOpsTest(output: ITestOutputHelper) =
             "<<="; "<<"; "<"; ";"; ":"; "/="; "/"; "..."; "."; "-="; "--"; "-"; ",";
             "+="; "++"; "+"; "*="; "**="; "**"; "*"; ")"; "("; "&="; "&&="; "&&"; "&";
             "%="; "%"; "!=="; "!="; "!"]
-        let tryLongest = StringOps.tryLongestPrefix punctuators
+        let tryLongest = String.tryLongestPrefix punctuators
         let x = "!= x"
         let y = tryLongest x |> Option.get
 
