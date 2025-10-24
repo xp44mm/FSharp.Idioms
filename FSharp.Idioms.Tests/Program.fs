@@ -19,16 +19,13 @@ open System.IO
 open System.Text
 
 let [<EntryPoint>] main _ =
-    let iterable = Seq.ofList [ 1..5 ]
-    let iterator = CircularBufferIterator(iterable)
+    let x = "1.234567890123456789"
+    Console.WriteLine($"{x}")
 
-    //let e = [ 1; 2; 1; 2; 3 ]
-    for _ in [1..12] do
-        Console.WriteLine(stringify (iterator.tryNext()))
+    let buff = x.ToCharArray() |> Array.toList
 
-    Console.WriteLine("iterator.reset()")
-    iterator.reset()
-    for _ in [1..12] do
-        Console.WriteLine(stringify (iterator.tryNext()))
+    let y = Decimal.takeNumber buff |> fst
+    Console.WriteLine($"{y}")
+
 
     0

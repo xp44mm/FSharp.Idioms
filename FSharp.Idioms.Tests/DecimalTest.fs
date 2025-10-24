@@ -22,3 +22,15 @@ type DecimalTest(output: ITestOutputHelper) =
         let buff, e = cases.[i]
         let y = Decimal.takeNumber buff
         Should.equal e y
+
+    [<Fact>]
+    member this.``big number test``() =
+        let x = "1.234567890123456789"
+
+        let buff = x.ToCharArray() |> Array.toList
+
+        let y = Decimal.takeNumber buff |> fst
+        output.WriteLine($"{y}")
+
+
+

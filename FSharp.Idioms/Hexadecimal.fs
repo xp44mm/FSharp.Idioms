@@ -22,8 +22,8 @@ let getChar n buff = buff |> List.take n |> getValue |> char
 let getValueN n (buff: char list) =
     let rec loop chars countDown acc =
         match chars with
-        | _ when countDown = 0 -> (acc, chars) // 返回结果和剩余字符
-        | [] -> (acc, []) // 没有更多字符了
+        | _ when countDown = 0 -> acc, chars // 返回结果和剩余字符
+        | [] -> acc, [] // 没有更多字符了
         | c :: rest -> loop rest (countDown - 1) (acc * 16 + hex_char_to_int c)
     loop buff n 0
 
