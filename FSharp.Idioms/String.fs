@@ -47,12 +47,9 @@ let tryLongestPrefix (candidates: #seq<string>) (input: string) =
             maybe
     candidates |> Set.ofSeq |> loop 0 None
 
-let readEmbeddedString (space: string) (fileName: string) =
-    use stream =
-        Assembly
-            .GetExecutingAssembly()
-            .GetManifestResourceStream($"{space}.{fileName}")
+let fromEmbedded (assy:Assembly) (name: string) =
+    use stream = assy.GetManifestResourceStream(name)
     if isNull stream then
-        failwith $"Resource {space}.{fileName} not found"
+        failwith $"Resource '{name}' not found in assembly '{assy.GetName()}'."
     use sr = new StreamReader(stream)
     sr.ReadToEnd()

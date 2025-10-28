@@ -5,7 +5,7 @@ open System
 /// 将十进制字符转换为数值
 let decimal_char_to_int c =
     match c with
-    | _ when '0' <= c && c <= '9' -> int c - 48 // int '0'
+    | _ when '0' <= c && c <= '9' -> int(c - '0') // int '0'
     | _ -> failwithf "Invalid decimal digit: %c" c
 
 /// 从头尽可能取出数字字符，直到遇到非法字符。转换为整数，记录位数
@@ -13,7 +13,7 @@ let takeDigitsValueAndCount (buff: char list) =
     let rec loop chars (acc: int64) count =
         match chars with
         | c :: rest when '0' <= c && c <= '9' ->
-            let value = int64(decimal_char_to_int c)
+            let value = int64(c - '0')
             loop rest (acc * 10L + value) (count + 1)
         | _ -> acc, count, chars
     loop buff 0L 0
@@ -63,3 +63,23 @@ let takeNumber (buff: char list) =
         else
             float s * float d / (10.0 ** float(-expo))
     value, rest
+
+let tryInt (str: string) =
+    match str |> List.ofSeq |> takeSInt with
+    | i, [] -> Some i
+    | _ -> None
+
+let tryFloat (str: string) =
+    match str |> List.ofSeq |> takeNumber with
+    | i, [] -> Some i
+    | _ -> None
+
+let parseInt (str: string) =
+    match str |> List.ofSeq |> takeSInt with
+    | i, [] -> i
+    | _ -> FormatException str |> raise
+
+let parseFloat (str: string) =
+    match str |> List.ofSeq |> takeNumber with
+    | i, [] -> i
+    | _ -> FormatException str |> raise

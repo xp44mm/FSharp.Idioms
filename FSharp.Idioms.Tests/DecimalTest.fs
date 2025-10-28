@@ -32,5 +32,20 @@ type DecimalTest(output: ITestOutputHelper) =
         let y = Decimal.takeNumber buff |> fst
         output.WriteLine($"{y}")
 
+    [<Fact>]
+    member this.``parse int test``() =
+        let x = "-234567890"
+        let y = Decimal.parseInt x
+        let e = -234567890L
+        output.WriteLine($"{y}")
+        Should.equal e y
+    [<Fact>]
+    member this.``parse float test``() =
+        let x = "-234567890.1234568"
+        let y = Decimal.parseFloat x
+        let e = -234567890.1234568
+        output.WriteLine($"{y}")
+        Should.equal e y
+
 
 
