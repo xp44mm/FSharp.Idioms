@@ -3,15 +3,22 @@
 open System
 open System.Reflection
 open System.IO
+open System.Text
 
 let ( ** ) str i = String.replicate i str
 
+[<Obsolete("build")>]
 let fromChars (chars) = chars |> Seq.toArray |> System.String
 
 let fromCharlist (chars: char list) = chars |> List.toArray |> System.String
 
-[<Obsolete("fromChars")>]
-let fromCharArray (chars) = fromChars chars
+let build (chars: #seq<char>) =
+    let sb = StringBuilder()
+    chars |> Seq.iter(sb.Append >> ignore)
+    sb.ToString()
+
+[<Obsolete("System.String")>]
+let fromCharArray (chars:char[]) = System.String chars
 
 /// 匹配输入的开始字符串
 let tryStartsWith (value: string) (inp: string) =
@@ -47,7 +54,7 @@ let tryLongestPrefix (candidates: #seq<string>) (input: string) =
             maybe
     candidates |> Set.ofSeq |> loop 0 None
 
-let fromEmbedded (assy:Assembly) (name: string) =
+let fromEmbedded (assy: Assembly) (name: string) =
     use stream = assy.GetManifestResourceStream(name)
     if isNull stream then
         failwith $"Resource '{name}' not found in assembly '{assy.GetName()}'."

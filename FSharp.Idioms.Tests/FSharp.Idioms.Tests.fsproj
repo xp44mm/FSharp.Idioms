@@ -21,6 +21,7 @@
     <Compile Include="MapTest.fs" />
     <Compile Include="GraphTest.fs" />
     <Compile Include="EulerianTest.fs" />
+    <Compile Include="CharTest.fs" />
     <Compile Include="StringOpsTest.fs" />
     <Compile Include="RegularExpressionsTest.fs" />
     <Compile Include="ActivePatternsTest.fs" />

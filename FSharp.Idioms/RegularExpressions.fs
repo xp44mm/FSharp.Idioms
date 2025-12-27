@@ -16,11 +16,3 @@ let follows (m:Match) = m.Result("$'")
 /// Substitutes the entire source string.
 let entire (m:Match) = m.Result("$_")
    
-//[<Obsolete("trySearch")>]
-//let tryMatch (re: Regex) (input:string) =
-//    trySearch re input
-//    |> Option.map(fun m ->
-//        m.Value,input.[m.Index+m.Value.Length..]
-//    )
-
-

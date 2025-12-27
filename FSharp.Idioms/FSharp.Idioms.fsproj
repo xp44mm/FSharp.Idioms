@@ -12,8 +12,8 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
-    <Version>1.5.3</Version>
-    <PackageReleaseNotes>Decimal.tryInt/tryFloat</PackageReleaseNotes>
+    <Version>1.5.4</Version>
+    <PackageReleaseNotes>Char.isChineseChar</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/xp44mm/FSharp.Idioms</PackageProjectUrl>
     <PackageTags>fsharp;lib</PackageTags>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
@@ -28,8 +28,8 @@
     <Compile Include="Array.fs" />
     <Compile Include="Set.fs" />
     <Compile Include="Map.fs" />
+    <Compile Include="Char.fs" />
     <Compile Include="String.fs" />
-    <Compile Include="StringOps.fs" />
     <Compile Include="Graph.fs" />
     <Compile Include="Eulerian.fs" />
     <Compile Include="RegularExpressions.fs" />
