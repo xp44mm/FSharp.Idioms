@@ -13,12 +13,12 @@ open System
 open System.Xml
 open System.Reflection
 
-
 open System
 open System.IO
 open System.Text
 
-let [<EntryPoint>] main _ =
+[<EntryPoint>]
+let main _ =
     let x = "1.234567890123456789"
     Console.WriteLine($"{x}")
 
@@ -26,6 +26,5 @@ let [<EntryPoint>] main _ =
 
     let y = Decimal.takeNumber buff |> fst
     Console.WriteLine($"{y}")
-
 
     0
