@@ -1,7 +1,7 @@
 ﻿namespace FSharp.Idioms.Literals
 
 open Xunit
-open Xunit.Abstractions
+
 open FSharp.xUnit
 
 // https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/strings

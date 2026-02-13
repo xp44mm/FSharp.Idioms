@@ -2,7 +2,7 @@
 open FSharp.Idioms
 
 open Xunit
-open Xunit.Abstractions
+
 open FSharp.xUnit
 
 type TupleTest(output: ITestOutputHelper) =

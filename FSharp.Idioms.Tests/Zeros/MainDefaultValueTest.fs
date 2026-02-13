@@ -1,7 +1,7 @@
 ﻿namespace FSharp.Idioms.Zeros
 
 open Xunit
-open Xunit.Abstractions
+
 open FSharp.xUnit
 
 open FSharp.Idioms

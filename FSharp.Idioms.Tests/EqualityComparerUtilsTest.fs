@@ -1,7 +1,7 @@
 ﻿namespace FSharp.Idioms.EqualityComparers
 
 open Xunit
-open Xunit.Abstractions
+
 open System
 open System.Text.RegularExpressions
 open System.Collections.Generic

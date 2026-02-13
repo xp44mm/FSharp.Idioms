@@ -48,17 +48,9 @@
 	  
     <Compile Include="ArrayStack.fs" />
 	  
-    <Compile Include="BufferResizeArray.fs" />
-	  
-    <Compile Include="BufferIterator.fs" />
-	  
     <Compile Include="CircularBuffer.fs" />
 	  
     <Compile Include="CircularBufferIterator.fs" />
-	  
-    <Compile Include="BufferQueue.fs" />
-	  
-    <Compile Include="Queue.fs" />
 	  
     <Compile Include="Reflection\FSharpModules.fs" />
 	  
@@ -118,10 +110,14 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
+    <Compile Include="BufferResizeArray.fs" />
+    <Compile Include="BufferIterator.fs" />
+    <Compile Include="BufferQueue.fs" />
+    <Compile Include="Queue.fs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="10.0.101" />
+    <PackageReference Update="FSharp.Core" Version="10.0.102" />
   </ItemGroup>
 
 </Project>

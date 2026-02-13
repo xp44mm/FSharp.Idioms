@@ -1,7 +1,7 @@
 ﻿namespace FSharp.Idioms
 open FSharp.Idioms.ActivePatterns
 open Xunit
-open Xunit.Abstractions
+
 open System
 open FSharp.xUnit
 open System.Text.RegularExpressions

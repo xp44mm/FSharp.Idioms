@@ -1,7 +1,7 @@
 ﻿namespace FSharp.Idioms.Reflection
 open FSharp.Idioms
 open Xunit
-open Xunit.Abstractions
+
 open FSharp.xUnit
 open System.Reflection
 

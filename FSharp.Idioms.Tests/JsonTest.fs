@@ -2,7 +2,7 @@
 open FSharp.Idioms.Jsons
 
 open Xunit
-open Xunit.Abstractions
+
 open System
 open FSharp.xUnit
 
