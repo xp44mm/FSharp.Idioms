@@ -10,6 +10,7 @@ let ( ** ) str i = String.replicate i str
 [<Obsolete("build")>]
 let fromChars (chars) = chars |> Seq.toArray |> System.String
 
+[<Obsolete("build")>]
 let fromCharlist (chars: char list) = chars |> List.toArray |> System.String
 
 let build (chars: #seq<char>) =
