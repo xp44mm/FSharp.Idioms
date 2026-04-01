@@ -1,112 +1,97 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net10.0</TargetFramework>
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
 
-    <IsPackable>false</IsPackable>
-    <GenerateProgramFile>false</GenerateProgramFile>
-    <FSharpPreferNetFrameworkTools>False</FSharpPreferNetFrameworkTools>
-  </PropertyGroup>
+    <ItemGroup>
+        <Compile Include="PointFreeTest.fs" />
+        <Compile Include="MemoizationTest.fs" />
+        <None Include="flange.tsv" />
+        <Compile Include="TsvTest.fs" />
+        <Compile Include="PairTest.fs" />
+        <Compile Include="TripleTest.fs" />
+        <Compile Include="ListTest.fs" />
+        <Compile Include="ArrayTest.fs" />
+        <Compile Include="SetTest.fs" />
+        <Compile Include="MapTest.fs" />
+        <Compile Include="GraphTest.fs" />
+        <Compile Include="EulerianTest.fs" />
+        <Compile Include="CharTest.fs" />
+        <Compile Include="StringOpsTest.fs" />
+        <Compile Include="RegularExpressionsTest.fs" />
+        <Compile Include="ActivePatternsTest.fs" />
+        <Compile Include="ComparisonActivePatternsTest.fs" />
+        <Compile Include="LineTest.fs" />
+        <Compile Include="HexadecimalTest.fs" />
+        <Compile Include="DecimalTest.fs" />
+        <Compile Include="Reflection\ReflectionTest.fs" />
+        <Compile Include="Reflection\UnionTypeTest.fs" />
+        <Compile Include="Reflection\RecordTypeTest.fs" />
+        <Compile Include="Reflection\MapTypeTest.fs" />
+        <Compile Include="Reflection\HashSetTest.fs" />
+        <Compile Include="Reflection\SetTypeTest.fs" />
+        <Compile Include="Reflection\ListTypeTest.fs" />
+        <Compile Include="Reflection\ArrayTypeTest.fs" />
+        <Compile Include="Reflection\IEnumerableTypeTest.fs" />
+        <Compile Include="Reflection\EnumTyepTest.fs" />
+        <Compile Include="SeqFromTextReaderTest.fs" />
+        <Compile Include="IteratorTest.fs" />
+        <Compile Include="BufferResizeArrayTest.fs" />
+        <Compile Include="BufferQueueTest.fs" />
+        <Compile Include="BufferIteratorTest.fs" />
+        <Compile Include="ArrayStackTest.fs" />
+        <Compile Include="CircularBufferTest.fs" />
+        <Compile Include="CircularBufferIteratorTest.fs" />
+        <Compile Include="QueueTest.fs" />
+        <Compile Include="BFS.fs" />
+        <Compile Include="DFS.fs" />
+        <Compile Include="FSharpCodeUtilsTest.fs" />
+        <Compile Include="Literals\FSharpEscapeSequenceTest.fs" />
+        <Compile Include="Literals\IEqualityComparerTest.fs" />
+        <Compile Include="Literals\RequireQualifiedAccessTest.fs" />
+        <Compile Include="Literals\TypeRenderTest.fs" />
+        <Compile Include="Literals\RenderTest.fs" />
+        <Compile Include="Literals\DateTimeTest.fs" />
+        <Compile Include="Zeros\DefaultValueFallbackTest.fs" />
+        <Compile Include="Zeros\RecordTest.fs" />
+        <Compile Include="Zeros\UnionTest.fs" />
+        <Compile Include="Zeros\MainDefaultValueTest.fs" />
+        <Compile Include="CustomDataExample.fs" />
+        <Compile Include="EqualityComparerUtilsTest.fs" />
+        <Compile Include="Jsons\JsonTest.fs" />
+        <Compile Include="Jsons\JsonStringTest.fs" />
+        <Compile Include="Jsons\JsonRenderTest.fs" />
+        <Compile Include="Jsons\ArrayTest.fs" />
+        <Compile Include="Jsons\DBNullConverterTest.fs" />
+        <Compile Include="Jsons\NullableTest.fs" />
+        <Compile Include="Jsons\OptionTest.fs" />
+        <Compile Include="Jsons\EnumTest.fs" />
+        <Compile Include="Jsons\ListTest.fs" />
+        <Compile Include="Jsons\MapTest.fs" />
+        <Compile Include="Jsons\RecordTest.fs" />
+        <Compile Include="Jsons\SetTest.fs" />
+        <Compile Include="Jsons\TupleTest.fs" />
+        <Compile Include="Jsons\UnionTest.fs" />
+        <Compile Include="Jsons\PanelInput.fs" />
+        <Compile Include="Jsons\FallbackReaderTest.fs" />
+        <Compile Include="Jsons\FallbackWriterTest.fs" />
+        <Compile Include="JsonTest.fs" />
+        <Compile Include="JsonPathPluckTest.fs" />
+        <Compile Include="JsonPathEnumerateTest.fs" />
+        <Compile Include="JsonPathUpdateTest.fs" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <Compile Include="PointFreeTest.fs" />
-    <Compile Include="MemoizationTest.fs" />
-    <None Include="flange.tsv" />
-    <Compile Include="TsvTest.fs" />
-    <Compile Include="PairTest.fs" />
-    <Compile Include="TripleTest.fs" />
-    <Compile Include="ListTest.fs" />
-    <Compile Include="ArrayTest.fs" />
-    <Compile Include="SetTest.fs" />
-    <Compile Include="MapTest.fs" />
-    <Compile Include="GraphTest.fs" />
-    <Compile Include="EulerianTest.fs" />
-    <Compile Include="CharTest.fs" />
-    <Compile Include="StringOpsTest.fs" />
-    <Compile Include="RegularExpressionsTest.fs" />
-    <Compile Include="ActivePatternsTest.fs" />
-    <Compile Include="ComparisonActivePatternsTest.fs" />
-    <Compile Include="LineTest.fs" />
-    <Compile Include="HexadecimalTest.fs" />
-    <Compile Include="DecimalTest.fs" />
-    <Compile Include="Reflection\ReflectionTest.fs" />
-    <Compile Include="Reflection\UnionTypeTest.fs" />
-    <Compile Include="Reflection\RecordTypeTest.fs" />
-    <Compile Include="Reflection\MapTypeTest.fs" />
-    <Compile Include="Reflection\HashSetTest.fs" />
-    <Compile Include="Reflection\SetTypeTest.fs" />
-    <Compile Include="Reflection\ListTypeTest.fs" />
-    <Compile Include="Reflection\ArrayTypeTest.fs" />
-    <Compile Include="Reflection\IEnumerableTypeTest.fs" />
-    <Compile Include="Reflection\EnumTyepTest.fs" />
-    <Compile Include="SeqFromTextReaderTest.fs" />
-    <Compile Include="IteratorTest.fs" />
-    <Compile Include="BufferResizeArrayTest.fs" />
-    <Compile Include="BufferQueueTest.fs" />
-    <Compile Include="BufferIteratorTest.fs" />
-    <Compile Include="ArrayStackTest.fs" />
-    <Compile Include="CircularBufferTest.fs" />
-    <Compile Include="CircularBufferIteratorTest.fs" />
-    <Compile Include="QueueTest.fs" />
-    <Compile Include="BFS.fs" />
-    <Compile Include="DFS.fs" />
-    <Compile Include="FSharpCodeUtilsTest.fs" />
-    <Compile Include="Literals\FSharpEscapeSequenceTest.fs" />
-    <Compile Include="Literals\IEqualityComparerTest.fs" />
-    <Compile Include="Literals\RequireQualifiedAccessTest.fs" />
-    <Compile Include="Literals\TypeRenderTest.fs" />
-    <Compile Include="Literals\RenderTest.fs" />
-    <Compile Include="Literals\DateTimeTest.fs" />
-    <Compile Include="Zeros\DefaultValueFallbackTest.fs" />
-    <Compile Include="Zeros\RecordTest.fs" />
-    <Compile Include="Zeros\UnionTest.fs" />
-    <Compile Include="Zeros\MainDefaultValueTest.fs" />
-    <Compile Include="CustomDataExample.fs" />
-    <Compile Include="EqualityComparerUtilsTest.fs" />
-    <Compile Include="Jsons\JsonTest.fs" />
-    <Compile Include="Jsons\JsonStringTest.fs" />
-    <Compile Include="Jsons\JsonRenderTest.fs" />
-    <Compile Include="Jsons\ArrayTest.fs" />
-    <Compile Include="Jsons\DBNullConverterTest.fs" />
-    <Compile Include="Jsons\NullableTest.fs" />
-    <Compile Include="Jsons\OptionTest.fs" />
-    <Compile Include="Jsons\EnumTest.fs" />
-    <Compile Include="Jsons\ListTest.fs" />
-    <Compile Include="Jsons\MapTest.fs" />
-    <Compile Include="Jsons\RecordTest.fs" />
-    <Compile Include="Jsons\SetTest.fs" />
-    <Compile Include="Jsons\TupleTest.fs" />
-    <Compile Include="Jsons\UnionTest.fs" />
-    <Compile Include="Jsons\PanelInput.fs" />
-    <Compile Include="Jsons\FallbackReaderTest.fs" />
-    <Compile Include="Jsons\FallbackWriterTest.fs" />
-    <Compile Include="JsonTest.fs" />
-    <Compile Include="JsonPathPluckTest.fs" />
-    <Compile Include="JsonPathEnumerateTest.fs" />
-    <Compile Include="JsonPathUpdateTest.fs" />
+    <ItemGroup>
+        <PackageReference Include="FSharp.xUnit" Version="1.3.0" />
+        <PackageReference Include="xunit.v3.mtp-v2" Version="3.2.2" />
+        <PackageReference Update="FSharp.Core" Version="10.1.201" />
+    </ItemGroup>
 
-    <Compile Include="Program.fs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="FSharp.xUnit" Version="1.3.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.3.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="coverlet.collector" Version="8.0.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\FSharp.Idioms\FSharp.Idioms.fsproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="10.1.201" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\FSharp.Idioms\FSharp.Idioms.fsproj" />
+    </ItemGroup>
 
 </Project>

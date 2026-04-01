@@ -22,7 +22,7 @@ type HexadecimalTest(output: ITestOutputHelper) =
             ]
 
         let n, input, expected, remaining = cases.[i]
-        let actualValue, actualRemaining = Hexadecimal.getValueN n input
+        let actualValue, actualRemaining = Hexadecimal.take n input
         Should.equal expected actualValue
         Should.equal remaining actualRemaining
 
@@ -40,7 +40,7 @@ type HexadecimalTest(output: ITestOutputHelper) =
                 [], 0, [] // 空输入
             ]
         let input, expected, remaining = cases.[i]
-        let actualValue, actualRemaining = Hexadecimal.take input
+        let actualValue, actualRemaining = Hexadecimal.takeLongest input
         Should.equal expected actualValue
         Should.equal remaining actualRemaining
 

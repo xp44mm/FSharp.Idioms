@@ -1,9 +1,9 @@
 ﻿namespace FSharp.Idioms
 
 open Xunit
+open FSharp.xUnit
 
 open System
-open FSharp.xUnit
 open System.Text.RegularExpressions
 
 type DecimalTest(output: ITestOutputHelper) =

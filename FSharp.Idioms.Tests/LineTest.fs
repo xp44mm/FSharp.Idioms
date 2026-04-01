@@ -22,7 +22,7 @@ type LineTest(output: ITestOutputHelper) =
     [<Fact>]
     member this.``indentCodeBlock test``() =
         let x = "xyz\r\nabc"
-        let y = Line.identAll 2 [x]
+        let y = Line.indentAll 2 [x]
         Should.equal y "  xyz\r\n  abc"
 
     [<Fact>]

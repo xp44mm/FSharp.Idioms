@@ -18,23 +18,25 @@ let takeDigitsValueAndCount (buff: char list) =
         | _ -> acc, count, chars
     loop buff 0L 0
 
+/// 取出输入开头的数字，并转化为整数值，保留剩余字符
 let takeDigits (buff: char list) =
     let value, count, rest = takeDigitsValueAndCount buff
     value, rest
 
+/// 取出输入开头可能有的‘+’‘-’符号，并转化为整数值，保留剩余字符
 let takeSign (chars: char list) =
     match chars with
     | '-' :: rest -> -1, rest
     | '+' :: rest -> 1, rest
     | _ -> 1, chars
 
-/// 取有符号整数
+/// 取有符号整数，输入开头可能有‘+’‘-’符号
 let takeSInt (chars: char list) =
     let s, rest = takeSign chars
     let i, rest = takeDigits rest
     int64 s * i, rest
 
-/// 完整数字: sign? digit+ fraction? exponent?
+/// 从头解析符合json Number格式的数字: sign? digit+ fraction? exponent?，保留剩余字符
 let takeNumber (buff: char list) =
     let takeDot (chars: char list) =
         match chars with
@@ -64,21 +66,25 @@ let takeNumber (buff: char list) =
             float s * float d / (10.0 ** float(-expo))
     value, rest
 
+///如果输入是有符号整数，解析为整数值
 let tryInt (str: string) =
     match str |> List.ofSeq |> takeSInt with
     | i, [] -> Some i
     | _ -> None
 
+/// 如果输入是浮点数的格式，Json Number 解析为浮点数
 let tryFloat (str: string) =
     match str |> List.ofSeq |> takeNumber with
     | i, [] -> Some i
     | _ -> None
 
+///直接解析有符号整数，解析失败抛出异常
 let parseInt (str: string) =
     match str |> List.ofSeq |> takeSInt with
     | i, [] -> i
     | _ -> FormatException str |> raise
 
+/// 直接解析浮点数的格式，Json Number，解析失败抛出异常
 let parseFloat (str: string) =
     match str |> List.ofSeq |> takeNumber with
     | i, [] -> i
