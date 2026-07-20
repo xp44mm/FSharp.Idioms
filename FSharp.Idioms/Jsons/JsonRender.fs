@@ -24,7 +24,11 @@ let rec stringifyNormalJson (json:Json) =
     | Json.False -> "false"
     | Json.True -> "true"
     | Json.String x -> JsonString.quote x
-    | Json.Number c -> Convert.ToString c
+    | Json.Number c -> 
+        if Double.IsNaN(c) || Double.IsInfinity(c) then
+            "null"
+        else
+            Convert.ToString(c)
 
 ///用于unquoted json 模式，如果需要加引号
 let stringifyKey x =

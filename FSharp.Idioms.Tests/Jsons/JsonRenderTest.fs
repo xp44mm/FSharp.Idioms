@@ -65,3 +65,17 @@ type JsonRenderTest(output: ITestOutputHelper) =
         Should.equal y "3.141592653589793"
 
 
+    [<Fact>]
+    member _.``匿名记录测试``() =
+        
+        let x = FSharp.Idioms.Json.from {|
+            a = 0
+            b = 1
+        |}
+        // 遇到x是json类型时，就返回他自己
+        let y = FSharp.Idioms.Json.from {|
+            c = x
+        |}
+
+        output.WriteLine(FSharp.Idioms.Json.print y)
+

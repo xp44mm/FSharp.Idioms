@@ -38,7 +38,10 @@ let toJaggedMap (triples: ('x * 'y * 'z) list) =
     triples
     |> List.groupBy Triple.first
     |> List.map(fun (x, triples) ->
-        let mp = triples |> List.map Triple.lastTwo |> toMap
+        let mp =
+            triples
+            |> List.map Triple.lastTwo
+            |> toMap
         x, mp
     )
     |> Map.ofList
@@ -54,7 +57,10 @@ let toUniqueJaggedMap (triples: ('x * 'y * 'z) list) =
     triples
     |> List.groupBy Triple.first
     |> List.map(fun (x, triples) ->
-        let mp = triples |> List.map Triple.lastTwo |> Map.ofList
+        let mp =
+            triples
+            |> List.map Triple.lastTwo
+            |> Map.ofList
         x, mp
     )
     |> Map.ofList
@@ -64,20 +70,22 @@ let ofJaggedMap (mp: Map<'u, Map<'v, 'w>>) =
     mp
     |> Map.toList
     |> List.map(fun (u, v) ->
-        v |> Map.toList |> List.map(fun (v, w) -> u, v, w)
+        v
+        |> Map.toList
+        |> List.map(fun (v, w) -> u, v, w)
     )
     |> List.concat
 
-/// 取列表前面所有断言为真的项，加上第一个断言为假的项（如果有）
-[<System.Obsolete("=>advanceWhile")>]
-let takeUntilNot (predicate: 't -> bool) (ls: 't list) =
-    let rec loop (acc: 't list) (ls: 't list) =
-        match ls with
-        | [] -> acc
-        | h :: t ->
-            let acc = h :: acc
-            if predicate h then loop acc t else acc
-    loop [] ls |> List.rev
+/// 列表开始的n个元素逆序放入第一个列表，第二个列表为剩余列表。
+let advance n (ls: list<'t>) =
+    let rec loop target (source: list<'t>) i =
+        match i with
+        | 0 -> target, source
+        | _ ->
+            match source with
+            | [] -> failwith $"{nameof List}:n should < ls.length"
+            | hd :: tail -> loop (hd :: target) tail (i - 1)
+    loop [] ls n
 
 /// 列表开始的元素满足条件，逆序放入第一个列表，第二个列表为剩余列表。
 let advanceWhile (predicate: 't -> bool) (ls: 't list) =
@@ -91,16 +99,19 @@ let advanceWhile (predicate: 't -> bool) (ls: 't list) =
                 target, source
     loop [] ls
 
-/// 列表开始的n个元素逆序放入第一个列表，第二个列表为剩余列表。
-let advance n (ls: list<'t>) =
-    let rec loop target (source: list<'t>) i =
-        match i with
-        | 0 -> target, source
-        | _ ->
-            match source with
-            | [] -> failwith $"{nameof List}:n should < ls.length"
-            | hd :: tail -> loop (hd :: target) tail (i - 1)
-    loop [] ls n
+///左右括号平衡:根据右括号找配对的左括号
+let findBalanceLeft (left: 'a) (right: 'a) (ls: 'a list) =
+    let rec loop (acc: 'a list) i ls =
+        match i, ls with
+        | 0, _ -> acc.Length - 1
+        | _, [] -> failwith "no balance"
+        | _, h :: t ->
+            let i =
+                if h = left then (i - 1)
+                elif h = right then (i + 1)
+                else i
+            loop (h :: acc) i t
+    loop [] 1 ls
 
 ///返回符号的深度优先顺序列表。
 let depthFirstSort (nodes: Map<'t, 't list>) (start: 't) =
@@ -113,7 +124,10 @@ let depthFirstSort (nodes: Map<'t, 't list>) (start: 't) =
                 if nodes.ContainsKey current then
                     nodes.[current]
                     |> List.tryFind(fun x ->
-                        discovered |> Set.ofList |> Set.contains x |> not
+                        discovered
+                        |> Set.ofList
+                        |> Set.contains x
+                        |> not
                     )
                 else
                     None
@@ -169,3 +183,34 @@ let crosspower n (ls: list<'a>) =
     ls |> List.map(fun a -> [ a ]) |> loop n
 
 let toString (chars: char list) = chars |> List.toArray |> System.String
+
+let rec move src tgt =
+    match src with
+    | [] -> tgt
+    | h :: t -> move t (h :: tgt)
+
+let isPrefix (prefix:'a list) (lst:'a list) =
+    let rec check p l =
+        match p with
+        | [] -> true
+        | h1 :: t1 ->
+            match l with
+            | [] -> false
+            | h2 :: t2 -> h1 = h2 && check t1 t2
+    check prefix lst
+
+let isSuffix (suffix : 'a list) (lst : 'a list) =
+    let rev_suffix = List.rev suffix
+    let rev_lst = List.rev lst
+    isPrefix rev_suffix rev_lst
+
+/// 取列表前面所有断言为真的项，加上第一个断言为假的项（如果有）
+[<System.Obsolete("=>advanceWhile")>]
+let takeUntilNot (predicate: 't -> bool) (ls: 't list) =
+    let rec loop (acc: 't list) (ls: 't list) =
+        match ls with
+        | [] -> acc
+        | h :: t ->
+            let acc = h :: acc
+            if predicate h then loop acc t else acc
+    loop [] ls |> List.rev

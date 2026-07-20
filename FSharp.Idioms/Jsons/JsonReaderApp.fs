@@ -33,6 +33,7 @@ let readers = [
     tryArray
     tryIEnumerable
     tryTuple
+    tryJson
     tryUnion
     tryRecord
     tryClass
