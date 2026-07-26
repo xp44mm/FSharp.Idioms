@@ -23,3 +23,15 @@ let stringify<'t> (value:'t) = stringifyDynamic typeof<'t> value
 let defaultofDynamic : Type->obj = ZeroUtils.getZero ZeroUtils.tries
 
 let defaultof<'t> = defaultofDynamic typeof<'t> :?> 't
+
+
+let formatValue<'T> (value: 'T) (format: string) =
+    match box value with
+    | null -> "<null>"
+    | :? string as s -> s
+    | :? IFormattable as f ->
+        if String.IsNullOrEmpty(format) then
+            value.ToString()
+        else
+            f.ToString(format, System.Globalization.CultureInfo.InvariantCulture)
+    | _ -> stringify value

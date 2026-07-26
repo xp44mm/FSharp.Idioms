@@ -82,6 +82,7 @@
         <Compile Include="JsonPathPluckTest.fs" />
         <Compile Include="JsonPathEnumerateTest.fs" />
         <Compile Include="JsonPathUpdateTest.fs" />
+        <Compile Include="FormatValueTest.fs" />
     </ItemGroup>
 
     <ItemGroup>
