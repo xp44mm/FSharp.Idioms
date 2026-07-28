@@ -1,12 +1,7 @@
-﻿module FSharp.Idioms.Decimal
+﻿[<System.Obsolete("use `FSharp.Idioms.JsonNumber` instead.")>]
+module FSharp.Idioms.Decimal
 
 open System
-
-/// 将十进制字符转换为数值
-let decimal_char_to_int c =
-    match c with
-    | _ when '0' <= c && c <= '9' -> int(c - '0') // int '0'
-    | _ -> failwithf "Invalid decimal digit: %c" c
 
 /// 从头尽可能取出数字字符，直到遇到非法字符。转换为整数，记录位数
 let takeDigitsValueAndCount (buff: char list) =
@@ -63,8 +58,16 @@ let takeNumber (buff: char list) =
         if expo >= 0 then
             float s * float d * (10.0 ** float expo)
         else
-            float s * float d / (10.0 ** float(-expo))
+            float s * float d
+            / (10.0 ** float(-expo))
     value, rest
+
+let getValue s d n e =
+    let ee = e - n
+    if ee >= 0 then
+        float s * float d * (10.0 ** float ee)
+    else
+        float s * float d / (10.0 ** float(-ee))
 
 ///如果输入是有符号整数，解析为整数值
 let tryInt (str: string) =
@@ -72,7 +75,7 @@ let tryInt (str: string) =
     | i, [] -> Some i
     | _ -> None
 
-/// 如果输入是浮点数的格式，Json Number 解析为浮点数
+///如果输入是浮点数的格式，Json Number 解析为浮点数
 let tryFloat (str: string) =
     match str |> List.ofSeq |> takeNumber with
     | i, [] -> Some i
@@ -84,8 +87,25 @@ let parseInt (str: string) =
     | i, [] -> i
     | _ -> FormatException str |> raise
 
-/// 直接解析浮点数的格式，Json Number，解析失败抛出异常
+///直接解析浮点数的格式，Json Number，解析失败抛出异常
 let parseFloat (str: string) =
     match str |> List.ofSeq |> takeNumber with
     | i, [] -> i
     | _ -> FormatException str |> raise
+
+/// 尝试取出输入开头的数字，并转化为整数值，保留剩余字符
+/// 如果开头有数字则返回 Some (value, rest)，否则返回 None
+let tryTakeDigits (buff: char list) =
+    let value, count, rest = takeDigitsValueAndCount buff
+    if count > 0 then
+        Some(value, rest)
+    else
+        None
+
+/// 尝试取有符号整数，输入开头可能有 '+' '-' 符号
+/// 如果成功取出整数则返回 Some (value, rest)，否则返回 None
+let tryTakeSInt (chars: char list) =
+    let s, rest = takeSign chars
+    match tryTakeDigits rest with
+    | Some(value, rest') -> Some(int64 s * value, rest')
+    | None -> None

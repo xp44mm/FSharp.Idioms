@@ -1,152 +1,78 @@
 ﻿namespace FSharp.Idioms
 
 open Xunit
-
-
-open FSharp.Idioms.Jsons
-open FSharp.xUnit
 open FSharp.Idioms.Literal
 open System
 
 type FormatValueTest(output: ITestOutputHelper) =
     
-    // 测试基本类型
-    [<Fact>]
-    member this.``formatValue sbyte test``() =
-        let x = 0y
-        let result = formatValue x "G"
-        Assert.Equal("0", result)
-    
-    [<Fact>]
-    member this.``formatValue byte test``() =
-        let x = 42uy
-        let result = formatValue x "G"
-        Assert.Equal("42", result)
-    
-    [<Fact>]
-    member this.``formatValue short test``() =
-        let x = 123s
-        let result = formatValue x "G"
-        Assert.Equal("123", result)
-    
-    [<Fact>]
-    member this.``formatValue int test``() =
-        let x = 123
-        let result = formatValue x "G"
-        Assert.Equal("123", result)
-    
-    [<Fact>]
-    member this.``formatValue int with format D5 test``() =
-        let x = 123
-        let result = formatValue x "D5"
-        Assert.Equal("00123", result)
-    
-    [<Fact>]
-    member this.``formatValue long test``() =
-        let x = 123456L
-        let result = formatValue x "G"
-        Assert.Equal("123456", result)
-    
-    //[<Fact>]
-    //member this.``formatValue float test``() =
-    //    let x = 123.456
-    //    let result = formatValue x "G"
-    //    Assert.Equal("123.456", result)
-    
-    //[<Fact>]
-    //member this.``formatValue float with format F2 test``() =
-    //    let x = 123.456
-    //    let result = formatValue x "F2"
-    //    Assert.Equal("123.46", result)
-    
-    //[<Fact>]
-    //member this.``formatValue float with custom format test``() =
-    //    let x = 123.456
-    //    let result = formatValue x "0.##"
-    //    Assert.Equal("123.46", result)
-    
-    [<Fact>]
-    member this.``formatValue decimal test``() =
-        let x = 123.456m
-        let result = formatValue x "G"
-        Assert.Equal("123.456", result)
-    
-    [<Fact>]
-    member this.``formatValue decimal with format F2 test``() =
-        let x = 123.456m
-        let result = formatValue x "F2"
-        Assert.Equal("123.46", result)
-    
-    [<Fact>]
-    member this.``formatValue single test``() =
-        let x = 123.456f
-        let result = formatValue x "G"
-        Assert.Equal("123.456", result)
-    
-    [<Fact>]
-    member this.``formatValue string test``() =
-        let x = "hello"
-        let result = formatValue x "G"
-        Assert.Equal("hello", result)
-    
-    [<Fact>]
-    member this.``formatValue null test``() =
-        let x = null
-        let result = formatValue x "G"
-        Assert.Equal("<null>", result)
-    
-    [<Fact>]
-    member this.``formatValue datetime test``() =
-        let x = DateTime(2026, 7, 26, 14, 30, 0)
-        let result = formatValue x "yyyy-MM-dd HH:mm:ss"
-        Assert.Equal("2026-07-26 14:30:00", result)
-    
-    [<Fact>]
-    member this.``formatValue datetime with default format test``() =
-        let x = DateTime(2026, 7, 26, 14, 30, 0)
-        let result = formatValue x null
-        // 使用 ToString() 的默认格式
-        Assert.Equal(x.ToString(), result)
-    
-    [<Fact>]
-    member this.``formatValue datetimeoffset test``() =
-        let x = DateTimeOffset(2026, 7, 26, 14, 30, 0, TimeSpan.Zero)
-        let result = formatValue x "yyyy-MM-dd HH:mm:ss"
-        Assert.Equal("2026-07-26 14:30:00", result)
-    
-    [<Fact>]
-    member this.``formatValue timespan test``() =
-        let x = TimeSpan(1, 2, 3, 4, 5)
-        let result = formatValue x "c"
-        Assert.Equal("1.02:03:04.0050000", result)
-    
-    [<Fact>]
-    member this.``formatValue char test``() =
-        let x = 'A'
-        let result = formatValue x "G"
-        Assert.Equal("A", result)
-    
-    // 测试空格式字符串
-    [<Fact>]
-    member this.``formatValue with empty format uses default ToString test``() =
-        let x = 123
-        let result = formatValue x ""
-        Assert.Equal("123", result)
-    
-    [<Fact>]
-    member this.``formatValue with null format uses default ToString test``() =
-        let x = 123.456
-        let result = formatValue x null
-        Assert.Equal("123.456", result)
-    
-    // 测试复杂类型（使用 stringify 作为备用）
-    [<Fact>]
-    member this.``formatValue custom type test``() =
-        let x = (1, "hello", 2)
-        let result = formatValue x "G"
-        Assert.Equal("""1,"hello",2""", result)
-
+    // sbyte 测试
     [<Theory>]
+    [<InlineData(0y, "G", "0")>]
+    [<InlineData(-128y, "G", "-128")>]
+    [<InlineData(127y, "G", "127")>]
+    [<InlineData(42y, "D5", "00042")>]
+    member this.``formatValue sbyte test``(value: sbyte, format: string, expected: string) =
+        let result = formatValue format value
+        Assert.Equal(expected, result)
+
+    // byte 测试
+    [<Theory>]
+    [<InlineData(0uy, "G", "0")>]
+    [<InlineData(255uy, "G", "255")>]
+    [<InlineData(42uy, "G", "42")>]
+    [<InlineData(42uy, "D5", "00042")>]
+    member this.``formatValue byte test``(value: byte, format: string, expected: string) =
+        let result = formatValue format value
+        Assert.Equal(expected, result)
+
+    // int16 测试
+    [<Theory>]
+    [<InlineData(123s, "G", "123")>]
+    [<InlineData(-123s, "G", "-123")>]
+    [<InlineData(123s, "D5", "00123")>]
+    [<InlineData(0s, "G", "0")>]
+    member this.``formatValue int16 test``(value: int16, format: string, expected: string) =
+        let result = formatValue format value
+        Assert.Equal(expected, result)
+
+    // int 测试
+    [<Theory>]
+    [<InlineData(123, "G", "123")>]
+    [<InlineData(-123, "G", "-123")>]
+    [<InlineData(123, "D5", "00123")>]
+    [<InlineData(0, "G", "0")>]
+    [<InlineData(123456, "N0", "123,456")>]
+    member this.``formatValue int test``(value: int, format: string, expected: string) =
+        let result = formatValue format value
+        Assert.Equal(expected, result)
+
+    // int64 测试
+    [<Theory>]
+    [<InlineData(123456L, "G", "123456")>]
+    [<InlineData(-123456L, "G", "-123456")>]
+    [<InlineData(123456L, "D10", "0000123456")>]
+    [<InlineData(0L, "G", "0")>]
+    member this.``formatValue int64 test``(value: int64, format: string, expected: string) =
+        let result = formatValue format value
+        Assert.Equal(expected, result)
+
+    // single 测试
+    [<Theory>]
+    [<InlineData(123.456f, "G", "123.456")>]
+    [<InlineData(-123.456f, "G", "-123.456")>]
+    [<InlineData(123.456f, "F2", "123.46")>]
+    [<InlineData(123.400f, "0.##", "123.4")>]
+    [<InlineData(0.123f, "0.##", "0.12")>]
+    [<InlineData(0.0f, "0.##", "0")>]
+    member this.``formatValue single test``(value: single, format: string, expected: string) =
+        let result = formatValue format value
+        Assert.Equal(expected, result)
+
+    // double 测试
+    [<Theory>]
+    [<InlineData(123.456, "G", "123.456")>]
+    [<InlineData(-123.456, "G", "-123.456")>]
     [<InlineData(123.456, "F2", "123.46")>]
     [<InlineData(123.456, "0.##", "123.46")>]
     [<InlineData(123.400, "0.##", "123.4")>]
@@ -154,33 +80,118 @@ type FormatValueTest(output: ITestOutputHelper) =
     [<InlineData(0.123, "0.##", "0.12")>]
     [<InlineData(0.100, "0.##", "0.1")>]
     [<InlineData(0.0, "0.##", "0")>]
-    member this.``formatValue float with custom format test``(value: double, format: string, expected: string) =
-        let result = formatValue value format
+    [<InlineData(-123.456, "0.##", "-123.46")>]
+    [<InlineData(-0.123, "0.##", "-0.12")>]
+    member this.``formatValue double test``(value: double, format: string, expected: string) =
+        let result = formatValue format value
         Assert.Equal(expected, result)
-    
+
+    // bool 测试
     [<Theory>]
     [<InlineData(true, "true")>]
     [<InlineData(false, "false")>]
     member this.``formatValue bool test``(value: bool, expected: string) =
-        let result = formatValue value "G"
+        let result = formatValue "G" value
         Assert.Equal(expected, result)
-    
+
+    // string 测试
     [<Theory>]
     [<InlineData("hello", "hello")>]
     [<InlineData("", "")>]
     [<InlineData("123", "123")>]
+    [<InlineData("null", "null")>]
+    [<InlineData("  spaces  ", "  spaces  ")>]
     member this.``formatValue string test``(value: string, expected: string) =
-        let result = formatValue value "G"
+        let result = formatValue "G" value
         Assert.Equal(expected, result)
-        
+
+    // char 测试
+    [<Theory>]
+    [<InlineData('A', "A")>]
+    [<InlineData('1', "1")>]
+    [<InlineData(' ', " ")>]
+    [<InlineData('\n', "\n")>]
+    member this.``formatValue char test``(value: char, expected: string) =
+        let result = formatValue "G" value
+        Assert.Equal(expected, result)
+
+    // DateTime 测试
+    [<Theory>]
+    [<InlineData(2026, 7, 26, 14, 30, 0, "yyyy-MM-dd HH:mm:ss", "2026-07-26 14:30:00")>]
+    [<InlineData(2026, 7, 26, 14, 30, 0, "yyyy-MM-dd", "2026-07-26")>]
+    [<InlineData(2026, 7, 26, 14, 30, 0, "HH:mm:ss", "14:30:00")>]
+    [<InlineData(2026, 7, 26, 14, 30, 0, "yyyy/MM/dd", "2026/07/26")>]
+    [<InlineData(2026, 7, 26, 14, 30, 0, "dd/MM/yyyy", "26/07/2026")>]
+    member this.``formatValue datetime test``(year: int, month: int, day: int, hour: int, minute: int, second: int, format: string, expected: string) =
+        let x = DateTime(year, month, day, hour, minute, second)
+        let result = formatValue format x
+        Assert.Equal(expected, result)
+
+    // DateTime 默认格式测试
     [<Fact>]
-    member this.``formatValue with empty format test``() =
-        let x = 123
-        let result = formatValue x ""
-        Assert.Equal("123", result)
-    
+    member this.``formatValue datetime with default format test``() =
+        let x = DateTime(2026, 7, 26, 14, 30, 0)
+        let result = formatValue null x
+        Assert.Equal(x.ToString(), result)
+
+    // DateTimeOffset 测试
+    [<Theory>]
+    [<InlineData(2026, 7, 26, 14, 30, 0, 0, "yyyy-MM-dd HH:mm:ss", "2026-07-26 14:30:00")>]
+    [<InlineData(2026, 7, 26, 14, 30, 0, 0, "yyyy-MM-dd", "2026-07-26")>]
+    [<InlineData(2026, 7, 26, 14, 30, 0, 8, "yyyy-MM-dd HH:mm:ss", "2026-07-26 14:30:00")>]
+    member this.``formatValue datetimeoffset test``(year: int, month: int, day: int, hour: int, minute: int, second: int, offsetHours: int, format: string, expected: string) =
+        let x = DateTimeOffset(year, month, day, hour, minute, second, TimeSpan(offsetHours, 0, 0))
+        let result = formatValue format x
+        Assert.Equal(expected, result)
+
+    // TimeSpan 测试
+    [<Theory>]
+    [<InlineData(1, 2, 3, 4, 5, "c", "1.02:03:04.0050000")>]
+    [<InlineData(0, 0, 0, 0, 0, "c", "00:00:00")>]
+    [<InlineData(0, 1, 2, 3, 4, "hh\\:mm\\:ss", "01:02:03")>]
+    [<InlineData(0, 0, 0, 0, 0, "hh\\:mm\\:ss", "00:00:00")>]
+    member this.``formatValue timespan test``(days: int, hours: int, minutes: int, seconds: int, milliseconds: int, format: string, expected: string) =
+        let x = TimeSpan(days, hours, minutes, seconds, milliseconds)
+        let result = formatValue format x
+        Assert.Equal(expected, result)
+
+    // null 测试
     [<Fact>]
-    member this.``formatValue with null format test``() =
-        let x = 123.456
-        let result = formatValue x null
-        Assert.Equal("123.456", result)
+    member this.``formatValue null test``() =
+        let x = null
+        let result = formatValue "G" x
+        Assert.Equal("null", result)
+
+    // 空格式字符串测试
+    [<Theory>]
+    [<InlineData(123)>]
+    [<InlineData(123.456)>]
+    [<InlineData("hello")>]
+    [<InlineData('A')>]
+    member this.``formatValue with empty format uses default ToString test``(value: obj) =
+        let result = formatValue "" value
+        Assert.Equal(value.ToString(), result)
+
+    // null 格式字符串测试
+    [<Theory>]
+    [<InlineData(123)>]
+    [<InlineData(123.456)>]
+    [<InlineData("hello")>]
+    [<InlineData('A')>]
+    member this.``formatValue with null format uses default ToString test``(value: obj) =
+        let result = formatValue null value
+        Assert.Equal(value.ToString(), result)
+
+    // 列表测试
+    [<Fact>]
+    member this.``formatValue list test``() =
+        let x = [1; 2; 3]
+        let result = formatValue "G" x
+        Assert.Equal("[1;2;3]", result)
+
+    [<Fact>]
+    member this.``formatValue option none test``() =
+        let x = None
+        let result = formatValue "G" x
+        Assert.Equal("None", result)
+

@@ -12,8 +12,8 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
-    <Version>1.5.13</Version>
-    <PackageReleaseNotes>Literal.formatValue</PackageReleaseNotes>
+    <Version>1.5.15</Version>
+    <PackageReleaseNotes>JsonNumber.tryParse inp</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/xp44mm/FSharp.Idioms</PackageProjectUrl>
     <PackageTags>fsharp;lib</PackageTags>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
@@ -37,7 +37,9 @@
     <Compile Include="OrdinalIgnoreCase.fs" />
     <Compile Include="ActivePatterns.fs" />
     <Compile Include="Hexadecimal.fs" />
+    <Compile Include="Byte.fs" />
     <Compile Include="Decimal.fs" />
+    <Compile Include="UInt64.fs" />
     <Compile Include="Line.fs" />
     <Compile Include="Tsv.fs" />
     <Compile Include="FSharpCodeUtils.fs" />
@@ -85,8 +87,8 @@
     <Compile Include="Zeros\ZeroUtils.fs" />
     <Compile Include="Literal.fs" />
     <Compile Include="EqualityComparers\EqualityComparerUtils.fs" />
+    <Compile Include="JsonString.fs" />
     <Compile Include="Jsons\Json.fs" />
-    <Compile Include="Jsons\JsonString.fs" />
     <Compile Include="Jsons\JsonRender.fs" />
     <Compile Include="Jsons\JsonReaders.fs" />
     <Compile Include="Jsons\JsonReaderApp.fs" />
@@ -94,6 +96,7 @@
     <Compile Include="Jsons\JsonWriterApp.fs" />
     <Compile Include="Jsons\JsonCapture.fs" />
     <Compile Include="Jsons\JsonKeyIndex.fs" />
+    <Compile Include="JsonNumber.fs" />
     <Compile Include="Json.fs" />
     <Compile Include="JsonPath.fs" />
     <Compile Include="CompletionObserver.fs" />

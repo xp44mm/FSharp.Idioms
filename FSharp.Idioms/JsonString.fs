@@ -1,4 +1,4 @@
-﻿module FSharp.Idioms.Jsons.JsonString
+﻿module FSharp.Idioms.JsonString
 
 open System
 open System.Globalization
