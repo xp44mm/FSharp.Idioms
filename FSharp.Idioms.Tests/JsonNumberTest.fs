@@ -7,7 +7,7 @@ type JsonNumberTest(output: ITestOutputHelper) =
     
     // ===== tryParse 测试 =====
     [<Theory>]
-    [<InlineData("123.45", 123.45)>]
+    [<InlineData("123.05", 123.05)>]
     [<InlineData("-123.45", -123.45)>]
     [<InlineData("0", 0.0)>]
     [<InlineData("0.0", 0.0)>]

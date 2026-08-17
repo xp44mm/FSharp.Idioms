@@ -27,6 +27,7 @@
         <Compile Include="LineTest.fs" />
         <Compile Include="HexadecimalTest.fs" />
         <Compile Include="DecimalTest.fs" />
+        <Compile Include="Int64Test.fs" />
         <Compile Include="Reflection\ReflectionTest.fs" />
         <Compile Include="Reflection\UnionTypeTest.fs" />
         <Compile Include="Reflection\RecordTypeTest.fs" />

@@ -59,6 +59,7 @@ type private RealNumber =
         let sign = defaultArg sign 1
         float sign * f
 
+/// 解析 JSON 数字字符数组，返回浮点数和剩余字符列表       
 let take (chars: char list) =
     if List.isEmpty chars then
         None, chars
