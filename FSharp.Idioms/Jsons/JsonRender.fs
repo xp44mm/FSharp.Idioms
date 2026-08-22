@@ -3,6 +3,7 @@ open FSharp.Idioms
 
 open System
 open System.Text.RegularExpressions
+open System.Globalization
 
 let rec stringifyNormalJson (json:Json) =
     match json with
@@ -28,7 +29,7 @@ let rec stringifyNormalJson (json:Json) =
         if Double.IsNaN(c) || Double.IsInfinity(c) then
             "null"
         else
-            Convert.ToString(c)
+            c.ToString("G15", CultureInfo.InvariantCulture)
 
 ///用于unquoted json 模式，如果需要加引号
 let stringifyKey x =

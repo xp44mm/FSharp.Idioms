@@ -75,6 +75,7 @@ let take (chars: char list) =
 
                 let diff = expNum - places
 
+                //用float类型组合的时候丢失了一点精度1e-4
                 let realValue = float sign * float integer
                 let value =
                     if diff >= 0 then

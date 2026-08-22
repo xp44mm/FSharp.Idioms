@@ -12,8 +12,8 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <AssemblyVersion></AssemblyVersion>
     <FileVersion></FileVersion>
-    <Version>1.5.16</Version>
-    <PackageReleaseNotes>Int64.tryParse inp</PackageReleaseNotes>
+    <Version>1.5.17</Version>
+    <PackageReleaseNotes>c.ToString("G15", CultureInfo.InvariantCulture)</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/xp44mm/FSharp.Idioms</PackageProjectUrl>
     <PackageTags>fsharp;lib</PackageTags>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
@@ -100,6 +100,7 @@
     <Compile Include="JsonNumber.fs" />
     <Compile Include="Json.fs" />
     <Compile Include="JsonPath.fs" />
+    <Compile Include="JsonNode.fs" />
     <Compile Include="CompletionObserver.fs" />
 
 
@@ -117,7 +118,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="10.1.302" />
+    <PackageReference Include="System.Text.Json" Version="10.0.11" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="FSharp.Core" Version="10.1.400" />
   </ItemGroup>
 
 </Project>

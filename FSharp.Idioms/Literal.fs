@@ -24,7 +24,6 @@ let defaultofDynamic : Type->obj = ZeroUtils.getZero ZeroUtils.tries
 
 let defaultof<'t> = defaultofDynamic typeof<'t> :?> 't
 
-
 let formatValue<'T> (format: string) (value: 'T) =
     match box value with
     | :? string as s -> s

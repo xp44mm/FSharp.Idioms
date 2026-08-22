@@ -88,7 +88,7 @@ type RenderTest(output: ITestOutputHelper) =
     member this.``render float test``() =
         let x = (0.1/3.)
         let y = Literal.stringify x
-        Assert.Equal("0.03333333333333333",y)
+        Assert.Equal("0.0333333333333333",y)
 
         let x1 = 1.2
         let y1 = Literal.stringify x1

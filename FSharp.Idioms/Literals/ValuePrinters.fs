@@ -126,7 +126,7 @@ let tryFloat =
         if Double.IsNaN value then
             "nan"
         else
-            let s = value.ToString("R", CultureInfo.InvariantCulture) // "G17"
+            let s = value.ToString("G15", CultureInfo.InvariantCulture) // .net = "R", "G17"
             FSharpCodeUtils.decimalPoint s
         )
     else None

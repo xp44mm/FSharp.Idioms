@@ -59,11 +59,13 @@ type JsonRenderTest(output: ITestOutputHelper) =
 
     [<Fact>]
     member _.``stringifyNormalJson Number PI``() =
+        //let _ = Math.PI.ToString("R")
+        //let _ = Math.PI.ToString("G15")
+        //let _ = Convert.ToString(Math.PI)
         let x = Json.Number Math.PI
         let y = JsonRender.stringifyNormalJson x
         output.WriteLine(y)
-        Should.equal y "3.141592653589793"
-
+        Should.equal y "3.14159265358979"
 
     [<Fact>]
     member _.``匿名记录测试``() =
