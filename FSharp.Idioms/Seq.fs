@@ -26,8 +26,8 @@ let rec make tryNext = seq {
         yield! make tryNext
 }
 
-[<Obsolete("FSharp.Idioms.Seq.make")>]
-let rec makeSeq tryNext = make tryNext
+//[<Obsolete("FSharp.Idioms.Seq.make")>]
+//let rec makeSeq tryNext = make tryNext
 
 let fromTextReader (reader: TextReader) : seq<char> = seq {
     let mutable current = reader.Read()
