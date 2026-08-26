@@ -1,4 +1,4 @@
-module FSharp.Idioms.JsonNode
+﻿module FSharp.Idioms.JsonNode
 
 open System
 open System.Text.Json
